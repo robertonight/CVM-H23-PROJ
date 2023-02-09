@@ -1,4 +1,10 @@
 # CVM-H23-PROJ
+
+C'est fou. Riez!
+Par Roberto Nightingale et Patrice Gallant
+
+Programme récréant des dessins continus des utilisateurs à partir d'un algorithme de transformée de Fourier.
+
 • Titre
 • Sommaire
 Brève présentation du projet.
