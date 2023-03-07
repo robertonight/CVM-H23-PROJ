@@ -1,7 +1,7 @@
 import sys
 
 from PySide6 import QtCore, QtGui, QtWidgets
-from PySide6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout)
+from PySide6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QPushButton)
 
 
 class GuiMainWindow(QMainWindow):
@@ -10,6 +10,8 @@ class GuiMainWindow(QMainWindow):
         # self.
         self.setWindowTitle("C'est fou. Riez!")
         self.mainLayout = QVBoxLayout()
+        button = QPushButton("Push me!")
+        self.setCentralWidget(button)
 
 
 
