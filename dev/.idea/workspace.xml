@@ -2,18 +2,78 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="22db8c17-1262-4260-b5eb-000f5093d9b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nouv.txt" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAO/controleur_serveur.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAO/dao.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAO/dessin_Dao.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAO/user_Dao.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/author.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/current_user.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/drawing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/feed.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/filter_alphabetical.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/filter_favorites.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/filter_length.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/filter_option.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/filter_popularity.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/fvect.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/gallery.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/linked_list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/node.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/sketch.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/vectory_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/drawing_display.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_custom_drawing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_feed_gallery.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_feed_main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_feed_menu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_fourier_draw.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_fourier_vectors.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_gallery.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_left_window.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_nav_menu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_password_change.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_profile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_profile_preferences.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_sign_in.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/gui_sign_up.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/fourier.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dev.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/gui_main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+    </list>
+    <list id="8550059f-23c4-4141-9ee7-21b433cbaad0" name="Changes by 0676921" comment="">
+      <change beforePath="$PROJECT_DIR$/View/gui_fourier_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/gui_main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_main_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/View/gui_main_window.py">
+      <ranges>
+        <range start1="3" end1="4" start2="3" end2="6" changelist="8550059f-23c4-4141-9ee7-21b433cbaad0" />
+        <range start1="6" end1="8" start2="8" end2="10" changelist="8550059f-23c4-4141-9ee7-21b433cbaad0" />
+        <range start1="9" end1="10" start2="11" end2="11" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="11" end1="15" start2="12" end2="13" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="16" end1="20" start2="14" end2="19" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="24" end1="25" start2="23" end2="24" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -23,14 +83,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/Roberto/Desktop/Repostories/PySide6_CleanArchitecture"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/model" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\model" />
+      <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\View" />
+      <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\images" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.gui_main_window">
     <configuration name="gui_main_window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dev" />
@@ -90,5 +156,16 @@
       <updated>1678196602137</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
