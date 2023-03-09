@@ -9,9 +9,11 @@ from PySide6.QtWidgets import (QApplication, QVBoxLayout, QHBoxLayout, QToolButt
 class GuiFourierDrawIntervals(QWidget):
     def __init__(self, parent=None):
         super.__init__(parent)
+        #Déclaration du layout et des boutons
         __mainLayout = QVBoxLayout()
         self.__infoBtnInterval = QToolButton()
         self.__intervalScroll = QScrollBar()
+        #Insertion des boutons dans le layout
         __mainLayout.addWidget(self.__infoBtnInterval)
         __mainLayout.addWidget(self.__intervalScroll)
         self.setLayout(__mainLayout)

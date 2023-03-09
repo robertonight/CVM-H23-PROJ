@@ -5,11 +5,20 @@ from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QPushButton)
 
+
 class GuiNavMenu(QWidget):
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super().__init__(parent)
+        #Déclaration du layout et des boutons
         __mainLayout = QHBoxLayout()
-        __btnDraw = QPushButton("Dessiner")
-        __btnGallery = QPushButton("Galerie")
-        __btnFeed = QPushButton("Fil")
-        __btnConnectProf = QPushButton("Connexion")
+        self.__btnDraw = QPushButton("Dessiner")
+        self.__btnGallery = QPushButton("Galerie")
+        self.__btnFeed = QPushButton("Fil")
+        self.__btnConnectProf = QPushButton("Connexion")
+        self.__btnQuit = QPushButton("Quitter")
+        #Insertion des boutons dans le layout
+        __mainLayout.addWidget(self.__btnDraw)
+        __mainLayout.addWidget(self.__btnGallery)
+        __mainLayout.addWidget(self.__btnFeed)
+        __mainLayout.addWidget(self.__btnConnectProf)
+        __mainLayout.addWidget(self.__btnQuit)
