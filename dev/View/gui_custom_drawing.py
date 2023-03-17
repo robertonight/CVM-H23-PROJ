@@ -20,3 +20,6 @@ class GuiCustomDrawing(QWidget):
         __highLayout.addWidget(self.__eraseBtn)
         __lowLayout.addWidget(self.__undoBtn)
         __lowLayout.addWidget(self.__saveBtn)
+        __mainLayout.addLayout(__highLayout)
+        __mainLayout.addLayout(__lowLayout)
+        self.setLayout(__mainLayout)
