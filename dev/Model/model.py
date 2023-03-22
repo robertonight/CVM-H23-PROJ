@@ -23,6 +23,9 @@ class Model:
         d = DrawingAnalyzer(self.__sketch.dessinPentagone, self.precision)
         d.interpolate()
 
+    def fft(self, coord):
+        pass
+
 
 if __name__ == "__main__":
     m = Model()
