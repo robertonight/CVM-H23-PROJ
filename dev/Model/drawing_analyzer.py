@@ -33,14 +33,23 @@ class DrawingAnalyzer:
             i += 1
         self.__drawingInfo[:, 4] = self.__drawingInfo[:, 3] / self.__longueure_dessin
 
+    def get_intermediary_points(self):
+        step = 1 / (self.__precision - 1)
+        for i in range(self.__precision - 1):
+            current_step = step * i
+            self.__intermediaryPoints[i, :] = self.interpolate(current_step)
+        self.__intermediaryPoints[self.__precision - 1, :] = self.__drawingInfo[-1, 0:2]
+        return self.__intermediaryPoints
+
     def interpolate(self, step_ratio):
-        step_ratio
-        i = np.max(np.nonzero(self.__drawingInfo[:, 4] < step_ratio))
+        i = 0
+        if step_ratio != 0:
+            i = np.max(np.nonzero(self.__drawingInfo[:, 4] < step_ratio))
         m = self.__drawingInfo[i, 4]
         M = self.__drawingInfo[i + 1, 4]
-        r = (step_ratio - m) * (1/(M - m))
+        r = (step_ratio - m) * (1 / (M - m))
         dx = self.__drawingInfo[i + 1, 0] - self.__drawingInfo[i, 0]
         dy = self.__drawingInfo[i + 1, 1] - self.__drawingInfo[i, 1]
         xp = dx * r + self.__drawingInfo[i, 0]
         yp = dy * r + self.__drawingInfo[i, 1]
-        return xp, yp
+        return np.array((xp, yp))

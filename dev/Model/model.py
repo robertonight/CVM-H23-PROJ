@@ -1,3 +1,5 @@
+import numpy as np
+
 from drawing_analyzer import DrawingAnalyzer
 from sketch import Sketch
 
@@ -5,26 +7,25 @@ from sketch import Sketch
 class Model:
     def __init__(self):
         self.__sketch = Sketch()
-        self.precision = 5
+        self.precision = 6
+        self.nb_vecteurs = 100
 
     def test(self):
         print("Test carré:")
         print("---------------------------------------------")
         d = DrawingAnalyzer(self.__sketch.dessinCarre, self.precision)
-        d.interpolate(0.20)
-        print("---------------------------------------------")
-        print("Test Triangle:")
-        print("---------------------------------------------")
-        d = DrawingAnalyzer(self.__sketch.dessinTriangle, self.precision)
-        d.interpolate(0.32)
-        print("---------------------------------------------")
-        print("Test Pentagone:")
-        print("---------------------------------------------")
-        d = DrawingAnalyzer(self.__sketch.dessinPentagone, self.precision)
-        d.interpolate(0.40)
+        array = d.get_intermediary_points()
+        print(array)
 
-    def fft(self, coord):
-        pass
+    def testFFT(self):
+        d = DrawingAnalyzer(self.__sketch.dessinCarre, self.precision)
+        array = d.get_intermediary_points()
+        self.fft(array)
+
+    def fft(self, coord: np.ndarray):
+        for i in range(coord):
+            np.fft
+            print("immigration canada")
 
 
 if __name__ == "__main__":

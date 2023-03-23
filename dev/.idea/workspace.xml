@@ -8,12 +8,14 @@
       <change beforePath="$PROJECT_DIR$/.idea/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dev.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
-    <list id="8550059f-23c4-4141-9ee7-21b433cbaad0" name="Changes by 0676921" comment="">
       <change beforePath="$PROJECT_DIR$/Model/drawing_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/drawing_analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
     </list>
-    <list id="10e771ff-3fcd-41ee-b765-1b60a005e9a3" name="Changes by Patrice" comment="" />
+    <list id="65b79b60-f530-45be-99e5-1cbb95824c37" name="Changes by 0676921" comment="" />
+    <list id="cf404b25-4243-439b-afcd-a932f5f6ad5d" name="Changes by Patrice" comment="">
+      <change beforePath="$PROJECT_DIR$/Model/drawing_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/drawing_analyzer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +31,24 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Model/model.py">
+      <ranges>
+        <range start1="0" end1="0" start2="0" end2="2" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="7" end1="8" start2="9" end2="11" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
+        <range start1="13" end1="24" start2="16" end2="18" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="25" end1="27" start2="19" end2="28" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/Model/drawing_analyzer.py">
+      <ranges>
+        <range start1="34" end1="34" start2="34" end2="42" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
+        <range start1="36" end1="38" start2="44" end2="47" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="40" end1="41" start2="49" end2="50" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="45" end1="46" start2="54" end2="55" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
+      </ranges>
+    </file>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -38,13 +58,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\model" />
@@ -52,7 +70,7 @@
       <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.model">
+  <component name="RunManager" selected="Python.vecteur_tourne">
     <configuration name="gui_main_window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dev" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -163,8 +181,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="vecteur_tourne" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="dev" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Documents/animation_fourier_test" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Documents/animation_fourier_test/vecteur_tourne.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.vecteur_tourne" />
         <item itemvalue="Python.model" />
         <item itemvalue="Python.gui_main_window" />
         <item itemvalue="Python.testDessinFourier" />
@@ -208,11 +248,6 @@
           <url>file://$PROJECT_DIR$/View/testDessinFourier.py</url>
           <line>35</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/Model/drawing_analyzer.py</url>
-          <line>41</line>
-          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
