@@ -11,17 +11,17 @@ class Model:
         print("Test carré:")
         print("---------------------------------------------")
         d = DrawingAnalyzer(self.__sketch.dessinCarre, self.precision)
-        d.interpolate()
+        d.interpolate(0.20)
         print("---------------------------------------------")
         print("Test Triangle:")
         print("---------------------------------------------")
         d = DrawingAnalyzer(self.__sketch.dessinTriangle, self.precision)
-        d.interpolate()
+        d.interpolate(0.32)
         print("---------------------------------------------")
         print("Test Pentagone:")
         print("---------------------------------------------")
         d = DrawingAnalyzer(self.__sketch.dessinPentagone, self.precision)
-        d.interpolate()
+        d.interpolate(0.40)
 
     def fft(self, coord):
         pass

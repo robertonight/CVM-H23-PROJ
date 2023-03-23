@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22db8c17-1262-4260-b5eb-000f5093d9b1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dev.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/drawing_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/drawing_analyzer.py" afterDir="false" />
     </list>
-    <list id="8550059f-23c4-4141-9ee7-21b433cbaad0" name="Changes by 0676921" comment="" />
-    <list id="10e771ff-3fcd-41ee-b765-1b60a005e9a3" name="Changes by Patrice" comment="">
+    <list id="8550059f-23c4-4141-9ee7-21b433cbaad0" name="Changes by 0676921" comment="">
       <change beforePath="$PROJECT_DIR$/Model/drawing_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/drawing_analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
     </list>
+    <list id="10e771ff-3fcd-41ee-b765-1b60a005e9a3" name="Changes by Patrice" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,24 +29,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/Model/drawing_analyzer.py">
-      <ranges>
-        <range start1="10" end1="12" start2="10" end2="11" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="13" end1="14" start2="12" end2="13" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="29" end1="30" start2="28" end2="29" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="33" end1="43" start2="32" end2="32" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="46" end1="48" start2="35" end2="36" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="50" end1="50" start2="38" end2="40" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="51" end1="56" start2="41" end2="43" changelist="10e771ff-3fcd-41ee-b765-1b60a005e9a3" />
-        <range start1="58" end1="58" start2="45" end2="46" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="60" end1="64" start2="48" end2="60" changelist="10e771ff-3fcd-41ee-b765-1b60a005e9a3" />
-        <range start1="65" end1="65" start2="61" end2="63" changelist="10e771ff-3fcd-41ee-b765-1b60a005e9a3" />
-        <range start1="68" end1="78" start2="66" end2="67" changelist="10e771ff-3fcd-41ee-b765-1b60a005e9a3" />
-        <range start1="81" end1="81" start2="70" end2="98" changelist="10e771ff-3fcd-41ee-b765-1b60a005e9a3" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -55,19 +38,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/Roberto/Desktop/Repostories/CVM-H23-PROJ/dev",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\model" />
@@ -232,10 +209,10 @@
           <line>35</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/Model/drawing_analyzer.py</url>
-          <line>71</line>
-          <option name="timeStamp" value="46" />
+          <line>41</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -246,10 +223,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/dev$model.coverage" NAME="model Coverage Results" MODIFIED="1679441349887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model" />
-    <SUITE FILE_PATH="coverage/dev$gui_main_window.coverage" NAME="gui_main_window Coverage Results" MODIFIED="1678897028753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$testDessinFourier.coverage" NAME="testDessinFourier Coverage Results" MODIFIED="1678891774939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
   </component>
 </project>
