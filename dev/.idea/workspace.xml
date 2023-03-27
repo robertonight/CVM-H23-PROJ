@@ -5,17 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22db8c17-1262-4260-b5eb-000f5093d9b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dev.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/drawing_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/drawing_analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
     </list>
     <list id="65b79b60-f530-45be-99e5-1cbb95824c37" name="Changes by 0676921" comment="" />
-    <list id="cf404b25-4243-439b-afcd-a932f5f6ad5d" name="Changes by Patrice" comment="">
-      <change beforePath="$PROJECT_DIR$/Model/drawing_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/drawing_analyzer.py" afterDir="false" />
+    <list id="e52a26e6-76eb-41bc-b7a5-0d21a9ba9345" name="Changes by chant" comment="">
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
     </list>
+    <list id="cf404b25-4243-439b-afcd-a932f5f6ad5d" name="Changes by Patrice" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,18 +32,11 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/Model/model.py">
       <ranges>
-        <range start1="0" end1="0" start2="0" end2="2" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="7" end1="8" start2="9" end2="11" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
-        <range start1="13" end1="24" start2="16" end2="18" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="25" end1="27" start2="19" end2="28" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/Model/drawing_analyzer.py">
-      <ranges>
-        <range start1="34" end1="34" start2="34" end2="42" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
-        <range start1="36" end1="38" start2="44" end2="47" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="40" end1="41" start2="49" end2="50" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="45" end1="46" start2="54" end2="55" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
+        <range start1="0" end1="0" start2="0" end2="2" changelist="e52a26e6-76eb-41bc-b7a5-0d21a9ba9345" />
+        <range start1="9" end1="11" start2="11" end2="13" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="23" end1="23" start2="25" end2="27" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="24" end1="28" start2="28" end2="45" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="32" end1="33" start2="49" end2="50" changelist="e52a26e6-76eb-41bc-b7a5-0d21a9ba9345" />
       </ranges>
     </file>
   </component>
@@ -60,6 +51,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
@@ -70,7 +62,7 @@
       <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.vecteur_tourne">
+  <component name="RunManager" selected="Python.model">
     <configuration name="gui_main_window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dev" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -193,6 +185,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$USER_HOME$/Documents/animation_fourier_test/vecteur_tourne.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -204,8 +197,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.vecteur_tourne" />
         <item itemvalue="Python.model" />
+        <item itemvalue="Python.vecteur_tourne" />
         <item itemvalue="Python.gui_main_window" />
         <item itemvalue="Python.testDessinFourier" />
         <item itemvalue="Python.test" />
@@ -258,5 +251,11 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/dev$model.coverage" NAME="model Coverage Results" MODIFIED="1679952606357" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model" />
+    <SUITE FILE_PATH="coverage/dev$main.coverage" NAME="main Coverage Results" MODIFIED="1679952415568" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dev$gui_main_window.coverage" NAME="gui_main_window Coverage Results" MODIFIED="1678897028753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
+    <SUITE FILE_PATH="coverage/dev$testDessinFourier.coverage" NAME="testDessinFourier Coverage Results" MODIFIED="1678891774939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
   </component>
 </project>
