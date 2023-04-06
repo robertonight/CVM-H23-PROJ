@@ -12,15 +12,13 @@ from gui_custom_drawing import GuiCustomDrawing
 class Left_window(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setStyleSheet("background-color:blue")
+
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Minimum)
         self.setMinimumWidth(480)
+
         self.setMinimumHeight(720)
         self.init_gui()
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(255, 0, 0))
+        self.setStyleSheet("margin-left: 0px; margin-right: 0px; margin-top: 0px; margin-bottom: 0px;")
 
     def init_gui(self):
         # declarations
@@ -32,3 +30,7 @@ class Left_window(QWidget):
         __mainLayout.addWidget(menu)
         __mainLayout.addWidget(drawingBoard)
         self.setLayout(__mainLayout)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(self.rect(), QColor(163, 13, 149))

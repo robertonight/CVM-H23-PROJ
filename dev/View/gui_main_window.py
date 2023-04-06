@@ -13,7 +13,9 @@ class QFApp(QMainWindow):
         super().__init__()
         self.setWindowTitle("C'est fou. Riez!")
         self.resize(1250, 700)
-        self.setStyleSheet("background-color: rgb(100,100,100); margin:5px; border:1px solid rgb(0, 0, 0); ")
+        # self.setStyleSheet("background-color: rgb(100,100,100); margin:5px; border:1px solid rgb(0, 0, 0); ")
+        self.setStyleSheet("background-color: rgb(100,100,100);")
+
         self.init_gui()
 
     def init_gui(self):
@@ -24,7 +26,7 @@ class QFApp(QMainWindow):
         self.layoutContainer = QHBoxLayout()
 
         # ajout
-        # self.layoutContainer.addWidget(Left_window())
+        self.layoutContainer.addWidget(Left_window())
         self.layoutContainer.addWidget(GuiFourierDraw())
         self.centralWidget.setLayout(self.layoutContainer)
         self.setCentralWidget(self.centralWidget)
