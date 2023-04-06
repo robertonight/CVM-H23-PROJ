@@ -3,7 +3,7 @@ from PySide6.QtCore import QPointF
 
 class Sketch:
     def __init__(self):
-        self.__dessinCarre = [QPointF(0.0, 0.0), QPointF(2000.0, 0.0), QPointF(20.0, 2000.0), QPointF(0.0, 2000.0),
+        self.__dessinCarre = [QPointF(0.0, 0.0), QPointF(20.0, 0.0), QPointF(20.0, 20.0), QPointF(0.0, 20.0),
                               QPointF(0.0, 0.0)]
         self.__dessinTriangle = [QPointF(0.0, 0.0), QPointF(10.0, 20.0), QPointF(20.0, 0.0), QPointF(0.0, 0.0)]
         self.__dessinPentagone = [QPointF(10.0, 0.0), QPointF(0.0, 10.0), QPointF(20.0, 20.0), QPointF(40.0, 10.0),
