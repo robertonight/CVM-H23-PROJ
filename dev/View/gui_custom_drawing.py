@@ -43,16 +43,17 @@ class DrawingWidget(QWidget):
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.is_drawing = True
-            self.path.append([event.position()])
+            self.path.append(event.position())
             self.update()
 
     def mouseMoveEvent(self, event):
         if self.is_drawing:
-            self.path[-1].append(event.position())
+            self.path.append(event.position())
             self.update()
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
+            # self.path[-1].append(QtCore.QPointF(self.path[-1]))
             self.is_drawing = False
 
     def paintEvent(self, event):
@@ -62,6 +63,7 @@ class DrawingWidget(QWidget):
         pen = QPen(Qt.black, 2, Qt.SolidLine)
         painter.setPen(pen)
 
-        for line in self.path:
-            for i in range(1, len(line)):
-                painter.drawLine(line[i - 1], line[i])
+        if len(self.path) > 0:
+            for i in range(1, len(self.path)):
+                painter.drawLine(self.path[i - 1], self.path[i])
+            painter.drawLine(self.path[len(self.path) - 1], self.path[0])

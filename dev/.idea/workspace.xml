@@ -5,22 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22db8c17-1262-4260-b5eb-000f5093d9b1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/tests/vect_tourne.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dev.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/sketch.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/sketch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_custom_drawing.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_custom_drawing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_left_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_left_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_main_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_nav_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_nav_menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/testDessinFourier.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/testDessinFourier.py" afterDir="false" />
-    </list>
-    <list id="65b79b60-f530-45be-99e5-1cbb95824c37" name="Changes by 0676921" comment="" />
-    <list id="e52a26e6-76eb-41bc-b7a5-0d21a9ba9345" name="Changes by chant" comment="" />
-    <list id="cf404b25-4243-439b-afcd-a932f5f6ad5d" name="Changes by Patrice" comment="">
-      <change beforePath="$PROJECT_DIR$/Model/fvect.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/fvect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/fvect.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/vectory_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/vectory_manager.py" afterDir="false" />
     </list>
+    <list id="65b79b60-f530-45be-99e5-1cbb95824c37" name="Changes by 0676921" comment="">
+      <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/vectory_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/vectory_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/gui_custom_drawing.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_custom_drawing.py" afterDir="false" />
+    </list>
+    <list id="e52a26e6-76eb-41bc-b7a5-0d21a9ba9345" name="Changes by chant" comment="" />
+    <list id="cf404b25-4243-439b-afcd-a932f5f6ad5d" name="Changes by Patrice" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,12 +36,21 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Model/vectory_manager.py">
+      <ranges>
+        <range start1="0" end1="1" start2="0" end2="2" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="4" end1="7" start2="5" end2="7" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="8" end1="11" start2="8" end2="25" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="12" end1="15" start2="26" end2="32" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="16" end1="16" start2="33" end2="37" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+      </ranges>
+    </file>
     <file path="$PROJECT_DIR$/Model/model.py">
       <ranges>
-        <range start1="25" end1="27" start2="25" end2="25" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="29" end1="30" start2="27" end2="28" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
-        <range start1="37" end1="38" start2="35" end2="40" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="39" end1="43" start2="41" end2="49" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
+        <range start1="5" end1="5" start2="5" end2="6" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="13" end1="13" start2="14" end2="15" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="24" end1="25" start2="26" end2="28" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="49" end1="51" start2="52" end2="53" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
       </ranges>
     </file>
   </component>
@@ -55,19 +63,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Roberto/Desktop/Repostories/CVM-H23-OBJCONN-STATE-MACHINE&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
-  }
-}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\model" />
@@ -75,8 +70,8 @@
       <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.gui_main_window">
-    <configuration name="colorPickerexample" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.model">
+    <configuration name="gui_custom_drawing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dev" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -88,8 +83,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/View/colorPickerexample.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/View/gui_custom_drawing.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -176,7 +170,6 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Model/model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -186,7 +179,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="testDessinFourier" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="vect_tourne" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dev" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -194,12 +187,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/View" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/View/testDessinFourier.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/vect_tourne.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -210,11 +202,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.gui_main_window" />
-        <item itemvalue="Python.gui_nav_menu" />
-        <item itemvalue="Python.colorPickerexample" />
         <item itemvalue="Python.model" />
-        <item itemvalue="Python.testDessinFourier" />
+        <item itemvalue="Python.gui_main_window" />
+        <item itemvalue="Python.gui_custom_drawing" />
+        <item itemvalue="Python.vect_tourne" />
+        <item itemvalue="Python.gui_nav_menu" />
       </list>
     </recent_temporary>
   </component>
@@ -263,13 +255,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/dev$model.coverage" NAME="model Coverage Results" MODIFIED="1680186304235" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model" />
-    <SUITE FILE_PATH="coverage/dev$colorPickerexample.coverage" NAME="colorPickerexample Coverage Results" MODIFIED="1680228740283" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$main.coverage" NAME="main Coverage Results" MODIFIED="1679952415568" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/dev$gui_nav_menu.coverage" NAME="gui_nav_menu Coverage Results" MODIFIED="1680307476463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$gui_main_window.coverage" NAME="gui_main_window Coverage Results" MODIFIED="1680473085954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$testDessinFourier.coverage" NAME="testDessinFourier Coverage Results" MODIFIED="1680186154274" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
   </component>
 </project>

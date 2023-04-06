@@ -3,6 +3,7 @@ import math
 import numpy as np
 
 from drawing_analyzer import DrawingAnalyzer
+from vectory_manager import VectorManager
 from sketch import Sketch
 
 
@@ -11,6 +12,7 @@ class Model:
         self.__sketch = Sketch()
         self.precision = 5
         self.nb_vecteurs = 10
+        self._vector_manager = VectorManager(10)
 
     def test(self):
         print("Test carré:")
@@ -22,7 +24,8 @@ class Model:
     def testFFT(self):
         d = DrawingAnalyzer(self.__sketch.dessinCarre, self.precision)
         array = d.get_intermediary_points()
-        self.fft(array)
+        vectors = self.fft(array)
+        self._vector_manager.matrmatrix_vect = vectors
 
     def fft(self, coord):
         vecteurs = np.zeros((self.nb_vecteurs, 3))
@@ -47,8 +50,7 @@ class Model:
             angle = math.atan2(np.imag(resultat), np.real(resultat))
             vecteurs[i, :] = np.array([n, rayon, angle])
             # vecteurs[i, :] = np.array([n, np.real(resultat), np.imag(resultat)])
-        for row in vecteurs:
-            print(row)
+        return vecteurs
 
 
 if __name__ == "__main__":
