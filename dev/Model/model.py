@@ -19,11 +19,9 @@ class Model:
         array = d.get_intermediary_points()
         vectors = self.fft(array)
         self._vector_manager.matrix_vect = vectors
-        self._vector_manager.update(0)
-        self._vector_manager.update(0.25)
-        self._vector_manager.update(0.5)
-        self._vector_manager.update(0.75)
-        self._vector_manager.update(1)
+        #self._vector_manager.start_sim()
+        #while True:
+        #    self._vector_manager.update()
 
     def fft(self, coord):
         vecteurs = np.zeros((self.nb_vecteurs, 2))
@@ -33,13 +31,8 @@ class Model:
             for p in range(self.precision):
                 t = p / (self.precision - 1)  # step
                 a, b = coord[p][0], coord[p][1]
-
-                pi2 = -2 * np.pi
-                exp = pi2 * 1j * n * t
-                coeff = np.exp(exp)
-
+                coeff = np.exp((-2 * np.pi) * 1j * n * t)
                 resultat += (a + b * 1j) * coeff  # a + bi
-
             resultat = resultat / self.precision
             nb1 = np.imag(resultat) ** 2
             nb2 = np.real(resultat) ** 2

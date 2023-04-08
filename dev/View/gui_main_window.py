@@ -9,27 +9,24 @@ from gui_fourier_draw import GuiFourierDraw
 
 
 class QFApp(QMainWindow):
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle("C'est fou. Riez!")
         self.resize(1250, 700)
-        # self.setStyleSheet("background-color: rgb(100,100,100); margin:5px; border:1px solid rgb(0, 0, 0); ")
-        self.setStyleSheet("background-color: rgb(100,100,100);")
-
         self.init_gui()
+        self.setStyleSheet("background-color: rgb(100,100,100);")
 
     def init_gui(self):
         # declarations
-        self.centralWidget = QWidget()
-        # self.centralWidget.setStyleSheet("background-color:blue")
-
-        self.layoutContainer = QHBoxLayout()
+        centralWidget = QWidget()
+        layoutContainer = QHBoxLayout()
 
         # ajout
-        self.layoutContainer.addWidget(Left_window())
+        layoutContainer.addWidget(Left_window())
+        centralWidget.setLayout(layoutContainer)
         self.layoutContainer.addWidget(GuiFourierDraw())
-        self.centralWidget.setLayout(self.layoutContainer)
-        self.setCentralWidget(self.centralWidget)
+        self.setCentralWidget(centralWidget)
 
 
 if __name__ == '__main__':

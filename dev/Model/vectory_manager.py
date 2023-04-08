@@ -8,7 +8,7 @@ class VectorManager:
         self._matrix_vect = None
         self._interval = 0
         self._max_time = max_time
-        self.start_time = None
+        self._last_time = None
 
     @property
     def matrix_vect(self):
@@ -30,7 +30,7 @@ class VectorManager:
         self._max_time = max_time
 
     def start_sim(self):
-        self._start_time = time()
+        self._last_time = time()
         vector_coords = self.update()
         return vector_coords
 
@@ -38,7 +38,7 @@ class VectorManager:
         for i in range(len(self._matrix_vect)):
             n = i - int(len(self._matrix_vect) / 2)
             degree_change = interval * 2 * math.pi
-            self._matrix_vect[i, 2] = math.fmod((self._matrix_vect[i, 1] + degree_change * n), (2*math.pi))
+            self._matrix_vect[i, 2] = math.fmod((self._matrix_vect[i, 1] + degree_change * n), (2 * math.pi))
             reel = self._matrix_vect[i, 0] * math.cos(self._matrix_vect[i, 2])
             imag = self._matrix_vect[i, 0] * math.sin(self._matrix_vect[i, 2])
             self._matrix_vect[i, 3:] = np.array([reel, imag])
@@ -49,11 +49,13 @@ class VectorManager:
 
     def update(self):
         curr_time = time()
-        elapsed_time = curr_time - self._start_time
+        elapsed_time = curr_time - self._last_time
+        self._last_time = curr_time
+        self._interval = math.fmod((self._interval + elapsed_time / self.max_time), 1)
         for i in range(len(self._matrix_vect)):
             n = i - int(len(self._matrix_vect) / 2)
             degree_change = self._interval * 2 * math.pi
-            self._matrix_vect[i, 2] = math.fmod((self._matrix_vect[i, 1] + degree_change * n), (2*math.pi))
+            self._matrix_vect[i, 2] = math.fmod((self._matrix_vect[i, 1] + degree_change * n), (2 * math.pi))
             reel = self._matrix_vect[i, 0] * math.cos(self._matrix_vect[i, 2])
             imag = self._matrix_vect[i, 0] * math.sin(self._matrix_vect[i, 2])
             self._matrix_vect[i, 3:] = np.array([reel, imag])

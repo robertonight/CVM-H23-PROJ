@@ -11,6 +11,8 @@ from gui_fourier_draw_intervals import GuiFourierDrawIntervals
 
 
 class GuiFourierDraw(QWidget):
+    processRequested = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Minimum)
@@ -26,3 +28,7 @@ class GuiFourierDraw(QWidget):
         __mainLayout.addLayout(__topLayout)
         __mainLayout.addWidget(self.__guiControls)
         self.setLayout(__mainLayout)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(self.rect(), QColor(100, 103, 149))
