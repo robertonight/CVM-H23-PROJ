@@ -1,43 +1,28 @@
-import sys
+import PySide6
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QPainter, QColor, QPen
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout)
+import time
 
-from PySide6 import QtCore, QtGui, QtWidgets
-from PySide6.QtCore import Qt, QPointF
-from PySide6.QtGui import QIcon, QPainter, QColor, QPen
-from PySide6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QPushButton, QWidget, QHBoxLayout)
-
-
-class GuiCustomDrawing(QWidget):
+class GuiFourierDrawBoard(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.init_gui()
 
-        # Déclaration des layouts et des boutons
+    def init_gui(self):
         __mainLayout = QVBoxLayout()
-        __highLayout = QVBoxLayout()
-        __lowLayout = QHBoxLayout()
-
-        self.__eraseBtn = QPushButton("X")
-        self.__eraseBtn.setFixedSize(20, 20)
-        self.__undoBtn = QPushButton("undo")
-        self.__saveBtn = QPushButton("save")
 
         # Insertion des boutons dans les layouts
-        __highLayout.addWidget(self.__eraseBtn)
-        __highLayout.addWidget(DrawingWidget())
-        __lowLayout.addWidget(self.__undoBtn)
-        __lowLayout.addWidget(self.__saveBtn)
-        __mainLayout.addLayout(__highLayout)
-        __mainLayout.addLayout(__lowLayout)
+        __mainLayout.addWidget(FenetreAnimation())
         self.setLayout(__mainLayout)
 
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(95, 78, 133))
 
-
-class DrawingWidget(QWidget):
+class FenetreAnimation(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.path = []
+        self.path = [PySide6.QtCore.QPointF(100.0, 100.0), PySide6.QtCore.QPointF(200.0, 100.0),
+                     PySide6.QtCore.QPointF(200.0, 200.0), PySide6.QtCore.QPointF(100.0, 200.0)]
+
         self.is_drawing = False
 
     def mousePressEvent(self, event):

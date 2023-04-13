@@ -2,16 +2,16 @@ import math
 
 import numpy as np
 
-from drawing_analyzer import DrawingAnalyzer
-from vectory_manager import VectorManager
-from sketch import Sketch
+from Model.drawing_analyzer import DrawingAnalyzer
+from Model.vectory_manager import VectorManager
+from Model.sketch import Sketch
 
 
 class Model:
     def __init__(self):
         self.__sketch = Sketch()
         self.precision = 50
-        self.nb_vecteurs = 20
+        self.nb_vecteurs = 1
         self._vector_manager = VectorManager(10)
 
     def testFFT(self):
@@ -19,9 +19,7 @@ class Model:
         array = d.get_intermediary_points()
         vectors = self.fft(array)
         self._vector_manager.matrix_vect = vectors
-        #self._vector_manager.start_sim()
-        #while True:
-        #    self._vector_manager.update()
+        self._vector_manager.update_test(1.0)
 
     def fft(self, coord):
         vecteurs = np.zeros((self.nb_vecteurs, 2))
@@ -46,4 +44,3 @@ class Model:
 if __name__ == "__main__":
     m = Model()
     m.testFFT()
-

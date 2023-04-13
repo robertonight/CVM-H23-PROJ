@@ -24,4 +24,4 @@ class GuiFourierDrawIntervals(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(150, 103, 149))
+        painter.fillRect(self.rect(), QColor(150, 200, 149))

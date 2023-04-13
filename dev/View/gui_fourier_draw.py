@@ -8,7 +8,7 @@ from PySide6.QtGui import QPainter, QColor, QImage, QPolygon, QPixmap
 
 from gui_fourier_draw_controls import GuiFourierDrawControls
 from gui_fourier_draw_intervals import GuiFourierDrawIntervals
-
+from gui_fourier_draw_board import GuiFourierDrawBoard
 
 class GuiFourierDraw(QWidget):
     processRequested = Signal()
@@ -24,11 +24,11 @@ class GuiFourierDraw(QWidget):
         self.__canvas.setPixmap(QPixmap())
         self.__guiControls = GuiFourierDrawControls()
         __topLayout.addWidget(self.__guiIntervals)
-        __topLayout.addWidget(self.__canvas)
+        __topLayout.addWidget(GuiFourierDrawBoard())
         __mainLayout.addLayout(__topLayout)
         __mainLayout.addWidget(self.__guiControls)
         self.setLayout(__mainLayout)
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(100, 103, 149))
+        painter.fillRect(self.rect(), QColor(234, 150, 149))

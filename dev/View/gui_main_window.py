@@ -6,12 +6,14 @@ from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QLabel)
 from gui_left_window import Left_window
 from gui_fourier_draw import GuiFourierDraw
+from Model.model import Model
 
 
 class QFApp(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.model = Model()
         self.setWindowTitle("C'est fou. Riez!")
         self.resize(1250, 700)
         self.init_gui()
@@ -25,7 +27,7 @@ class QFApp(QMainWindow):
         # ajout
         layoutContainer.addWidget(Left_window())
         centralWidget.setLayout(layoutContainer)
-        self.layoutContainer.addWidget(GuiFourierDraw())
+        layoutContainer.addWidget(GuiFourierDraw())
         self.setCentralWidget(centralWidget)
 
 
