@@ -16,8 +16,11 @@ class QFApp(QMainWindow):
         self.model = Model()
         self.setWindowTitle("C'est fou. Riez!")
         self.resize(1250, 700)
+        self.__fourier_draw = None
         self.init_gui()
         self.setStyleSheet("background-color: rgb(100,100,100);")
+
+
 
     def init_gui(self):
         # declarations
@@ -27,8 +30,16 @@ class QFApp(QMainWindow):
         # ajout
         layoutContainer.addWidget(Left_window())
         centralWidget.setLayout(layoutContainer)
-        layoutContainer.addWidget(GuiFourierDraw())
+        self.__fourier_draw = GuiFourierDraw()
+        self.__fourier_draw.tick.connect(self.tick)
+        layoutContainer.addWidget(self.__fourier_draw)
+
         self.setCentralWidget(centralWidget)
+
+    @Slot()
+    def tick(self):
+        vectors = self.model.tick()
+        self.__fourier_draw.update_sim(vectors)
 
 
 if __name__ == '__main__':

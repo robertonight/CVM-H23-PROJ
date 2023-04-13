@@ -1,10 +1,14 @@
 import PySide6
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer, Signal, Slot
 from PySide6.QtGui import QPainter, QColor, QPen
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout)
 import time
+import numpy as np
+
 
 class GuiFourierDrawBoard(QWidget):
+    tick = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.init_gui()
@@ -13,33 +17,26 @@ class GuiFourierDrawBoard(QWidget):
         __mainLayout = QVBoxLayout()
 
         # Insertion des boutons dans les layouts
-        __mainLayout.addWidget(FenetreAnimation())
+        self.__drawing = FenetreAnimation()
+        __mainLayout.addWidget(self.__drawing)
         self.setLayout(__mainLayout)
+        self.__timer = QTimer()
+        self.__timer.timeout.connect(lambda: self.tick.emit())
+        self.__timer.start(33)
+
+    def update_sim(self, vectors):
+        vectors[:] = vectors[:] + 100
+        self.__drawing.path = vectors
+        self.__drawing.update()
 
 
 class FenetreAnimation(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.path = [PySide6.QtCore.QPointF(100.0, 100.0), PySide6.QtCore.QPointF(200.0, 100.0),
-                     PySide6.QtCore.QPointF(200.0, 200.0), PySide6.QtCore.QPointF(100.0, 200.0)]
+        self.path = []
+        self.redone_d = []
 
         self.is_drawing = False
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.is_drawing = True
-            self.path.append(event.position())
-            self.update()
-
-    def mouseMoveEvent(self, event):
-        if self.is_drawing:
-            self.path.append(event.position())
-            self.update()
-
-    def mouseReleaseEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            # self.path[-1].append(QtCore.QPointF(self.path[-1]))
-            self.is_drawing = False
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -50,5 +47,14 @@ class FenetreAnimation(QWidget):
 
         if len(self.path) > 0:
             for i in range(1, len(self.path)):
-                painter.drawLine(self.path[i - 1], self.path[i])
-            painter.drawLine(self.path[len(self.path) - 1], self.path[0])
+                painter.drawLine(self.path[i - 1, 0], self.path[i - 1, 1], self.path[i, 0], self.path[i, 1])
+            self.redone_d.append(self.path[-1])
+            pen = QPen(QColor(0, 255, 255), 2, Qt.SolidLine)
+            painter.setPen(pen)
+            if len(self.redone_d) > 1:
+                for i in range(1, len(self.redone_d)):
+                    x1 = self.redone_d[i - 1][0]
+                    y1 = self.redone_d[i - 1][1]
+                    x2 = self.redone_d[i][0]
+                    y2 = self.redone_d[i][1]
+                    painter.drawLine(x1,y1,x2,y2)

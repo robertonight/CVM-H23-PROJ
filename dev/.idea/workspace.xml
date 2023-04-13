@@ -9,20 +9,21 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/vectory_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/vectory_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_custom_drawing.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_custom_drawing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw_intervals.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw_intervals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_main_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/vect_tourne.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/vect_tourne.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/gui_left_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_left_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/gui_nav_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_nav_menu.py" afterDir="false" />
     </list>
-    <list id="65b79b60-f530-45be-99e5-1cbb95824c37" name="Changes by 0676921" comment="" />
-    <list id="e52a26e6-76eb-41bc-b7a5-0d21a9ba9345" name="Changes by chant" comment="" />
-    <list id="cf404b25-4243-439b-afcd-a932f5f6ad5d" name="Changes by Patrice" comment="">
+    <list id="65b79b60-f530-45be-99e5-1cbb95824c37" name="Changes by 0676921" comment="">
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/sketch.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/sketch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/vectory_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/vectory_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/gui_main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_main_window.py" afterDir="false" />
     </list>
+    <list id="e52a26e6-76eb-41bc-b7a5-0d21a9ba9345" name="Changes by chant" comment="" />
+    <list id="cf404b25-4243-439b-afcd-a932f5f6ad5d" name="Changes by Patrice" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,30 +39,47 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/View/gui_main_window.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/Model/model.py">
       <ranges>
-        <range start1="4" end1="7" start2="4" end2="7" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
         <range start1="13" end1="14" start2="13" end2="14" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="21" end1="24" start2="21" end2="22" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="48" end1="49" start2="46" end2="46" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="15" end1="15" start2="15" end2="26" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="25" end1="40" start2="36" end2="52" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/View/gui_fourier_draw_board.py">
+      <ranges>
+        <range start1="1" end1="2" start2="1" end2="2" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="5" end1="5" start2="5" end2="6" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="6" end1="6" start2="7" end2="8" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="7" end1="7" start2="9" end2="11" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="15" end1="16" start2="19" end2="21" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="17" end1="17" start2="22" end2="25" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="18" end1="18" start2="26" end2="30" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="19" end1="19" start2="31" end2="32" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="22" end1="24" start2="35" end2="37" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="27" end1="43" start2="40" end2="40" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="52" end1="54" start2="49" end2="60" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
       </ranges>
     </file>
     <file path="$PROJECT_DIR$/View/gui_fourier_draw.py">
       <ranges>
-        <range start1="10" end1="11" start2="10" end2="11" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
-        <range start1="26" end1="27" start2="26" end2="27" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="33" end1="34" start2="33" end2="34" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/View/gui_main_window.py">
-      <ranges>
-        <range start1="8" end1="8" start2="8" end2="9" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
-        <range start1="14" end1="14" start2="15" end2="16" changelist="cf404b25-4243-439b-afcd-a932f5f6ad5d" />
-        <range start1="27" end1="28" start2="29" end2="30" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="12" end1="12" start2="12" end2="13" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="13" end1="14" start2="14" end2="15" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="25" end1="25" start2="26" end2="28" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="26" end1="27" start2="29" end2="30" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="30" end1="30" start2="33" end2="36" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
       </ranges>
     </file>
   </component>
@@ -74,18 +92,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/Roberto/Desktop/exemples qt/gol",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../custom widgets" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\model" />
@@ -93,7 +105,7 @@
       <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.vect_tourne">
+  <component name="RunManager" selected="Python.gui_main_window">
     <configuration name="gui_fourier_draw_board" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dev" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -228,8 +240,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.vect_tourne" />
         <item itemvalue="Python.gui_main_window" />
+        <item itemvalue="Python.vect_tourne" />
         <item itemvalue="Python.gui_fourier_draw_board" />
         <item itemvalue="Python.gui_fourier_draw_intervals" />
         <item itemvalue="Python.model" />
@@ -277,14 +289,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Model/vectory_manager.py</url>
-          <line>42</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/View/gui_custom_drawing.py</url>
-          <line>56</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/View/gui_fourier_draw_board.py</url>
+          <line>54</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -295,16 +302,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/dev$model.coverage" NAME="model Coverage Results" MODIFIED="1681234960308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model" />
-    <SUITE FILE_PATH="coverage/dev$vectory_manager.coverage" NAME="vectory_manager Coverage Results" MODIFIED="1681229323986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model" />
-    <SUITE FILE_PATH="coverage/dev$gui_fourier_draw_intervals.coverage" NAME="gui_fourier_draw_intervals Coverage Results" MODIFIED="1681235579497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$gui_fourier_main.coverage" NAME="gui_fourier_main Coverage Results" MODIFIED="1680817392926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$gui_main_window.coverage" NAME="gui_main_window Coverage Results" MODIFIED="1681310196947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$drawing_analyzer.coverage" NAME="drawing_analyzer Coverage Results" MODIFIED="1681229143361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model" />
-    <SUITE FILE_PATH="coverage/dev$gui_fourier_draw.coverage" NAME="gui_fourier_draw Coverage Results" MODIFIED="1681228761226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$gui_fourier_draw_board.coverage" NAME="gui_fourier_draw_board Coverage Results" MODIFIED="1681309717477" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$vect_tourne.coverage" NAME="vect_tourne Coverage Results" MODIFIED="1681312834350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
   </component>
 </project>

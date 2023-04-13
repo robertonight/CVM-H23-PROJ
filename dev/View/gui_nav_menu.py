@@ -39,12 +39,13 @@ class GuiNavMenu(QWidget):
         self.__btnQuit.setFixedHeight(tailleHeight)
 
         # Insertion des boutons dans le layout`
+        mainLayout.setContentsMargins(0, 0, 0, 0)
         mainLayout.addWidget(self.__btnDraw)
         mainLayout.addWidget(self.__btnGallery)
         mainLayout.addWidget(self.__btnFeed)
         mainLayout.addWidget(self.__btnConnectProf)
         mainLayout.addWidget(self.__btnQuit)
-        mainLayout.addStretch()
+        # mainLayout.addStretch()
         self.setLayout(mainLayout)
 
     def paintEvent(self, event):

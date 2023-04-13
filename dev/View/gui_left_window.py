@@ -18,14 +18,14 @@ class Left_window(QWidget):
 
         self.setMinimumHeight(720)
         self.init_gui()
-        self.setStyleSheet("margin-left: 0px; margin-right: 0px; margin-top: 0px; margin-bottom: 0px;")
+        self.setStyleSheet("padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;")
 
     def init_gui(self):
         # declarations
         __mainLayout = QVBoxLayout()
         menu = GuiNavMenu()
         drawingBoard = GuiCustomDrawing()
-
+        menu.setContentsMargins(0, 0, 0, 0)
         # ajout
         __mainLayout.addWidget(menu)
         __mainLayout.addWidget(drawingBoard)

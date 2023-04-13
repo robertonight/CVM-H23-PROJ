@@ -10,8 +10,9 @@ from gui_fourier_draw_controls import GuiFourierDrawControls
 from gui_fourier_draw_intervals import GuiFourierDrawIntervals
 from gui_fourier_draw_board import GuiFourierDrawBoard
 
+
 class GuiFourierDraw(QWidget):
-    processRequested = Signal()
+    tick = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -23,11 +24,16 @@ class GuiFourierDraw(QWidget):
         self.__canvas = QLabel()
         self.__canvas.setPixmap(QPixmap())
         self.__guiControls = GuiFourierDrawControls()
+        self.__drawBoard = GuiFourierDrawBoard()
+        self.__drawBoard.tick.connect(lambda: self.tick.emit())
         __topLayout.addWidget(self.__guiIntervals)
-        __topLayout.addWidget(GuiFourierDrawBoard())
+        __topLayout.addWidget(self.__drawBoard)
         __mainLayout.addLayout(__topLayout)
         __mainLayout.addWidget(self.__guiControls)
         self.setLayout(__mainLayout)
+
+    def update_sim(self, vectors):
+        self.__drawBoard.update_sim(vectors)
 
     def paintEvent(self, event):
         painter = QPainter(self)
