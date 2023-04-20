@@ -35,13 +35,17 @@ class VectorManager:
         return vector_coords
 
     def update_test(self, interval):
-        for i in range(len(self._matrix_vect)):
-            n = i - int(len(self._matrix_vect) / 2)
-            rad_change = interval * 2 * math.pi
-            self._matrix_vect[i, 2] = math.fmod((self._matrix_vect[i, 1] + rad_change * n), (2 * math.pi))
-            reel = self._matrix_vect[i, 0] * math.cos(self._matrix_vect[i, 2])
-            imag = self._matrix_vect[i, 0] * math.sin(self._matrix_vect[i, 2])
-            self._matrix_vect[i, 3:] = np.array([reel, imag])
+        index = 0
+        for i in range(int(len(self._matrix_vect) / 2 + 1)):
+            for j in range(-1, 2, 2):
+                if i > 0:
+                    index += 1
+                n = i * -j
+                rad_change = interval * 2 * math.pi
+                self._matrix_vect[index, 2] = math.fmod((self._matrix_vect[index, 1] + rad_change * n), (2 * math.pi))
+                reel = self._matrix_vect[index, 0] * math.cos(self._matrix_vect[index, 2])
+                imag = self._matrix_vect[index, 0] * math.sin(self._matrix_vect[index, 2])
+                self._matrix_vect[index, 3:] = np.array([reel, imag])
         for i in range(1, len(self._matrix_vect)):
             precedent = i - 1
             self._matrix_vect[i, 3:] = self._matrix_vect[i, 3:] + self._matrix_vect[precedent, 3:]
@@ -69,14 +73,18 @@ class VectorManager:
         elapsed_time = curr_time - self._last_time
         self._last_time = curr_time
         self._interval = math.fmod((self._interval + elapsed_time / self.max_time), 1)
-        for i in range(len(self._matrix_vect)):
+        index = 0
+        for i in range(int(len(self._matrix_vect) / 2 + 1)):
             for j in range(-1, 2, 2):
-                n = i * j
+                if i > 0:
+                    index += 1
+                n = i * -j
+
                 rad_change = self._interval * 2 * math.pi
-                self._matrix_vect[i, 2] = math.fmod((self._matrix_vect[i, 1] + rad_change * n), (2 * math.pi))
-                reel = self._matrix_vect[i, 0] * math.cos(self._matrix_vect[i, 2])
-                imag = self._matrix_vect[i, 0] * math.sin(self._matrix_vect[i, 2])
-                self._matrix_vect[i, 3:] = np.array([reel, imag])
+                self._matrix_vect[index, 2] = math.fmod((self._matrix_vect[index, 1] + (rad_change * n)), (2 * math.pi))
+                reel = self._matrix_vect[index, 0] * math.cos(self._matrix_vect[index, 2])
+                imag = self._matrix_vect[index, 0] * math.sin(self._matrix_vect[index, 2])
+                self._matrix_vect[index, 3:] = np.array([reel, imag])
         for i in range(1, len(self._matrix_vect)):
             precedent = i - 1
             self._matrix_vect[i, 3:] = self._matrix_vect[i, 3:] + self._matrix_vect[precedent, 3:]

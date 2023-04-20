@@ -5,22 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22db8c17-1262-4260-b5eb-000f5093d9b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dev.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_left_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_left_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_nav_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_nav_menu.py" afterDir="false" />
     </list>
     <list id="65b79b60-f530-45be-99e5-1cbb95824c37" name="Changes by 0676921" comment="">
+      <change beforePath="$PROJECT_DIR$/Model/drawing_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/drawing_analyzer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/sketch.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/sketch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/vectory_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/vectory_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_main_window.py" afterDir="false" />
     </list>
     <list id="e52a26e6-76eb-41bc-b7a5-0d21a9ba9345" name="Changes by chant" comment="" />
     <list id="cf404b25-4243-439b-afcd-a932f5f6ad5d" name="Changes by Patrice" comment="" />
@@ -48,38 +43,33 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Model/model.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/View/gui_fourier_draw_board.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/View/gui_main_window.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/Model/model.py">
       <ranges>
-        <range start1="13" end1="14" start2="13" end2="14" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="15" end1="15" start2="15" end2="26" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="25" end1="40" start2="36" end2="52" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="12" end1="14" start2="12" end2="14" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="19" end1="20" start2="19" end2="20" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="28" end1="32" start2="28" end2="33" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="34" end1="35" start2="35" end2="36" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="36" end1="37" start2="37" end2="41" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="39" end1="39" start2="43" end2="45" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="40" end1="40" start2="46" end2="47" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="42" end1="43" start2="49" end2="50" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="44" end1="44" start2="51" end2="53" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="45" end1="45" start2="54" end2="56" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="46" end1="50" start2="57" end2="60" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="51" end1="52" start2="61" end2="65" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
       </ranges>
     </file>
     <file path="$PROJECT_DIR$/View/gui_fourier_draw_board.py">
       <ranges>
-        <range start1="1" end1="2" start2="1" end2="2" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="5" end1="5" start2="5" end2="6" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="6" end1="6" start2="7" end2="8" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="7" end1="7" start2="9" end2="11" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="15" end1="16" start2="19" end2="21" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="17" end1="17" start2="22" end2="25" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="18" end1="18" start2="26" end2="30" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="19" end1="19" start2="31" end2="32" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="22" end1="24" start2="35" end2="37" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="27" end1="43" start2="40" end2="40" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="52" end1="54" start2="49" end2="60" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/View/gui_fourier_draw.py">
-      <ranges>
-        <range start1="12" end1="12" start2="12" end2="13" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="13" end1="14" start2="14" end2="15" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="25" end1="25" start2="26" end2="28" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="26" end1="27" start2="29" end2="30" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="30" end1="30" start2="33" end2="36" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="6" end1="6" start2="6" end2="7" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="47" end1="47" start2="48" end2="49" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="50" end1="51" start2="52" end2="55" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
+        <range start1="59" end1="60" start2="63" end2="64" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
       </ranges>
     </file>
   </component>
@@ -96,7 +86,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../custom widgets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -106,7 +96,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.gui_main_window">
-    <configuration name="gui_fourier_draw_board" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="gui_fourier_main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dev" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -118,30 +108,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/View/gui_fourier_draw_board.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="gui_fourier_draw_intervals" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="dev" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/View" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/View/gui_fourier_draw_intervals.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/View/gui_fourier_main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -206,8 +173,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Model/model.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="dev" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -241,10 +228,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.gui_main_window" />
-        <item itemvalue="Python.vect_tourne" />
-        <item itemvalue="Python.gui_fourier_draw_board" />
-        <item itemvalue="Python.gui_fourier_draw_intervals" />
         <item itemvalue="Python.model" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.vect_tourne" />
+        <item itemvalue="Python.gui_fourier_main" />
       </list>
     </recent_temporary>
   </component>
@@ -290,8 +277,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/View/gui_fourier_draw_board.py</url>
-          <line>54</line>
-          <option name="timeStamp" value="16" />
+          <line>60</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

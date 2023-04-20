@@ -39,6 +39,8 @@ class DrawingAnalyzer:
             current_step = step * i
             self.__intermediaryPoints[i, :] = self.interpolate(current_step)
         self.__intermediaryPoints[self.__precision - 1, :] = self.__drawingInfo[-1, 0:2]
+        #print("intermediary points")
+        #print(self.__intermediaryPoints)
         return self.__intermediaryPoints
 
     def interpolate(self, step_ratio):
