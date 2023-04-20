@@ -10,14 +10,14 @@ from Model.sketch import Sketch
 class Model:
     def __init__(self):
         self.__sketch = Sketch()
-        self.precision = 500
-        self.nb_vecteurs = 51
+        self.precision = 5
+        self.nb_vecteurs = 101
         self._vector_manager = VectorManager(10)
         self.set_carre()
         self._vector_manager.start_sim()
 
     def set_carre(self):
-        d = DrawingAnalyzer(self.__sketch.dessinTriangle, self.precision)
+        d = DrawingAnalyzer(self.__sketch.dessinCarre, self.precision)
         array = d.get_intermediary_points()
         vectors = self.fft(array)
         self._vector_manager.matrix_vect = vectors
@@ -51,9 +51,10 @@ class Model:
                 for p in range(self.precision):
                     t = p / (self.precision - 1)  # step
                     a, b = coords_list[p][0], coords_list[p][1]
-                    coeff = np.exp((-2 * np.pi) * 1j * n * t)
-                    resultat += (a + b * 1j) * coeff  # a + bi
-                # ------------------------------------------------------------------------------------------------------
+                    exp_cmplx = np.exp((-2 * np.pi) * 1j * n * t)
+                    fnc_de_t = (a + b * 1j)  # a + bi
+                    resultat += exp_cmplx * fnc_de_t
+                    # ------------------------------------------------------------------------------------------------------
                 # moyenne
                 resultat = resultat / self.precision
                 # transformation du cn de la forme cartésienne à la forme polaire

@@ -5,18 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22db8c17-1262-4260-b5eb-000f5093d9b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" afterDir="false" />
     </list>
-    <list id="65b79b60-f530-45be-99e5-1cbb95824c37" name="Changes by 0676921" comment="">
-      <change beforePath="$PROJECT_DIR$/Model/drawing_analyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/drawing_analyzer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/sketch.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/sketch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/vectory_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/vectory_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier_draw_board.py" afterDir="false" />
-    </list>
+    <list id="65b79b60-f530-45be-99e5-1cbb95824c37" name="Changes by 0676921" comment="" />
     <list id="e52a26e6-76eb-41bc-b7a5-0d21a9ba9345" name="Changes by chant" comment="" />
     <list id="cf404b25-4243-439b-afcd-a932f5f6ad5d" name="Changes by Patrice" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,35 +35,9 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/View/gui_main_window.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/Model/model.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/View/gui_fourier_draw_board.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/View/gui_main_window.py" root0="SKIP_INSPECTION" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/Model/model.py">
-      <ranges>
-        <range start1="12" end1="14" start2="12" end2="14" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="19" end1="20" start2="19" end2="20" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="28" end1="32" start2="28" end2="33" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="34" end1="35" start2="35" end2="36" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="36" end1="37" start2="37" end2="41" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="39" end1="39" start2="43" end2="45" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="40" end1="40" start2="46" end2="47" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="42" end1="43" start2="49" end2="50" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="44" end1="44" start2="51" end2="53" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="45" end1="45" start2="54" end2="56" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="46" end1="50" start2="57" end2="60" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="51" end1="52" start2="61" end2="65" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/View/gui_fourier_draw_board.py">
-      <ranges>
-        <range start1="6" end1="6" start2="6" end2="7" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-        <range start1="47" end1="47" start2="48" end2="49" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="50" end1="51" start2="52" end2="55" changelist="65b79b60-f530-45be-99e5-1cbb95824c37" />
-        <range start1="59" end1="60" start2="63" end2="64" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
