@@ -10,7 +10,7 @@ from Model.sketch import Sketch
 class Model:
     def __init__(self):
         self.__sketch = Sketch()
-        self.precision = 5
+        self.precision = 200
         self.nb_vecteurs = 101
         self._vector_manager = VectorManager(10)
         self.set_carre()
@@ -62,8 +62,6 @@ class Model:
                 angle = math.atan2(np.imag(resultat), np.real(resultat))
                 if i > 0 or j > 0:
                     vecteurs[index, :] = np.array([rayon, angle])
-        print("vecteurs de base")
-        print(vecteurs)
         return vecteurs
 
 
