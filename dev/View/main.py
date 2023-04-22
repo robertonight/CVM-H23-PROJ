@@ -5,7 +5,7 @@ from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QLabel)
 from gui_left_window import Left_window
-from gui_fourier_main import GuiFourierDraw
+from gui_fourier import GuiFourierMain
 from Model.model import Model
 
 
@@ -13,10 +13,9 @@ class QFApp(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.model = Model()
         self.setWindowTitle("C'est fou. Riez!")
-        self.resize(1250, 700)
-        self.__fourier_draw = None
+        self.resize(1250, 900)
+        self.__fourier_main = None
         self.init_gui()
         self.setStyleSheet("background-color: rgb(100,100,100);")
 
@@ -28,17 +27,11 @@ class QFApp(QMainWindow):
         # ajout
         layoutContainer.addWidget(Left_window())
         centralWidget.setLayout(layoutContainer)
-        self.__fourier_draw = GuiFourierDraw()
+        self.__fourier_main = GuiFourierMain()
 
-        self.__fourier_draw.tick.connect(self.tick)
-        layoutContainer.addWidget(self.__fourier_draw)
+        layoutContainer.addWidget(self.__fourier_main)
 
         self.setCentralWidget(centralWidget)
-
-    @Slot()
-    def tick(self):
-        vectors = self.model.tick()
-        self.__fourier_draw.update_sim(vectors)
 
 
 if __name__ == '__main__':

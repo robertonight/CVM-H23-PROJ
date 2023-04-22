@@ -2,8 +2,7 @@ import math
 
 import numpy as np
 
-from Model.drawing_analyzer import DrawingAnalyzer
-from Model.vectory_manager import VectorManager
+from Model.vector_manager import VectorManager
 from Model.sketch import Sketch
 
 
@@ -25,16 +24,16 @@ class Model:
     def tick(self):
         return self._vector_manager.update()
 
-    def testFFT(self):
-        print("vector_updates")
-        self._vector_manager.update_test(0.0)
-        self._vector_manager.update_test(0.25)
-        self._vector_manager.update_test(0.5)
-        self._vector_manager.update_test(0.75)
-        self._vector_manager.update_test(1.0)
-
     def fft(self, coords_list):
+        """
+        yo
+        :param coords_list:
+        :return: vectos
+        """
         vecteurs = np.zeros((self.nb_vecteurs, 2))
+        """
+        yo
+        """
         index = 0
         # Boucle pour calculer chaque cn
         for i in range(int(self.nb_vecteurs / 2 + 1)):  # dans cas hypo 101 vecteurs
@@ -63,6 +62,69 @@ class Model:
                 if i > 0 or j > 0:
                     vecteurs[index, :] = np.array([rayon, angle])
         return vecteurs
+
+    # def testFFT(self):
+    #     print("vector_updates")
+    #     self._vector_manager.update_test(0.0)
+    #     self._vector_manager.update_test(0.25)
+    #     self._vector_manager.update_test(0.5)
+    #     self._vector_manager.update_test(0.75)
+    #     self._vector_manager.update_test(1.0)
+
+
+class DrawingAnalyzer:
+    def __init__(self, drawing: list, precision):
+        self.__drawing = drawing
+        self.__precision = precision
+        self.__drawingInfo = np.zeros((len(self.__drawing), 5))
+        self.__intermediaryPoints = np.zeros((self.__precision, 2))
+        self.__longueure_dessin = 0.0
+        self.mesurer_lignes()
+
+    def mesurer_lignes(self):
+        # ajout premier point
+        self.__drawingInfo[0, :] = [self.__drawing[0].x(), self.__drawing[0].y(), 0, 0, 0]
+        i = 1
+        nb_points = len(self.__drawing)
+        distance_abs = 0
+        while i < nb_points:
+            x1 = self.__drawing[i - 1].x()
+            x2 = self.__drawing[i].x()
+            y1 = self.__drawing[i - 1].y()
+            y2 = self.__drawing[i].y()
+
+            tempx = x2 - x1
+            tempy = y2 - y1
+            # trouver longueur vecteur
+            longueur = math.sqrt(tempx ** 2 + tempy ** 2)
+            distance_abs += longueur
+            self.__drawingInfo[i, :] = [x2, y2, longueur, distance_abs, 0]
+            self.__longueure_dessin += longueur
+            i += 1
+        self.__drawingInfo[:, 4] = self.__drawingInfo[:, 3] / self.__longueure_dessin
+
+    def get_intermediary_points(self):
+        step = 1 / (self.__precision - 1)
+        for i in range(self.__precision - 1):
+            current_step = step * i
+            self.__intermediaryPoints[i, :] = self.interpolate(current_step)
+        self.__intermediaryPoints[self.__precision - 1, :] = self.__drawingInfo[-1, 0:2]
+        # print("intermediary points")
+        # print(self.__intermediaryPoints)
+        return self.__intermediaryPoints
+
+    def interpolate(self, step_ratio):
+        i = 0
+        if step_ratio != 0:
+            i = np.max(np.nonzero(self.__drawingInfo[:, 4] < step_ratio))
+        m = self.__drawingInfo[i, 4]
+        M = self.__drawingInfo[i + 1, 4]
+        r = (step_ratio - m) * (1 / (M - m))
+        dx = self.__drawingInfo[i + 1, 0] - self.__drawingInfo[i, 0]
+        dy = self.__drawingInfo[i + 1, 1] - self.__drawingInfo[i, 1]
+        xp = dx * r + self.__drawingInfo[i, 0]
+        yp = dy * r + self.__drawingInfo[i, 1]
+        return np.array((xp, yp))
 
 
 if __name__ == "__main__":

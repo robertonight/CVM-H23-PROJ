@@ -1,11 +1,8 @@
 # Apps à faire: gui_gallery, gui_profile, gui_profile_preferences, gui_sign_in, gui_sign_up, gui_password_change
 
-import sys
-
-from PySide6 import QtCore, QtGui, QtWidgets
-from PySide6.QtCore import Qt, Signal, Slot
-from PySide6.QtGui import QIcon, QPainter, QColor, QPen
-from PySide6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QPushButton,
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QPainter, QColor, QPen
+from PySide6.QtWidgets import (QVBoxLayout, QWidget, QHBoxLayout, QPushButton,
                                QSizePolicy)
 
 
@@ -92,6 +89,8 @@ class DrawingWidget(QWidget):
         super().__init__(parent)
         self.path = []
         self.is_drawing = False
+        self.setFixedHeight(600)
+        self.setFixedWidth(420)
 
     def undo(self):
         a = self.path.pop(len(self.path) - 1)
