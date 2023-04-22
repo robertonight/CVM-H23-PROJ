@@ -5,7 +5,7 @@ from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QLabel)
 from gui_left_window import Left_window
-from gui_fourier_draw import GuiFourierDraw
+from gui_fourier_main import GuiFourierDraw
 from Model.model import Model
 
 
@@ -20,8 +20,6 @@ class QFApp(QMainWindow):
         self.init_gui()
         self.setStyleSheet("background-color: rgb(100,100,100);")
 
-
-
     def init_gui(self):
         # declarations
         centralWidget = QWidget()
@@ -31,6 +29,7 @@ class QFApp(QMainWindow):
         layoutContainer.addWidget(Left_window())
         centralWidget.setLayout(layoutContainer)
         self.__fourier_draw = GuiFourierDraw()
+
         self.__fourier_draw.tick.connect(self.tick)
         layoutContainer.addWidget(self.__fourier_draw)
 

@@ -5,8 +5,7 @@ from PySide6.QtCore import Qt, Signal, Slot, QSize
 from PySide6.QtGui import QIcon, QPainter, QColor
 from PySide6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy)
 
-from gui_nav_menu import GuiNavMenu
-from gui_custom_drawing import GuiCustomDrawing
+from gui_left_apps import GuiNavMenu, GuiCustomDrawing
 
 
 class Left_window(QWidget):

@@ -33,6 +33,7 @@ class GuiFourierDrawBoard(QWidget):
 
 class FenetreAnimation(QWidget):
     drawing_done = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.path = []

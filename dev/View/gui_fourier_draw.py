@@ -20,11 +20,11 @@ class GuiFourierDraw(QWidget):
         self.setMinimumWidth(800)
         __mainLayout = QVBoxLayout()
         __topLayout = QHBoxLayout()
-        self.__guiIntervals = GuiFourierDrawIntervals()
+        self.__guiIntervals = GuiFourierDrawIntervals()  #
         self.__canvas = QLabel()
         self.__canvas.setPixmap(QPixmap())
-        self.__guiControls = GuiFourierDrawControls()
-        self.__drawBoard = GuiFourierDrawBoard()
+        self.__guiControls = GuiFourierDrawControls()  #
+        self.__drawBoard = GuiFourierDrawBoard()  #
         self.__drawBoard.tick.connect(lambda: self.tick.emit())
         __topLayout.addWidget(self.__guiIntervals)
         __topLayout.addWidget(self.__drawBoard)
@@ -37,4 +37,4 @@ class GuiFourierDraw(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(234, 150, 149))
+        painter.fillRect(self.rect(), QColor("green"))
