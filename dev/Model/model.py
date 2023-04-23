@@ -8,60 +8,52 @@ from Model.sketch import Sketch
 
 class Model:
     def __init__(self):
-        self.__sketch = Sketch()
-        self.precision = 200
-        self.nb_vecteurs = 101
-        self._vector_manager = VectorManager(10)
-        self.set_carre()
+        self.precision: int = 1000
+        self.nb_vecteurs: int = 101
+        self._vector_manager: VectorManager = VectorManager(10)
+        self.tests_formes_sketch()
         self._vector_manager.start_sim()
-
-    def set_carre(self):
-        d = DrawingAnalyzer(self.__sketch.dessinCarre, self.precision)
-        array = d.get_intermediary_points()
-        vectors = self.fft(array)
-        self._vector_manager.matrix_vect = vectors
 
     def tick(self):
         return self._vector_manager.update()
 
     def fft(self, coords_list):
         """
-        yo
+        Fast Fourier Transform
         :param coords_list:
-        :return: vectos
+        :return:
         """
         vecteurs = np.zeros((self.nb_vecteurs, 2))
-        """
-        yo
-        """
         index = 0
-        # Boucle pour calculer chaque cn
-        for i in range(int(self.nb_vecteurs / 2 + 1)):  # dans cas hypo 101 vecteurs
-            # Boucle pour avoir les cn positifs et négatif de même chiffre
-            for j in range(-1, 2, 2):
-                resultat = 0
+        for i in range(math.floor(self.nb_vecteurs / 2 + 1)):  # Boucle pour calculer chaque cn
+            for j in range(-1, 2, 2):  # Boucle pour avoir les cn positifs et négatif de même chiffre
                 if i > 0:
                     index += 1
-                # ------------------------------------------------------------------------------------------------------
-                # n du cn
-                n = i * j  # mettre parties egales dans + et -
-                # ------------------------------------------------------------------------------------------------------
-                # calcul de l'intervale pour un cn
-                for p in range(self.precision):
+                n = i * j  # n du Cn --> multiplication pour inverser -+
+                somme = 0
+                for p in range(self.precision):  # calcul de l'intervale pour un cn
                     t = p / (self.precision - 1)  # step
                     a, b = coords_list[p][0], coords_list[p][1]
-                    exp_cmplx = np.exp((-2 * np.pi) * 1j * n * t)
+                    ex_cmplx = np.exp((-2 * np.pi) * 1j * n * t)
                     fnc_de_t = (a + b * 1j)  # a + bi
-                    resultat += exp_cmplx * fnc_de_t
-                    # ------------------------------------------------------------------------------------------------------
-                # moyenne
-                resultat = resultat / self.precision
+                    somme += ex_cmplx * fnc_de_t
+                coeff = somme / self.precision  # moyenne des f(t)*e^-2pitn pour former coeff
                 # transformation du cn de la forme cartésienne à la forme polaire
-                rayon = math.sqrt((np.imag(resultat) ** 2) + (np.real(resultat) ** 2))
-                angle = math.atan2(np.imag(resultat), np.real(resultat))
+                rayon = math.sqrt((np.imag(coeff) ** 2) + (np.real(coeff) ** 2))
+                angle = math.atan2(np.imag(coeff), np.real(coeff))
                 if i > 0 or j > 0:
                     vecteurs[index, :] = np.array([rayon, angle])
         return vecteurs
+
+    def tests_formes_sketch(self): # set_carre
+        """
+        Avec cette methode, on teste les formes préfaites par la classe sketch
+        """
+        sketch = Sketch()
+        d = DrawingAnalyzer(sketch.dessinCarre, self.precision)
+        array = d.get_intermediary_points()
+        vectors = self.fft(array)
+        self._vector_manager.matrix_vect = vectors
 
     # def testFFT(self):
     #     print("vector_updates")
@@ -73,44 +65,65 @@ class Model:
 
 
 class DrawingAnalyzer:
-    def __init__(self, drawing: list, precision):
-        self.__drawing = drawing
-        self.__precision = precision
-        self.__drawingInfo = np.zeros((len(self.__drawing), 5))
-        self.__intermediaryPoints = np.zeros((self.__precision, 2))
-        self.__longueure_dessin = 0.0
+    """
+    Cette classe sers à décortiquer tous les vecteurs qui constituent le grand dessin continu.
+    """
+
+    def __init__(self, drawing: list, precision: int):
+        """
+        :param drawing: liste de tous les QPointF qui constituent le dessin
+        :param precision: précision en nombre de parts égales
+        """
+        self.__drawing: list = drawing
+        self.__precision: int = precision
+        nb_points = 0
+        for line in self.__drawing:
+            nb_points += len(line)
+        self.__drawingInfo: np.ndarray = np.zeros((nb_points, 5))
+        self.__intermediaryPoints: np.ndarray = np.zeros((self.__precision, 2))
+        self.__longueure_dessin: float = 0.0
         self.mesurer_lignes()
 
-    def mesurer_lignes(self):
-        # ajout premier point
-        self.__drawingInfo[0, :] = [self.__drawing[0].x(), self.__drawing[0].y(), 0, 0, 0]
-        i = 1
-        nb_points = len(self.__drawing)
+    def mesurer_lignes1(self):
+        """
+        cette methode rempli le ndarray(n ,4) __drawingInfo -->
+        [[(x), (y), (longueure segment), (longueur depuis debut), (jusqu'au segment), (pourcentage dessin à endroit)],...]
+        """
+        self.__drawingInfo[0, :] = [self.__drawing[0][0].x(), self.__drawing[0][0].y(), 0, 0, 0]  # ajout premier point
         distance_abs = 0
-        while i < nb_points:
-            x1 = self.__drawing[i - 1].x()
-            x2 = self.__drawing[i].x()
-            y1 = self.__drawing[i - 1].y()
-            y2 = self.__drawing[i].y()
-
-            tempx = x2 - x1
-            tempy = y2 - y1
-            # trouver longueur vecteur
-            longueur = math.sqrt(tempx ** 2 + tempy ** 2)
+        for i in range(1, len(self.__drawing)):
+            x1, x2 = self.__drawing[i - 1].x(), self.__drawing[i].x()
+            y1, y2 = self.__drawing[i - 1].y(), self.__drawing[i].y()
+            longueur = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)  # trouver longueur vecteur
             distance_abs += longueur
             self.__drawingInfo[i, :] = [x2, y2, longueur, distance_abs, 0]
             self.__longueure_dessin += longueur
-            i += 1
-        self.__drawingInfo[:, 4] = self.__drawingInfo[:, 3] / self.__longueure_dessin
+        self.__drawingInfo[:, 4] = self.__drawingInfo[:, 3] / self.__longueure_dessin  # % du dessin à ce point
+
+    def mesurer_lignes(self):
+        """
+        cette methode rempli le ndarray(n ,4) __drawingInfo -->
+        [[(x), (y), (longueure segment), (longueur depuis debut), (jusqu'au segment), (pourcentage dessin à endroit)],...]
+        """
+        self.__drawingInfo[0, :] = [self.__drawing[0][0].x(), self.__drawing[0][0].y(), 0, 0,
+                                    0]  # ajout premier point
+        distance_abs = 0
+        for line in self.__drawing:
+            for i in range(1, len(line)):
+                x1, x2 = line[i - 1].x(), line[i].x()
+                y1, y2 = line[i - 1].y(), line[i].y()
+                longueur = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)  # trouver longueur vecteur
+                distance_abs += longueur
+                self.__drawingInfo[i, :] = [x2, y2, longueur, distance_abs, 0]
+                self.__longueure_dessin += longueur
+        self.__drawingInfo[:, 4] = self.__drawingInfo[:, 3] / self.__longueure_dessin  # % du dessin à ce point
 
     def get_intermediary_points(self):
-        step = 1 / (self.__precision - 1)
+        step: float = 1 / (self.__precision - 1)
         for i in range(self.__precision - 1):
             current_step = step * i
             self.__intermediaryPoints[i, :] = self.interpolate(current_step)
         self.__intermediaryPoints[self.__precision - 1, :] = self.__drawingInfo[-1, 0:2]
-        # print("intermediary points")
-        # print(self.__intermediaryPoints)
         return self.__intermediaryPoints
 
     def interpolate(self, step_ratio):

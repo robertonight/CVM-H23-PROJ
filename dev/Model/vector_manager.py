@@ -5,8 +5,8 @@ import math
 
 class VectorManager:
     def __init__(self, max_time):
-        self._matrix_vect = None
-        self._interval = 0
+        self._matrix_vect: np.ndarray = None
+        self._interval: int = 0
         self._max_time = max_time
         self._last_time = None
 
