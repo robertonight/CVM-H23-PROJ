@@ -8,8 +8,8 @@ from Model.sketch import Sketch
 
 class Model:
     def __init__(self):
-        self.precision: int = 1000
-        self.nb_vecteurs: int = 101
+        self.precision: int = 200
+        self.nb_vecteurs: int = 201
         self._vector_manager: VectorManager = VectorManager(10)
         self.tests_formes_sketch()
         self._vector_manager.start_sim()
@@ -45,12 +45,12 @@ class Model:
                     vecteurs[index, :] = np.array([rayon, angle])
         return vecteurs
 
-    def tests_formes_sketch(self): # set_carre
+    def tests_formes_sketch(self):  # set_carre
         """
         Avec cette methode, on teste les formes préfaites par la classe sketch
         """
         sketch = Sketch()
-        d = DrawingAnalyzer(sketch.dessinCarre, self.precision)
+        d = DrawingAnalyzer(sketch.random_dessin, self.precision)
         array = d.get_intermediary_points()
         vectors = self.fft(array)
         self._vector_manager.matrix_vect = vectors
@@ -84,22 +84,6 @@ class DrawingAnalyzer:
         self.__longueure_dessin: float = 0.0
         self.mesurer_lignes()
 
-    def mesurer_lignes1(self):
-        """
-        cette methode rempli le ndarray(n ,4) __drawingInfo -->
-        [[(x), (y), (longueure segment), (longueur depuis debut), (jusqu'au segment), (pourcentage dessin à endroit)],...]
-        """
-        self.__drawingInfo[0, :] = [self.__drawing[0][0].x(), self.__drawing[0][0].y(), 0, 0, 0]  # ajout premier point
-        distance_abs = 0
-        for i in range(1, len(self.__drawing)):
-            x1, x2 = self.__drawing[i - 1].x(), self.__drawing[i].x()
-            y1, y2 = self.__drawing[i - 1].y(), self.__drawing[i].y()
-            longueur = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)  # trouver longueur vecteur
-            distance_abs += longueur
-            self.__drawingInfo[i, :] = [x2, y2, longueur, distance_abs, 0]
-            self.__longueure_dessin += longueur
-        self.__drawingInfo[:, 4] = self.__drawingInfo[:, 3] / self.__longueure_dessin  # % du dessin à ce point
-
     def mesurer_lignes(self):
         """
         cette methode rempli le ndarray(n ,4) __drawingInfo -->
@@ -108,15 +92,25 @@ class DrawingAnalyzer:
         self.__drawingInfo[0, :] = [self.__drawing[0][0].x(), self.__drawing[0][0].y(), 0, 0,
                                     0]  # ajout premier point
         distance_abs = 0
-        for line in self.__drawing:
-            for i in range(1, len(line)):
-                x1, x2 = line[i - 1].x(), line[i].x()
-                y1, y2 = line[i - 1].y(), line[i].y()
-                longueur = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)  # trouver longueur vecteur
-                distance_abs += longueur
-                self.__drawingInfo[i, :] = [x2, y2, longueur, distance_abs, 0]
-                self.__longueure_dessin += longueur
+        idx = 1
+        for row_idx in range(len(self.__drawing)):
+            curr_row = self.__drawing[row_idx]
+            if row_idx > 0:
+                distance_abs = self.mesurer_1_ligne(self.__drawing[row_idx - 1][-1], curr_row[0], distance_abs, idx)
+                idx += 1
+            for i in range(1, len(curr_row)):
+                distance_abs = self.mesurer_1_ligne(curr_row[i - 1], curr_row[i], distance_abs, idx)
+                idx += 1
         self.__drawingInfo[:, 4] = self.__drawingInfo[:, 3] / self.__longueure_dessin  # % du dessin à ce point
+
+    def mesurer_1_ligne(self, point1, point2, distance_abs, idx):
+        x1, x2 = point1.x(), point2.x()
+        y1, y2 = point1.y(), point2.y()
+        longueur = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)  # trouver longueur vecteur
+        distance_abs += longueur
+        self.__drawingInfo[idx, :] = [x2, y2, longueur, distance_abs, 0]
+        self.__longueure_dessin += longueur
+        return distance_abs
 
     def get_intermediary_points(self):
         step: float = 1 / (self.__precision - 1)
