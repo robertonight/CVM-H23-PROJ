@@ -1,14 +1,13 @@
 import math
-
+from PySide6.QtCore import QObject, Slot
 import numpy as np
-
 from Model.vector_manager import VectorManager
 from Model.sketch import Sketch
 
 
-class Model:
+class Model(QObject):
     def __init__(self):
-        self.precision: int = 200
+        self.precision: int = 202
         self.nb_vecteurs: int = 201
         self._vector_manager: VectorManager = VectorManager(10)
         self.tests_formes_sketch()
@@ -50,18 +49,10 @@ class Model:
         Avec cette methode, on teste les formes préfaites par la classe sketch
         """
         sketch = Sketch()
-        d = DrawingAnalyzer(sketch.random_dessin, self.precision)
+        d = DrawingAnalyzer(sketch.dessinCarre, self.precision)
         array = d.get_intermediary_points()
         vectors = self.fft(array)
         self._vector_manager.matrix_vect = vectors
-
-    # def testFFT(self):
-    #     print("vector_updates")
-    #     self._vector_manager.update_test(0.0)
-    #     self._vector_manager.update_test(0.25)
-    #     self._vector_manager.update_test(0.5)
-    #     self._vector_manager.update_test(0.75)
-    #     self._vector_manager.update_test(1.0)
 
 
 class DrawingAnalyzer:
@@ -74,63 +65,70 @@ class DrawingAnalyzer:
         :param drawing: liste de tous les QPointF qui constituent le dessin
         :param precision: précision en nombre de parts égales
         """
-        self.__drawing: list = drawing
-        self.__precision: int = precision
+        # declarations
         nb_points = 0
-        for line in self.__drawing:
-            nb_points += len(line)
-        self.__drawingInfo: np.ndarray = np.zeros((nb_points, 5))
-        self.__intermediaryPoints: np.ndarray = np.zeros((self.__precision, 2))
+        for line in drawing:  # calculer nb de points
+            nb_points += len(line)  # nb de points qui se trouvent dans la ligne
+        self.__drawing_info: np.ndarray = np.zeros((nb_points, 5))
+        """ Contient la matrice de 5 infos """
+        self.__d: list = drawing
+        """ Dessin constitué de :list 2D de paths """
+        self.__precision: int = precision
+        self.__intermediary_points: np.ndarray = np.zeros((precision, 2))
+        """
+        couple de points decoupes
+        """
         self.__longueure_dessin: float = 0.0
-        self.mesurer_lignes()
 
-    def mesurer_lignes(self):
+        # ca part
+        self.analyzer()
+
+    def analyzer(self):
         """
         cette methode rempli le ndarray(n ,4) __drawingInfo -->
-        [[(x), (y), (longueure segment), (longueur depuis debut), (jusqu'au segment), (pourcentage dessin à endroit)],...]
+        [[(x), (y), (longueure segment), (longueur absolue), (pourcentage dessin à endroit)],...]
+        calcul longuieure de seg entre les points
         """
-        self.__drawingInfo[0, :] = [self.__drawing[0][0].x(), self.__drawing[0][0].y(), 0, 0,
-                                    0]  # ajout premier point
-        distance_abs = 0
+        # [[QPointF, QPointF], [QPointF, QPointF, QPointF]]
+        self.__drawing_info[0, :] = [self.__d[0][0].x(), self.__d[0][0].y(), 0, 0, 0]  # 1e p.
         idx = 1
-        for row_idx in range(len(self.__drawing)):
-            curr_row = self.__drawing[row_idx]
-            if row_idx > 0:
-                distance_abs = self.mesurer_1_ligne(self.__drawing[row_idx - 1][-1], curr_row[0], distance_abs, idx)
+        for i in range(len(self.__d)):
+            row1, row2 = self.__d[i - 1], self.__d[i]
+            if i > 0:
+                self.line_analyzer(row1[-1], row2[0], idx)
                 idx += 1
-            for i in range(1, len(curr_row)):
-                distance_abs = self.mesurer_1_ligne(curr_row[i - 1], curr_row[i], distance_abs, idx)
+            for j in range(1, len(row2)):
+                self.line_analyzer(row2[j - 1], row2[j], idx)
                 idx += 1
-        self.__drawingInfo[:, 4] = self.__drawingInfo[:, 3] / self.__longueure_dessin  # % du dessin à ce point
+        # --
+        self.__drawing_info[:, 4] = self.__drawing_info[:, 3] / self.__longueure_dessin  # % du dessin à ce point
 
-    def mesurer_1_ligne(self, point1, point2, distance_abs, idx):
-        x1, x2 = point1.x(), point2.x()
-        y1, y2 = point1.y(), point2.y()
-        longueur = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)  # trouver longueur vecteur
-        distance_abs += longueur
-        self.__drawingInfo[idx, :] = [x2, y2, longueur, distance_abs, 0]
+    def line_analyzer(self, point1, point2, idx):
+        longueur = math.sqrt((point2.x() - point1.x()) ** 2 + (point2.y() - point1.y()) ** 2)  # trouver long. vecteur
         self.__longueure_dessin += longueur
-        return distance_abs
+        self.__drawing_info[idx, :] = [point2.x(), point2.y(), longueur, self.__longueure_dessin, 0]
 
-    def get_intermediary_points(self):
+    def get_intermediary_points(self) -> np.ndarray:  # basically get les t
+        # (0, 0.25, 0.5, 0.75, 1)
+        # (0, 0.2, 0.4, 0.6, 0.8, 1)
         step: float = 1 / (self.__precision - 1)
         for i in range(self.__precision - 1):
             current_step = step * i
-            self.__intermediaryPoints[i, :] = self.interpolate(current_step)
-        self.__intermediaryPoints[self.__precision - 1, :] = self.__drawingInfo[-1, 0:2]
-        return self.__intermediaryPoints
+            self.__intermediary_points[i, :] = self.interpolate(current_step)  # trouve points
+        self.__intermediary_points[self.__precision - 1, :] = self.__drawing_info[-1, 0:2]
+        return self.__intermediary_points
 
-    def interpolate(self, step_ratio):
+    def interpolate(self, step_ratio) -> np.ndarray:
         i = 0
         if step_ratio != 0:
-            i = np.max(np.nonzero(self.__drawingInfo[:, 4] < step_ratio))
-        m = self.__drawingInfo[i, 4]
-        M = self.__drawingInfo[i + 1, 4]
+            i = np.max(np.nonzero(self.__drawing_info[:, 4] < step_ratio)) # prends + haute longueure
+        m = self.__drawing_info[i, 4]
+        M = self.__drawing_info[i + 1, 4]
         r = (step_ratio - m) * (1 / (M - m))
-        dx = self.__drawingInfo[i + 1, 0] - self.__drawingInfo[i, 0]
-        dy = self.__drawingInfo[i + 1, 1] - self.__drawingInfo[i, 1]
-        xp = dx * r + self.__drawingInfo[i, 0]
-        yp = dy * r + self.__drawingInfo[i, 1]
+        dx = self.__drawing_info[i + 1, 0] - self.__drawing_info[i, 0]
+        dy = self.__drawing_info[i + 1, 1] - self.__drawing_info[i, 1]
+        xp = dx * r + self.__drawing_info[i, 0]
+        yp = dy * r + self.__drawing_info[i, 1]
         return np.array((xp, yp))
 
 

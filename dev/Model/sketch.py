@@ -3,13 +3,19 @@ from PySide6.QtCore import QPointF
 
 class Sketch:
     def __init__(self):
+        self.__dessinLigne =   [[QPointF(100.0,100.0), QPointF(200.0,100.0)], [QPointF(300.0,100.0), QPointF(200.0,100.0), QPointF(100.0,100.0)]]
+
         self.__dessinCarre = [[QPointF(0.0, 0.0), QPointF(300.0, 0.0), QPointF(300.0, 300.0)], [QPointF(0.0, 300.0),
                                                                                                 QPointF(0.0, 0.0)]]
         self.__dessinTriangle = [[QPointF(50.0, 50.0), QPointF(250.0, 450.0)],
                                  [QPointF(450.0, 50.0), QPointF(50.0, 50.0)]]
-        self.__dessinPentagone = [[QPointF(100.0, 0.0), QPointF(0.0, 100.0)],
-                                  [QPointF(200.0, 200.0), QPointF(400.0, 100.0)],
-                                  [QPointF(300.0, 0.0), QPointF(100.0, 0.0)]]
+
+        self.__dessinPentagone = [[QPointF(100.0, 0.0), QPointF(200.0, 0.0)],
+                                  [QPointF(200.0, 0.0), QPointF(250.0, 100.0)],
+                                  [QPointF(250.0, 100.0), QPointF(150.0, 200.0)],
+                                  [QPointF(150.0, 200.0), QPointF(50.0, 100.0)],
+                                  [QPointF(50.0, 100.0), QPointF(100.0, 100.0)],
+                                  [QPointF(100.0, 0.0), QPointF(200.0, 0.0)]]
         self.random_dessin = [
             [QPointF(101.000000, 142.000000), QPointF(106.000000, 142.000000)],
             [QPointF(106.000000, 142.000000), QPointF(116.000000, 141.000000),
@@ -374,6 +380,10 @@ class Sketch:
     @property
     def dessinCarre(self):
         return self.__dessinCarre
+
+    @property
+    def dessinLigne(self):
+        return self.__dessinLigne
 
     @property
     def dessinTriangle(self):

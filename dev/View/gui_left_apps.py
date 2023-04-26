@@ -1,6 +1,6 @@
 # Apps à faire: gui_gallery, gui_profile, gui_profile_preferences, gui_sign_in, gui_sign_up, gui_password_change
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtGui import QPainter, QColor, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QWidget, QHBoxLayout, QPushButton,
                                QSizePolicy)
@@ -53,6 +53,8 @@ class GuiNavMenu(QWidget):
 
 
 class GuiCustomDrawing(QWidget):
+    line_ended = Signal(list)
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -62,6 +64,7 @@ class GuiCustomDrawing(QWidget):
         __lowLayout = QHBoxLayout()
 
         self.drawing_canvas = DrawingWidget()
+        self.drawing_canvas.line_ended.connect(self.line_ended)
 
         self.__eraseBtn = QPushButton("X")
         self.__eraseBtn.clicked.connect(lambda: self.drawing_canvas.erase())
@@ -85,6 +88,8 @@ class GuiCustomDrawing(QWidget):
 
 
 class DrawingWidget(QWidget):
+    line_ended = Signal(list)
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.path = []
@@ -118,6 +123,7 @@ class DrawingWidget(QWidget):
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.is_drawing = False
+            self.line_ended.emit(self.path[-1])
 
     def paintEvent(self, event):
         painter = QPainter(self)

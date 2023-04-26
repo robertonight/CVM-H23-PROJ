@@ -14,9 +14,10 @@ class GuiFourierMain(QWidget):
     Fenêtre se trouvant à droite. Elle affiche tout ce qui concerne Fourier
     """
 
+    tick = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.model = None
         self.__fourier_draw = None
         self.__vectors = None
         self.init_gui()
@@ -26,7 +27,6 @@ class GuiFourierMain(QWidget):
         __mainLayout = QVBoxLayout()
         self.__vectors = GuiFourierVectors()  #
         self.__fourier_draw = GuiFourierDraw()  #
-        self.model = Model()
         # Insertion des sous-widgets dans le layout
         __mainLayout.addWidget(self.__vectors)
         __mainLayout.addWidget(self.__fourier_draw)
@@ -37,9 +37,7 @@ class GuiFourierMain(QWidget):
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor("yellow"))
 
-    @Slot()
-    def tick(self):
-        vectors = self.model.tick()
+    def update_sim(self, vectors):
         self.__fourier_draw.update_sim(vectors)
 
 

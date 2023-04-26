@@ -21,17 +21,29 @@ class QFApp(QMainWindow):
 
     def init_gui(self):
         # declarations
+        self.__model = Model()
         centralWidget = QWidget()
         layoutContainer = QHBoxLayout()
-
+        leftWindow = Left_window()
+        leftWindow.line_ended.connect(self.send_line)
         # ajout
-        layoutContainer.addWidget(Left_window())
+        layoutContainer.addWidget(leftWindow)
         centralWidget.setLayout(layoutContainer)
         self.__fourier_main = GuiFourierMain()
+        self.__fourier_main.tick.connect(self.tick)
 
         layoutContainer.addWidget(self.__fourier_main)
 
         self.setCentralWidget(centralWidget)
+
+    @Slot()
+    def send_line(self, line):
+        self.__model.receive_line(line)
+
+    @Slot()
+    def tick(self):
+        vectors = self.__model.tick()
+        self.__fourier_main.update_sim(vectors)
 
 
 if __name__ == '__main__':

@@ -1,3 +1,4 @@
+from PySide6.QtCore import Signal
 from PySide6.QtGui import QPainter, QColor
 from PySide6.QtWidgets import (QVBoxLayout, QWidget, QSizePolicy)
 
@@ -5,6 +6,8 @@ from gui_left_apps import GuiNavMenu, GuiCustomDrawing
 
 
 class Left_window(QWidget):
+    line_ended = Signal(list)
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -20,6 +23,7 @@ class Left_window(QWidget):
         __mainLayout = QVBoxLayout()
         menu = GuiNavMenu()
         drawingBoard = GuiCustomDrawing()
+        drawingBoard.line_ended.connect(self.line_ended)
         menu.setContentsMargins(0, 0, 0, 0)
         # ajout
         __mainLayout.addWidget(menu)
