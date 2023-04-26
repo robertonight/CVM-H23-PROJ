@@ -22,27 +22,31 @@ class QFApp(QMainWindow):
     def init_gui(self):
         # declarations
         self.__model = Model()
+        self.model.sim_started.connect(self.start_sim)
+        self.__model.sim_updated.connect(self.update_sim)
         centralWidget = QWidget()
         layoutContainer = QHBoxLayout()
         leftWindow = Left_window()
-        leftWindow.line_ended.connect(self.send_line)
+        leftWindow.line_ended.connect(self.__model.receive_line)
+        leftWindow.undo_pushed.connect(self.__model.undo_line)
+        leftWindow.erase_pushed.connect(self.__model.erase_drawing)
         # ajout
         layoutContainer.addWidget(leftWindow)
         centralWidget.setLayout(layoutContainer)
         self.__fourier_main = GuiFourierMain()
-        self.__fourier_main.tick.connect(self.tick)
+        self.__fourier_main.tick.connect(self.__model.tick)
+
 
         layoutContainer.addWidget(self.__fourier_main)
 
         self.setCentralWidget(centralWidget)
 
     @Slot()
-    def send_line(self, line):
-        self.__model.receive_line(line)
+    def start_sim(self, vectors):
+        self.__fourier_main.start_sim(vectors)
 
     @Slot()
-    def tick(self):
-        vectors = self.__model.tick()
+    def update_sim(self, vectors):
         self.__fourier_main.update_sim(vectors)
 
 

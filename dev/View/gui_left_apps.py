@@ -54,6 +54,8 @@ class GuiNavMenu(QWidget):
 
 class GuiCustomDrawing(QWidget):
     line_ended = Signal(list)
+    undo_pushed = Signal()
+    erase_pushed = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -67,10 +69,10 @@ class GuiCustomDrawing(QWidget):
         self.drawing_canvas.line_ended.connect(self.line_ended)
 
         self.__eraseBtn = QPushButton("X")
-        self.__eraseBtn.clicked.connect(lambda: self.drawing_canvas.erase())
+        self.__eraseBtn.clicked.connect(lambda: self.erase_pushed.emit())
         self.__eraseBtn.setFixedSize(20, 20)
         self.__undoBtn = QPushButton("undo")
-        self.__undoBtn.clicked.connect(lambda: self.drawing_canvas.undo())
+        self.__undoBtn.clicked.connect(lambda: self.undo_pushed.emit())
         self.__saveBtn = QPushButton("save")
 
         # Insertion des boutons dans les layouts

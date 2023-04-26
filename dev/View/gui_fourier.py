@@ -31,7 +31,7 @@ class GuiFourierMain(QWidget):
         __mainLayout.addWidget(self.__vectors)
         __mainLayout.addWidget(self.__fourier_draw)
         self.setLayout(__mainLayout)
-        self.__fourier_draw.tick.connect(self.tick)
+        self.__fourier_draw.tick.connect(lambda: self.tick.emit())
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -82,6 +82,9 @@ class GuiFourierDraw(QWidget):
         __mainLayout.addWidget(self.__guiControls)
         self.setLayout(__mainLayout)
 
+    def start_sim(self, vectors):
+        self.__drawBoard.start_sim(vectors)
+
     def update_sim(self, vectors):
         self.__drawBoard.update_sim(vectors)
 
@@ -116,7 +119,14 @@ class GuiFourierDrawBoard(QWidget):
         self.setLayout(__mainLayout)
         self.__timer = QTimer()
         self.__timer.timeout.connect(lambda: self.tick.emit())
-        self.__timer.start(1)
+
+    def start_sim(self, vectors):
+        vectors[:] = vectors[:] + 100
+        self.path = vectors
+        self.__timer.start(33)
+
+    def stop_sim(self):
+        self.__timer.stop()
 
     def update_sim(self, vectors):
         vectors[:] = vectors[:] + 100

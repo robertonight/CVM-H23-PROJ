@@ -7,6 +7,8 @@ from gui_left_apps import GuiNavMenu, GuiCustomDrawing
 
 class Left_window(QWidget):
     line_ended = Signal(list)
+    undo_pushed = Signal()
+    erase_pushed = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -23,7 +25,9 @@ class Left_window(QWidget):
         __mainLayout = QVBoxLayout()
         menu = GuiNavMenu()
         drawingBoard = GuiCustomDrawing()
-        drawingBoard.line_ended.connect(self.line_ended)
+        drawingBoard.line_ended.connect(lambda: self.line_ended.emit())
+        drawingBoard.undo_pushed.connect(lambda: self.undo_pushed.emit())
+        drawingBoard.erase_pushed.connect(lambda: self.erase_pushed.emit())
         menu.setContentsMargins(0, 0, 0, 0)
         # ajout
         __mainLayout.addWidget(menu)

@@ -4,11 +4,11 @@ import math
 
 
 class VectorManager:
-    def __init__(self, max_time):
+    def __init__(self, max_time: float):
         self._matrix_vect: np.ndarray = None
         self._interval: int = 0
         self._max_time = max_time
-        self._last_time = None
+        self._last_time = 0.0
 
     @property
     def matrix_vect(self):
@@ -26,15 +26,30 @@ class VectorManager:
         return self._max_time
 
     @max_time.setter
-    def max_time(self, max_time):
+    def max_time(self, max_time: float):
         self._max_time = max_time
 
     def start_sim(self):
+        """
+        Cette fonction doit être lancée avant de commencer les updates. C'est elle qui va donner une valeur à
+        la variable _last_time. Update ne peut pas marcher si _last_time est None. Si la simulation est redémarrée après
+        avoir été arrêtée, il faut appeller à nouveau start_sim, afin de pouvoir remettre la variable _last_time à la
+        bonne valeur pour continuer
+        :return:
+        """
         self._last_time = perf_counter()
         vector_coords = self.update()
         return vector_coords
 
     def update(self):
+        """
+        Le elapsed_time est utilisé avec max_time pour obtenir un pourcentage. Puisque l'interval se fait de 0 à 1,
+        le pourcentage obtenu peut être additionné pour donner le t de l'interval voulu. Un modulo assure que le
+        maximum de l'interval n'est jamais dépassé. Avec l'interval, on mesure le nombre de radians que chaque vecteur
+        doit tourner et on l'additionne à leur angle actuel. On obtient ensuite la forme cartésienne des vecteurs,
+        et on les additionne les un aux autres afin que leurs coordonnées soient un
+        :return:
+        """
         current_time = perf_counter()
         elapsed_time = current_time - self._last_time
         self._last_time = current_time  # dans le futur

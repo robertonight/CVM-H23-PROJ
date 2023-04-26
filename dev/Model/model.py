@@ -1,20 +1,29 @@
 import math
-from PySide6.QtCore import QObject, Slot
+from PySide6.QtCore import QObject, Signal, Slot
 import numpy as np
 from Model.vector_manager import VectorManager
 from Model.sketch import Sketch
-
+from stack import FStack
 
 class Model(QObject):
-    def __init__(self):
+    sim_updated = Signal(np.ndarray)
+    sim_started = Signal(np.ndarray)
+    line_erased = Signal(np.ndarray)
+    drawing_deleted = Signal()
+
+
+    def __init__(self, parent = None):
+        super().__init__(parent)
         self.precision: int = 202
         self.nb_vecteurs: int = 201
         self._vector_manager: VectorManager = VectorManager(10)
-        self.tests_formes_sketch()
-        self._vector_manager.start_sim()
+        self.__stack = FStack()
+        #self.tests_formes_sketch()
+        #self._vector_manager.start_sim()
 
+    @Slot()
     def tick(self):
-        return self._vector_manager.update()
+        self.sim_updated.emit(self._vector_manager.update())
 
     def fft(self, coords_list):
         """
@@ -53,6 +62,27 @@ class Model(QObject):
         array = d.get_intermediary_points()
         vectors = self.fft(array)
         self._vector_manager.matrix_vect = vectors
+
+    def start_animation(self, drawing):
+        d = DrawingAnalyzer(drawing, self.precision)
+        array = d.get_intermediary_points()
+        vectors = self.fft(array)
+        self._vector_manager.matrix_vect = vectors
+        self.sim_started.emit(self._vector_manager.start_sim())
+
+    @Slot
+    def receive_line(self, line):
+        self.__stack.push(line)
+        self.start_animation(self.__stack)
+
+    @Slot
+    def undo_line(self):
+        self.__stack.pop()
+        self.start_animation(self.__stack)
+
+    @Slot
+    def erase_drawing(self):
+        self.__stack.clear()
 
 
 class DrawingAnalyzer:
@@ -121,7 +151,7 @@ class DrawingAnalyzer:
     def interpolate(self, step_ratio) -> np.ndarray:
         i = 0
         if step_ratio != 0:
-            i = np.max(np.nonzero(self.__drawing_info[:, 4] < step_ratio)) # prends + haute longueure
+            i = np.max(np.nonzero(self.__drawing_info[:, 4] < step_ratio))  # prends + haute longueure
         m = self.__drawing_info[i, 4]
         M = self.__drawing_info[i + 1, 4]
         r = (step_ratio - m) * (1 / (M - m))
@@ -130,8 +160,3 @@ class DrawingAnalyzer:
         xp = dx * r + self.__drawing_info[i, 0]
         yp = dy * r + self.__drawing_info[i, 1]
         return np.array((xp, yp))
-
-
-if __name__ == "__main__":
-    m = Model()
-    m.testFFT()
