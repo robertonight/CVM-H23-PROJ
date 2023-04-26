@@ -5,7 +5,6 @@ from PySide6.QtGui import QPainter, QColor, QPixmap, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
                                QPushButton, QSizePolicy, QLabel)
 
-from Model.model import Model
 
 
 class GuiFourierMain(QWidget):
@@ -31,7 +30,7 @@ class GuiFourierMain(QWidget):
         __mainLayout.addWidget(self.__vectors)
         __mainLayout.addWidget(self.__fourier_draw)
         self.setLayout(__mainLayout)
-        self.__fourier_draw.tick.connect(lambda: self.tick.emit())
+        self.__fourier_draw.tick.connect(self.tick.emit)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -40,6 +39,8 @@ class GuiFourierMain(QWidget):
     def update_sim(self, vectors):
         self.__fourier_draw.update_sim(vectors)
 
+    def start_sim(self, vectors):
+        self.__fourier_draw.start_sim(vectors)
 
 class GuiFourierVectors(QWidget):
     """

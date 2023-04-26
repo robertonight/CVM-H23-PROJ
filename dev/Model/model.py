@@ -8,13 +8,13 @@ from stack import FStack
 class Model(QObject):
     sim_updated = Signal(np.ndarray)
     sim_started = Signal(np.ndarray)
-    line_erased = Signal(np.ndarray)
+    line_removed = Signal(list)
     drawing_deleted = Signal()
 
 
     def __init__(self, parent = None):
         super().__init__(parent)
-        self.precision: int = 202
+        self.precision: int = 2000
         self.nb_vecteurs: int = 201
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()
@@ -70,17 +70,20 @@ class Model(QObject):
         self._vector_manager.matrix_vect = vectors
         self.sim_started.emit(self._vector_manager.start_sim())
 
-    @Slot
+    @Slot()
     def receive_line(self, line):
         self.__stack.push(line)
         self.start_animation(self.__stack)
 
-    @Slot
+    @Slot()
     def undo_line(self):
-        self.__stack.pop()
-        self.start_animation(self.__stack)
+        if len(self.__stack) > 0:
+            self.__stack.pop()
+            self.start_animation(self.__stack)
+            self.line_removed.emit(self.__stack.objects)
 
-    @Slot
+
+    @Slot()
     def erase_drawing(self):
         self.__stack.clear()
 
@@ -90,18 +93,18 @@ class DrawingAnalyzer:
     Cette classe sers à décortiquer tous les vecteurs qui constituent le grand dessin continu.
     """
 
-    def __init__(self, drawing: list, precision: int):
+    def __init__(self, drawing: FStack, precision: int):
         """
         :param drawing: liste de tous les QPointF qui constituent le dessin
         :param precision: précision en nombre de parts égales
         """
         # declarations
         nb_points = 0
-        for line in drawing:  # calculer nb de points
+        for line in drawing.objects:  # calculer nb de points
             nb_points += len(line)  # nb de points qui se trouvent dans la ligne
         self.__drawing_info: np.ndarray = np.zeros((nb_points, 5))
         """ Contient la matrice de 5 infos """
-        self.__d: list = drawing
+        self.__d: list = drawing.objects
         """ Dessin constitué de :list 2D de paths """
         self.__precision: int = precision
         self.__intermediary_points: np.ndarray = np.zeros((precision, 2))

@@ -84,6 +84,9 @@ class GuiCustomDrawing(QWidget):
         __mainLayout.addLayout(__lowLayout)
         self.setLayout(__mainLayout)
 
+    def undo(self, drawing):
+        self.drawing_canvas.undo(drawing)
+
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor(95, 78, 133))
@@ -99,8 +102,8 @@ class DrawingWidget(QWidget):
         self.setFixedHeight(600)
         self.setFixedWidth(420)
 
-    def undo(self):
-        a = self.path.pop(len(self.path) - 1)
+    def undo(self, drawing):
+        self.path = drawing
         self.update()
 
     def erase(self):

@@ -1,4 +1,4 @@
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, Slot
 from PySide6.QtGui import QPainter, QColor
 from PySide6.QtWidgets import (QVBoxLayout, QWidget, QSizePolicy)
 
@@ -24,15 +24,19 @@ class Left_window(QWidget):
         # declarations
         __mainLayout = QVBoxLayout()
         menu = GuiNavMenu()
-        drawingBoard = GuiCustomDrawing()
-        drawingBoard.line_ended.connect(lambda: self.line_ended.emit())
-        drawingBoard.undo_pushed.connect(lambda: self.undo_pushed.emit())
-        drawingBoard.erase_pushed.connect(lambda: self.erase_pushed.emit())
+        self.drawingBoard = GuiCustomDrawing()
+        self.drawingBoard.line_ended.connect(self.line_ended.emit)
+        self.drawingBoard.undo_pushed.connect(lambda: self.undo_pushed.emit())
+        self.drawingBoard.erase_pushed.connect(lambda: self.erase_pushed.emit())
         menu.setContentsMargins(0, 0, 0, 0)
         # ajout
         __mainLayout.addWidget(menu)
-        __mainLayout.addWidget(drawingBoard)
+        __mainLayout.addWidget(self.drawingBoard)
         self.setLayout(__mainLayout)
+
+    @Slot()
+    def undo(self, drawing):
+        self.drawingBoard.undo(drawing)
 
     def paintEvent(self, event):
         painter = QPainter(self)

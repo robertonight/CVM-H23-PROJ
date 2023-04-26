@@ -22,13 +22,14 @@ class QFApp(QMainWindow):
     def init_gui(self):
         # declarations
         self.__model = Model()
-        self.model.sim_started.connect(self.start_sim)
+        self.__model.sim_started.connect(self.start_sim)
         self.__model.sim_updated.connect(self.update_sim)
         centralWidget = QWidget()
         layoutContainer = QHBoxLayout()
         leftWindow = Left_window()
         leftWindow.line_ended.connect(self.__model.receive_line)
         leftWindow.undo_pushed.connect(self.__model.undo_line)
+        self.__model.line_removed.connect(leftWindow.undo)
         leftWindow.erase_pushed.connect(self.__model.erase_drawing)
         # ajout
         layoutContainer.addWidget(leftWindow)
