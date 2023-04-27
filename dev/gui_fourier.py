@@ -2,6 +2,8 @@ import math
 from copy import deepcopy
 
 from PySide6.QtCore import Qt, Signal, Slot, QTimer, QPointF
+import PySide6
+from PySide6.QtCore import Qt, Signal, Slot, QTimer
 from PySide6.QtGui import QPainter, QColor, QPixmap, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
                                QPushButton, QSizePolicy, QLabel)
@@ -63,6 +65,9 @@ class GuiFourierVectors(QWidget):
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor("turquoise"))
+        pen = QPen(Qt.black, 2, Qt.SolidLine)
+        painter.setPen(pen)
+        painter.drawPoint(PySide6.QtCore.QPointF(50, 50))
 
 
 class GuiFourierDraw(QWidget):
