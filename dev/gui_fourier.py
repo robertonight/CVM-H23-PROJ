@@ -42,6 +42,9 @@ class GuiFourierMain(QWidget):
     def start_sim(self, vectors):
         self.__fourier_draw.start_sim(vectors)
 
+    def erase_drawing(self):
+        self.__fourier_draw.erase_drawing()
+
 class GuiFourierVectors(QWidget):
     """
     VERT
@@ -83,6 +86,9 @@ class GuiFourierDraw(QWidget):
         __mainLayout.addWidget(self.__guiControls)
         self.setLayout(__mainLayout)
 
+    def erase_drawing(self):
+        self.__drawBoard.erase_drawing()
+
     def start_sim(self, vectors):
         self.__drawBoard.start_sim(vectors)
 
@@ -123,7 +129,7 @@ class GuiFourierDrawBoard(QWidget):
 
     def start_sim(self, vectors):
         self.redone_d = []
-        vectors[:] = vectors[:] + 100
+        vectors[:] = vectors[:] + [100, 0]
         self.path = vectors
         self.__timer.start(33)
 
@@ -131,8 +137,14 @@ class GuiFourierDrawBoard(QWidget):
         self.__timer.stop()
 
     def update_sim(self, vectors):
-        vectors[:] = vectors[:] + 100
+        vectors[:] = vectors[:] + [100, 0]
         self.path = vectors
+        self.update()
+
+    def erase_drawing(self):
+        self.stop_sim()
+        self.path = []
+        self.redone_d = []
         self.update()
 
     def paintEvent(self, event):

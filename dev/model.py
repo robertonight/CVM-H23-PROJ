@@ -1,8 +1,8 @@
 import math
 from PySide6.QtCore import QObject, Signal, Slot
 import numpy as np
-from Model.vector_manager import VectorManager
-from Model.sketch import Sketch
+from vector_manager import VectorManager
+from sketch import Sketch
 from stack import FStack
 
 class Model(QObject):
@@ -18,12 +18,14 @@ class Model(QObject):
         self.nb_vecteurs: int = 201
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()
-        #self.tests_formes_sketch()
-        #self._vector_manager.start_sim()
 
     @Slot()
     def tick(self):
         self.sim_updated.emit(self._vector_manager.update())
+
+    @property
+    def stack(self):
+        return self.__stack
 
     def fft(self, coords_list):
         """
@@ -53,16 +55,6 @@ class Model(QObject):
                     vecteurs[index, :] = np.array([rayon, angle])
         return vecteurs
 
-    def tests_formes_sketch(self):  # set_carre
-        """
-        Avec cette methode, on teste les formes préfaites par la classe sketch
-        """
-        sketch = Sketch()
-        d = DrawingAnalyzer(sketch.dessinCarre, self.precision)
-        array = d.get_intermediary_points()
-        vectors = self.fft(array)
-        self._vector_manager.matrix_vect = vectors
-
     def start_animation(self, drawing):
         d = DrawingAnalyzer(drawing, self.precision)
         array = d.get_intermediary_points()
@@ -86,6 +78,7 @@ class Model(QObject):
     @Slot()
     def erase_drawing(self):
         self.__stack.clear()
+        self.drawing_deleted.emit()
 
 
 class DrawingAnalyzer:

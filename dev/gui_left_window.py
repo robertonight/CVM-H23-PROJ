@@ -34,6 +34,9 @@ class Left_window(QWidget):
         __mainLayout.addWidget(self.drawingBoard)
         self.setLayout(__mainLayout)
 
+    def erase_drawing(self):
+        self.drawingBoard.erase_drawing()
+
     @Slot()
     def undo(self, drawing):
         self.drawingBoard.undo(drawing)

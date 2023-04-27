@@ -84,6 +84,9 @@ class GuiCustomDrawing(QWidget):
         __mainLayout.addLayout(__lowLayout)
         self.setLayout(__mainLayout)
 
+    def erase_drawing(self):
+        self.drawing_canvas.erase()
+
     def undo(self, drawing):
         self.drawing_canvas.undo(drawing)
 
