@@ -14,7 +14,7 @@ class Model(QObject):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.precision: int = 2000
+        self.precision: int = 5000
         self.nb_vecteurs: int = 201
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()

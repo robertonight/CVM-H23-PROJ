@@ -1,6 +1,7 @@
+import math
 from copy import deepcopy
 
-from PySide6.QtCore import Qt, Signal, Slot, QTimer
+from PySide6.QtCore import Qt, Signal, Slot, QTimer, QPointF
 from PySide6.QtGui import QPainter, QColor, QPixmap, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
                                QPushButton, QSizePolicy, QLabel)
@@ -151,13 +152,7 @@ class GuiFourierDrawBoard(QWidget):
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor(255, 255, 255))
 
-        pen = QPen(Qt.black, 2, Qt.SolidLine)
-        painter.setPen(pen)
-
-        # dessin des vecteurs
         if len(self.path) > 0:
-            for i in range(1, len(self.path)):
-                painter.drawLine(self.path[i - 1, 0], self.path[i - 1, 1], self.path[i, 0], self.path[i, 1])
             # placer le dernier point dans le dessin
             self.redone_d.append(deepcopy(self.path[-1]))
             # recréer le dessin
@@ -170,6 +165,21 @@ class GuiFourierDrawBoard(QWidget):
                     x2 = self.redone_d[i][0]
                     y2 = self.redone_d[i][1]
                     painter.drawLine(x1, y1, x2, y2)
+
+
+            pen = QPen(Qt.black, 2, Qt.SolidLine)
+            pen2 = QPen(Qt.gray,1, Qt.SolidLine)
+
+
+            # dessin des vecteurs
+
+            for i in range(1, len(self.path)):
+                painter.setPen(pen2)
+                center = QPointF(self.path[i - 1, 0], self.path[i - 1, 1])
+                radius = math.sqrt((self.path[i, 0] - self.path[i - 1, 0]) ** 2 + (self.path[i, 1] - self.path[i-1, 1]) ** 2)
+                painter.drawEllipse(center, radius, radius)
+                painter.setPen(pen)
+                painter.drawLine(self.path[i - 1, 0], self.path[i - 1, 1], self.path[i, 0], self.path[i, 1])
 
 
 class GuiFourierDrawControls(QWidget):
