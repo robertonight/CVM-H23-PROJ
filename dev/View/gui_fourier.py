@@ -122,6 +122,7 @@ class GuiFourierDrawBoard(QWidget):
         self.__timer.timeout.connect(lambda: self.tick.emit())
 
     def start_sim(self, vectors):
+        self.redone_d = []
         vectors[:] = vectors[:] + 100
         self.path = vectors
         self.__timer.start(33)
