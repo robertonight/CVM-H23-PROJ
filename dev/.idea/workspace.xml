@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22db8c17-1262-4260-b5eb-000f5093d9b1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dev.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_fourier.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_fourier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stack.py" beforeDir="false" afterPath="$PROJECT_DIR$/stack.py" afterDir="false" />
     </list>
-    <list id="67c51761-e738-4096-be66-886871d05bbc" name="Changes by Patrice" comment="">
-      <change beforePath="$PROJECT_DIR$/View/gui_fourier.py" beforeDir="false" afterPath="$PROJECT_DIR$/View/gui_fourier.py" afterDir="false" />
+    <list id="44db2c6d-ad90-4bfa-9476-515785e5851d" name="Changes by 0676921" comment="">
+      <change beforePath="$PROJECT_DIR$/gui_left_apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_left_apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
     </list>
+    <list id="67c51761-e738-4096-be66-886871d05bbc" name="Changes by Patrice" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,11 +41,17 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Model/model.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/Model/sketch.py" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/View/gui_fourier.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/View/main.py" root0="SKIP_INSPECTION" />
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/model.py">
+      <ranges>
+        <range start1="7" end1="7" start2="7" end2="8" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="13" end1="15" start2="14" end2="15" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="66" end1="66" start2="66" end2="70" changelist="44db2c6d-ad90-4bfa-9476-515785e5851d" />
+        <range start1="74" end1="75" start2="78" end2="79" changelist="44db2c6d-ad90-4bfa-9476-515785e5851d" />
+        <range start1="76" end1="77" start2="80" end2="80" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+        <range start1="79" end1="81" start2="82" end2="85" changelist="22db8c17-1262-4260-b5eb-000f5093d9b1" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -48,14 +62,9 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\1847002\Desktop\ReposRobb\CVM-H23-PROJ\dev\model" />
@@ -72,12 +81,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/View" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/View/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -169,11 +177,5 @@
         <watch expression="self" />
       </configuration>
     </watches-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/dev$gui_custom_drawing.coverage" NAME="gui_custom_drawing Coverage Results" MODIFIED="1682099938329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$main.coverage" NAME="main Coverage Results" MODIFIED="1682552217845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$gui_main_window.coverage" NAME="main Coverage Results" MODIFIED="1682185562408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
-    <SUITE FILE_PATH="coverage/dev$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1682185765979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/View" />
   </component>
 </project>

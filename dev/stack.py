@@ -1,5 +1,6 @@
 from PySide6.QtCore import Qt, Signal, Slot, QTimer, QPointF
 
+
 class FStack:
     def __init__(self):
         self.__objects: list = []

@@ -73,6 +73,7 @@ class GuiCustomDrawing(QWidget):
         self.__eraseBtn.setFixedSize(20, 20)
         self.__undoBtn = QPushButton("undo")
         self.__undoBtn.clicked.connect(lambda: self.undo_pushed.emit())
+        self.__undoBtn.clicked.connect(self.drawing_canvas.undo)
         self.__saveBtn = QPushButton("save")
 
         # Insertion des boutons dans les layouts
@@ -105,7 +106,12 @@ class DrawingWidget(QWidget):
         self.setFixedHeight(600)
         self.setFixedWidth(420)
 
-    def undo(self, drawing):
+    def undo(self):
+        if len(self.path) > 0:
+            self.path.pop(-1)
+        self.update()
+
+    def undo1(self, drawing):
         self.path = drawing
         self.update()
 
@@ -131,7 +137,9 @@ class DrawingWidget(QWidget):
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.is_drawing = False
+            self.path[-1].append(self.path[0][0])
             self.line_ended.emit(self.path[-1])
+            self.path[-1].pop(len(self.path[-1]) - 1)
 
     def paintEvent(self, event):
         painter = QPainter(self)

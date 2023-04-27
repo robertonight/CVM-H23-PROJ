@@ -6,7 +6,6 @@ from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QToolButton, QScrollBar
                                QPushButton, QSizePolicy, QLabel)
 
 
-
 class GuiFourierMain(QWidget):
     """
     JAUNE
@@ -45,9 +44,10 @@ class GuiFourierMain(QWidget):
     def erase_drawing(self):
         self.__fourier_draw.erase_drawing()
 
+
 class GuiFourierVectors(QWidget):
     """
-    VERT
+    TURQUOISE
     Vecteurs sur le haut de l'animation qui font le dessin, mais séparés.
     """
 

@@ -5,14 +5,14 @@ from vector_manager import VectorManager
 from sketch import Sketch
 from stack import FStack
 
+
 class Model(QObject):
     sim_updated = Signal(np.ndarray)
     sim_started = Signal(np.ndarray)
     line_removed = Signal(list)
     drawing_deleted = Signal()
 
-
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super().__init__(parent)
         self.precision: int = 2000
         self.nb_vecteurs: int = 201
@@ -64,6 +64,10 @@ class Model(QObject):
 
     @Slot()
     def receive_line(self, line):
+        if len(self.__stack) > 0:
+            last_line = self.__stack.pop()
+            last_line.pop(-1)
+            self.__stack.push(last_line)
         self.__stack.push(line)
         self.start_animation(self.__stack)
 
@@ -72,13 +76,13 @@ class Model(QObject):
         if len(self.__stack) > 0:
             self.__stack.pop()
             self.start_animation(self.__stack)
-            self.line_removed.emit(self.__stack.objects)
-
+            # self.line_removed.emit(self.__stack.objects)
 
     @Slot()
     def erase_drawing(self):
-        self.__stack.clear()
-        self.drawing_deleted.emit()
+        if not self.__stack.is_empty():
+            self.__stack.clear()
+            self.drawing_deleted.emit()
 
 
 class DrawingAnalyzer:

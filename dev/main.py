@@ -11,6 +11,7 @@ class QFApp(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.__model = None
         self.setWindowTitle("C'est fou. Riez!")
         self.resize(1250, 900)
         self.__fourier_main = None
@@ -52,6 +53,7 @@ class QFApp(QMainWindow):
     def erase_drawing(self):
         self.__leftWindow.erase_drawing()
         self.__fourier_main.erase_drawing()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
