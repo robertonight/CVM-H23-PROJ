@@ -65,9 +65,11 @@ class GuiFourierVectors(QWidget):
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor("turquoise"))
-        pen = QPen(Qt.black, 2, Qt.SolidLine)
-        painter.setPen(pen)
-        painter.drawPoint(PySide6.QtCore.QPointF(50, 50))
+
+        painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
+        painter.drawPoint(PySide6.QtCore.QPointF(self.height() / 2, self.height() / 2))
+        a = self.height() / 2
+        painter.drawEllipse(QPointF(65, 65), a, a)
 
 
 class GuiFourierDraw(QWidget):
@@ -117,14 +119,14 @@ class GuiFourierDrawBoard(QWidget):
         super().__init__(parent)
         self.__timer = None
         self.is_drawing = None
-        self.redone_d = None
+        self.path_result = None
         self.path = None
         self.init_gui()
 
     def init_gui(self):
         __mainLayout = QVBoxLayout()
         self.path = []
-        self.redone_d = []
+        self.path_result = []
 
         self.is_drawing = False
 
@@ -134,7 +136,7 @@ class GuiFourierDrawBoard(QWidget):
         self.__timer.timeout.connect(lambda: self.tick.emit())
 
     def start_sim(self, vectors):
-        self.redone_d = []
+        self.path_result = []
         vectors[:] = vectors[:] + [100, 0]
         self.path = vectors
         self.__timer.start(33)
@@ -150,41 +152,38 @@ class GuiFourierDrawBoard(QWidget):
     def erase_drawing(self):
         self.stop_sim()
         self.path = []
-        self.redone_d = []
+        self.path_result = []
         self.update()
 
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor(255, 255, 255))
+        if len(self.path) <= 0:
+            return
 
-        if len(self.path) > 0:
-            # placer le dernier point dans le dessin
-            self.redone_d.append(deepcopy(self.path[-1]))
-            # recréer le dessin
-            pen = QPen(QColor(0, 255, 255), 3, Qt.SolidLine)
-            painter.setPen(pen)
-            if len(self.redone_d) > 1:
-                for i in range(1, len(self.redone_d)):
-                    x1 = self.redone_d[i - 1][0]
-                    y1 = self.redone_d[i - 1][1]
-                    x2 = self.redone_d[i][0]
-                    y2 = self.redone_d[i][1]
-                    painter.drawLine(x1, y1, x2, y2)
+        # placer le dernier point dans le dessin
+        self.path_result.append(deepcopy(self.path[-1]))
 
+        # recréer le dessin
+        painter.setPen(QPen(Qt.blue, 3, Qt.SolidLine))
+        if len(self.path_result) > 1:
+            for i in range(1, len(self.path_result)):
+                x1, y1 = self.path_result[i - 1][0], self.path_result[i - 1][1]
+                x2, y2 = self.path_result[i][0], self.path_result[i][1]
+                painter.drawLine(x1, y1, x2, y2)
 
-            pen = QPen(Qt.black, 2, Qt.SolidLine)
-            pen2 = QPen(Qt.gray,1, Qt.SolidLine)
+        # dessin des vecteurs
+        for i in range(1, len(self.path)):
+            # vecteurs
+            painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
+            painter.drawLine(self.path[i - 1, 0], self.path[i - 1, 1], self.path[i, 0], self.path[i, 1])
 
-
-            # dessin des vecteurs
-
-            for i in range(1, len(self.path)):
-                painter.setPen(pen2)
-                center = QPointF(self.path[i - 1, 0], self.path[i - 1, 1])
-                radius = math.sqrt((self.path[i, 0] - self.path[i - 1, 0]) ** 2 + (self.path[i, 1] - self.path[i-1, 1]) ** 2)
-                painter.drawEllipse(center, radius, radius)
-                painter.setPen(pen)
-                painter.drawLine(self.path[i - 1, 0], self.path[i - 1, 1], self.path[i, 0], self.path[i, 1])
+            # cercle autour vecteurs
+            painter.setPen(QPen(Qt.gray, 1, Qt.SolidLine))
+            center = QPointF(self.path[i - 1, 0], self.path[i - 1, 1])
+            radius = math.sqrt(
+                (self.path[i, 0] - self.path[i - 1, 0]) ** 2 + (self.path[i, 1] - self.path[i - 1, 1]) ** 2)
+            painter.drawEllipse(center, radius, radius)
 
 
 class GuiFourierDrawControls(QWidget):
@@ -215,10 +214,19 @@ class GuiFourierDrawControls(QWidget):
         __bottomLayout.addLayout(self.__formNbVectors)
         __bottomLayout.addWidget(self.__infoBtnNbVectors)
 
+        # events boutons
+        self.__btnPlayPause.clicked.connect(lambda: self.clique_btn_play())
+
         # Insertion des sous-layout dans le main layout
         __mainLayout.addLayout(__topLayout)
         __mainLayout.addLayout(__bottomLayout)
         self.setLayout(__mainLayout)
+
+    def clique_btn_play(self):
+        if self.__btnPlayPause.text() == "Play":
+            self.__btnPlayPause.setText("Pause")
+            return
+        self.__btnPlayPause.setText("Play")
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -243,6 +251,10 @@ class GuiFourierDrawIntervals(QWidget):
         __mainLayout.addWidget(self.__intervalScroll)
         self.setFixedWidth(60)
         self.setLayout(__mainLayout)
+
+        # progress
+        self.__intervalScroll.setRange(0, 100)
+        self.__intervalScroll.setValue(100)
 
     def paintEvent(self, event):
         painter = QPainter(self)

@@ -1,6 +1,6 @@
 import sqlite3
 
-BD = "bd_synonymes"
+BD = "fourier_db"
 
 FK_ON = 'PRAGMA foreign_keys = 1'
 FK_OFF = 'PRAGMA foreign_keys = 0'

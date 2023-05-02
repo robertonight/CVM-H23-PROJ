@@ -20,7 +20,9 @@ class Model(QObject):
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()
         self.__DAO = DAO()
+        self.__DAO.connecter()
         self.__DAO.creer_tables()
+        self.__DAO.deconnecter()
 
     @Slot()
     def tick(self):
