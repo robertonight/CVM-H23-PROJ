@@ -3,7 +3,7 @@
 from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtGui import QPainter, QColor, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QWidget, QHBoxLayout, QPushButton,
-                               QSizePolicy)
+                               QSizePolicy, QInputDialog)
 
 
 class GuiNavMenu(QWidget):
@@ -56,7 +56,7 @@ class GuiCustomDrawing(QWidget):
     line_ended = Signal(list)
     undo_pushed = Signal()
     erase_pushed = Signal()
-    save_pushed = Signal()
+    drawing_saved = Signal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -76,7 +76,7 @@ class GuiCustomDrawing(QWidget):
         self.__undoBtn.clicked.connect(lambda: self.undo_pushed.emit())
         self.__undoBtn.clicked.connect(self.drawing_canvas.undo)
         self.__saveBtn = QPushButton("save")
-        self.__saveBtn.clicked.connect(lambda: self.save_pushed.emit())
+        self.__saveBtn.clicked.connect(self.save_drawing)
 
         # Insertion des boutons dans les layouts
         __highLayout.addWidget(self.__eraseBtn)
@@ -92,6 +92,12 @@ class GuiCustomDrawing(QWidget):
 
     def undo(self, drawing):
         self.drawing_canvas.undo(drawing)
+
+    def save_drawing(self):
+        drawing_name, ok = QInputDialog.getText(self, 'Sauvegarde', 'Entrez un titre pour votre dessin')
+        if ok:
+            self.drawing_saved.emit(drawing_name)
+
 
     def paintEvent(self, event):
         painter = QPainter(self)
