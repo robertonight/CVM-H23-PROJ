@@ -9,7 +9,7 @@ class Left_window(QWidget):
     line_ended = Signal(list)
     undo_pushed = Signal()
     erase_pushed = Signal()
-    save_pushed = Signal()
+    drawing_saved = Signal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -29,7 +29,7 @@ class Left_window(QWidget):
         self.drawingBoard.line_ended.connect(self.line_ended.emit)
         self.drawingBoard.undo_pushed.connect(lambda: self.undo_pushed.emit())
         self.drawingBoard.erase_pushed.connect(lambda: self.erase_pushed.emit())
-        self.drawingBoard.save_pushed.connect(lambda: self.save_pushed.emit())
+        self.drawingBoard.drawing_saved.connect(self.drawing_saved.emit)
         menu.setContentsMargins(0, 0, 0, 0)
         # ajout
         __mainLayout.addWidget(menu)

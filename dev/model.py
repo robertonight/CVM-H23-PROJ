@@ -90,7 +90,21 @@ class Model(QObject):
             self.drawing_deleted.emit()
 
     @Slot()
-    def save_drawing(self):
+    def save_drawing(self, drawing_name):
+        drawing = self.__stack.objects
+        drawing_data = ''
+        for line in drawing:
+            for point in line:
+                drawing_data += str(point.x()) + ',' + str(point.y()) + ';'
+        self.__DAO.connecter()
+        self.__DAO.insert_dessins(drawing_name, drawing_data)
+        self.__DAO.deconnecter()
+
+    @Slot()
+    def get_all_drawings(self):
+        pass
+
+    def get_drawing(self):
         pass
 
 

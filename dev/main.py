@@ -31,7 +31,7 @@ class QFApp(QMainWindow):
         self.__model.line_removed.connect(self.__leftWindow.undo)
         self.__leftWindow.erase_pushed.connect(self.__model.erase_drawing)
         self.__model.drawing_deleted.connect(self.erase_drawing)
-        self.__leftWindow.save_pushed.connect(self.__model.save_drawing)
+        self.__leftWindow.drawing_saved.connect(self.__model.save_drawing)
         # ajout
         layoutContainer.addWidget(self.__leftWindow)
         centralWidget.setLayout(layoutContainer)
