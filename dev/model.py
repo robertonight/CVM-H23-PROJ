@@ -4,6 +4,7 @@ import numpy as np
 from vector_manager import VectorManager
 from sketch import Sketch
 from stack import FStack
+from dao import DAO
 
 
 class Model(QObject):
@@ -18,6 +19,8 @@ class Model(QObject):
         self.nb_vecteurs: int = 201
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()
+        self.__DAO = DAO()
+        self.__DAO.creer_tables()
 
     @Slot()
     def tick(self):
@@ -83,6 +86,10 @@ class Model(QObject):
         if not self.__stack.is_empty():
             self.__stack.clear()
             self.drawing_deleted.emit()
+
+    @Slot()
+    def save_drawing(self):
+        pass
 
 
 class DrawingAnalyzer:

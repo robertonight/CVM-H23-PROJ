@@ -56,6 +56,7 @@ class GuiCustomDrawing(QWidget):
     line_ended = Signal(list)
     undo_pushed = Signal()
     erase_pushed = Signal()
+    save_pushed = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -75,6 +76,7 @@ class GuiCustomDrawing(QWidget):
         self.__undoBtn.clicked.connect(lambda: self.undo_pushed.emit())
         self.__undoBtn.clicked.connect(self.drawing_canvas.undo)
         self.__saveBtn = QPushButton("save")
+        self.__saveBtn.clicked.connect(lambda: self.save_pushed.emit())
 
         # Insertion des boutons dans les layouts
         __highLayout.addWidget(self.__eraseBtn)
