@@ -15,7 +15,7 @@ class Model(QObject):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.precision: int = 5000
+        self.precision: int = 250
         self.nb_vecteurs: int = 201
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()
@@ -32,6 +32,9 @@ class Model(QObject):
     def stack(self):
         return self.__stack
 
+    def test_carre(self):
+        d = DrawingAnalyzer(Sketch)
+
     def fft(self, coords_list):
         """
         Fast Fourier Transform
@@ -47,7 +50,7 @@ class Model(QObject):
                 n = i * j  # n du Cn --> multiplication pour inverser -+
                 somme = 0
                 for p in range(self.precision):  # calcul de l'intervale pour un cn
-                    t = p / (self.precision - 1)  # step
+                    t = p/self.precision  # step
                     a, b = coords_list[p][0], coords_list[p][1]
                     ex_cmplx = np.exp((-2 * np.pi) * 1j * n * t)
                     fnc_de_t = (a + b * 1j)  # a + bi
@@ -162,13 +165,10 @@ class DrawingAnalyzer:
         self.__drawing_info[idx, :] = [point2.x(), point2.y(), longueur, self.__longueure_dessin, 0]
 
     def get_intermediary_points(self) -> np.ndarray:  # basically get les t
-        # (0, 0.25, 0.5, 0.75, 1)
-        # (0, 0.2, 0.4, 0.6, 0.8, 1)
-        step: float = 1 / (self.__precision - 1)
-        for i in range(self.__precision - 1):
+        step: float = 1 / self.__precision
+        for i in range(self.__precision):
             current_step = step * i
             self.__intermediary_points[i, :] = self.interpolate(current_step)  # trouve points
-        self.__intermediary_points[self.__precision - 1, :] = self.__drawing_info[-1, 0:2]
         return self.__intermediary_points
 
     def interpolate(self, step_ratio) -> np.ndarray:
