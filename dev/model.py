@@ -15,8 +15,8 @@ class Model(QObject):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.precision: int = 250
-        self.nb_vecteurs: int = 201
+        self.precision: int = 2001
+        self.nb_vecteurs: int = 1001
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()
         self.__DAO = DAO()
@@ -43,18 +43,23 @@ class Model(QObject):
         """
         vecteurs = np.zeros((self.nb_vecteurs, 2))
         index = 0
+        fncs_de_t = coords_list[:, 0] + coords_list[:, 1] * 1j
         for i in range(math.floor(self.nb_vecteurs / 2 + 1)):  # Boucle pour calculer chaque cn
             for j in range(-1, 2, 2):  # Boucle pour avoir les cn positifs et négatif de même chiffre
                 if i > 0:
                     index += 1
                 n = i * j  # n du Cn --> multiplication pour inverser -+
-                somme = 0
-                for p in range(self.precision):  # calcul de l'intervale pour un cn
-                    t = p/self.precision  # step
-                    a, b = coords_list[p][0], coords_list[p][1]
-                    ex_cmplx = np.exp((-2 * np.pi) * 1j * n * t)
-                    fnc_de_t = (a + b * 1j)  # a + bi
-                    somme += ex_cmplx * fnc_de_t
+                #somme = 0
+                ts = np.arange(self.precision * 1.0)
+                ts[:] = ts[:] / self.precision
+                exp_cmpx = np.exp((-2 * np.pi) * 1j * ts[:] * n)
+                somme = np.sum(fncs_de_t[:] * exp_cmpx[:])
+                #for p in range(self.precision):  # calcul de l'intervale pour un cn
+                    #t = p/self.precision  # step
+                    #a, b = coords_list[p, 0], coords_list[p, 1]
+                    #ex_cmplx = np.exp((-2 * np.pi) * 1j * n * t)
+                    #fnc_de_t = (a + b * 1j)  # a + bi
+                    #somme += ex_cmplx * fnc_de_t
                 coeff = somme / self.precision  # moyenne des f(t)*e^-2pitn pour former coeff
                 # transformation du cn de la forme cartésienne à la forme polaire
                 rayon = math.sqrt((np.imag(coeff) ** 2) + (np.real(coeff) ** 2))

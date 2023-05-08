@@ -165,7 +165,7 @@ class GuiFourierDrawBoard(QWidget):
         self.path_result.append(deepcopy(self.path[-1]))
 
         # recréer le dessin
-        painter.setPen(QPen(Qt.blue, 3, Qt.SolidLine))
+        painter.setPen(QPen(Qt.blue, 2, Qt.SolidLine))
         if len(self.path_result) > 1:
             for i in range(1, len(self.path_result)):
                 x1, y1 = self.path_result[i - 1][0], self.path_result[i - 1][1]
