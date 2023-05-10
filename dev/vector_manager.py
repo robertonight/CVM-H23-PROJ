@@ -55,18 +55,29 @@ class VectorManager:
         self._last_time = current_time  # dans le futur
         self._interval = math.fmod(
             (self._interval + elapsed_time / self.max_time), 1)  # modulo quand tourne + loin que cercle
-        index = 0
-        for i in range(int(len(self._matrix_vect) / 2 + 1)):
-            for j in range(-1, 2, 2):
-                if i > 0:
-                    index += 1
-                n = i * -j
-                rad_change = self._interval * 2 * math.pi
-                self._matrix_vect[index, 2] = math.fmod((self._matrix_vect[index, 1] + (rad_change * n)), (2 * math.pi))
-                reel = self._matrix_vect[index, 0] * math.cos(self._matrix_vect[index, 2])
-                imag = self._matrix_vect[index, 0] * math.sin(self._matrix_vect[index, 2])
-                self._matrix_vect[index, 3:] = np.array([reel, imag])
+        n_positifs = np.arange(1, self._matrix_vect[:, 0].size / 2)
+        n_negatifs = -1 * n_positifs
+        matrice_de_n = np.zeros(self._matrix_vect[:, 0].size, dtype=int)
+        matrice_de_n[1::2] = n_positifs
+        matrice_de_n[2::2] = n_negatifs
+        rad_change = self._interval * 2 * math.pi
+        self._matrix_vect[:, 2] = np.fmod((self._matrix_vect[:, 1] + (rad_change * matrice_de_n[:])), (2 * math.pi))
+        reel = self._matrix_vect[:, 0] * np.cos(self._matrix_vect[:, 2])
+        imag = self._matrix_vect[:, 0] * np.sin(self._matrix_vect[:, 2])
+        self._matrix_vect[:, 3] = reel[:]
+        self._matrix_vect[:, 4] = imag[:]
+#        index = 0
+#        for i in range(int(len(self._matrix_vect) / 2 + 1)):
+#            for j in range(-1, 2, 2):
+#                if i > 0:
+#                    index += 1
+#                n = i * -j
+#                rad_change = self._interval * 2 * math.pi
+#                self._matrix_vect[index, 2] = math.fmod((self._matrix_vect[index, 1] + (rad_change * n)), (2 * math.pi))
+#                reel = self._matrix_vect[index, 0] * math.cos(self._matrix_vect[index, 2])
+#                imag = self._matrix_vect[index, 0] * math.sin(self._matrix_vect[index, 2])
+#                self._matrix_vect[index, 3:] = np.array([reel, imag])
         for i in range(1, len(self._matrix_vect)):
             precedent = i - 1
             self._matrix_vect[i, 3:] = self._matrix_vect[i, 3:] + self._matrix_vect[precedent, 3:]
-        return self._matrix_vect[:, 3:]
+        return self._matrix_vect[:, 2:]

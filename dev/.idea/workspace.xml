@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dev.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sketch.py" beforeDir="false" afterPath="$PROJECT_DIR$/sketch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
     </list>
     <list id="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" name="Changes by 0676921" comment="">
+      <change beforePath="$PROJECT_DIR$/dao.py" beforeDir="false" afterPath="$PROJECT_DIR$/dao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_fourier.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_fourier.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sketch.py" beforeDir="false" afterPath="$PROJECT_DIR$/sketch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vector_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/vector_manager.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,10 +26,12 @@
     <setting file="file://$PROJECT_DIR$/dao.py" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/sketch.py">
+    <file path="$PROJECT_DIR$/model.py">
       <ranges>
-        <range start1="5" end1="6" start2="5" end2="7" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="7" end1="9" start2="8" end2="10" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="33" end1="36" start2="33" end2="33" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="44" end1="45" start2="41" end2="41" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="46" end1="68" start2="42" end2="59" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="69" end1="69" start2="60" end2="81" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
       </ranges>
     </file>
   </component>
@@ -46,7 +48,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CVM-H23-OBJCONN-STATE-MACHINE" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
@@ -104,7 +106,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>171</line>
+          <line>183</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

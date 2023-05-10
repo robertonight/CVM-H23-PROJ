@@ -32,9 +32,6 @@ class Model(QObject):
     def stack(self):
         return self.__stack
 
-    def test_carre(self):
-        d = DrawingAnalyzer(Sketch)
-
     def fft(self, coords_list):
         """
         Fast Fourier Transform
@@ -42,31 +39,46 @@ class Model(QObject):
         :return:
         """
         vecteurs = np.zeros((self.nb_vecteurs, 2))
-        index = 0
         fncs_de_t = coords_list[:, 0] + coords_list[:, 1] * 1j
-        for i in range(math.floor(self.nb_vecteurs / 2 + 1)):  # Boucle pour calculer chaque cn
-            for j in range(-1, 2, 2):  # Boucle pour avoir les cn positifs et négatif de même chiffre
-                if i > 0:
-                    index += 1
-                n = i * j  # n du Cn --> multiplication pour inverser -+
-                #somme = 0
-                ts = np.arange(self.precision * 1.0)
-                ts[:] = ts[:] / self.precision
-                exp_cmpx = np.exp((-2 * np.pi) * 1j * ts[:] * n)
-                somme = np.sum(fncs_de_t[:] * exp_cmpx[:])
-                #for p in range(self.precision):  # calcul de l'intervale pour un cn
-                    #t = p/self.precision  # step
-                    #a, b = coords_list[p, 0], coords_list[p, 1]
-                    #ex_cmplx = np.exp((-2 * np.pi) * 1j * n * t)
-                    #fnc_de_t = (a + b * 1j)  # a + bi
-                    #somme += ex_cmplx * fnc_de_t
-                coeff = somme / self.precision  # moyenne des f(t)*e^-2pitn pour former coeff
-                # transformation du cn de la forme cartésienne à la forme polaire
-                rayon = math.sqrt((np.imag(coeff) ** 2) + (np.real(coeff) ** 2))
-                angle = math.atan2(np.imag(coeff), np.real(coeff))
-                if i > 0 or j > 0:
-                    vecteurs[index, :] = np.array([rayon, angle])
+        n_positifs = np.arange(1, self.nb_vecteurs / 2)
+        n_negatifs = -1 * n_positifs
+        matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
+        matrice_de_n[1::2] = n_positifs
+        matrice_de_n[2::2] = n_negatifs
+        ts = np.arange(self.precision * 1.0)
+        ts[:] = ts[:] / self.precision
+        exp_cmpx = np.exp((-2 * np.pi) * 1j * np.outer(ts, matrice_de_n))
+        exp_cmpx = exp_cmpx.T
+        somme = np.sum(fncs_de_t[:] * exp_cmpx[:], axis=1)
+        somme = somme / self.precision
+        
+        rayon = np.sqrt((np.imag(somme[:]) ** 2) + (np.real(somme[:]) ** 2))
+        angle = np.arctan2(np.imag(somme[:]), np.real(somme[:]))
+        vecteurs[:, 0] = rayon[:]
+        vecteurs[:, 1] = angle[:]
+
         return vecteurs
+        # --------------------------------------------------------------------------------------------------------------
+        # index = 0
+        # for i in range(math.floor(self.nb_vecteurs / 2 + 1)):  # Boucle pour calculer chaque cn
+        #     for j in range(-1, 2, 2):  # Boucle pour avoir les cn positifs et négatif de même chiffre
+        #         if i > 0:
+        #             index += 1
+        #         n = i * j  # n du Cn --> multiplication pour inverser -+
+        #         somme = 0
+        #         for p in range(self.precision):  # calcul de l'intervale pour un cn
+        #           t = p/self.precision  # step
+        #           a, b = coords_list[p, 0], coords_list[p, 1]
+        #           ex_cmplx = np.exp((-2 * np.pi) * 1j * n * t)
+        #           fnc_de_t = (a + b * 1j)  # a + bi
+        #           somme += ex_cmplx * fnc_de_t
+        #         coeff = somme / self.precision  # moyenne des f(t)*e^-2pitn pour former coeff
+        #         # transformation du cn de la forme cartésienne à la forme polaire
+        #         rayon = math.sqrt((np.imag(coeff) ** 2) + (np.real(coeff) ** 2))
+        #         angle = math.atan2(np.imag(coeff), np.real(coeff))
+        #         if i > 0 or j > 0:
+        #             vecteurs[index, :] = np.array([rayon, angle])
+        # return vecteurs
 
     def start_animation(self, drawing):
         d = DrawingAnalyzer(drawing, self.precision)

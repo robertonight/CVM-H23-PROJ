@@ -23,11 +23,12 @@ CREATE_DESSINS = '''
 CREATE TABLE IF NOT EXISTS dessins (
     id INTEGER NOT NULL PRIMARY KEY,
     nom VARCHAR NOT NULL,
-    svg VARCHAR NOT NULL
+    svg VARCHAR NOT NULL,
+    date VARCHAR NOT NULL
 )
 '''
 DROP_DESSINS = 'DROP TABLE IF EXISTS dessins'
-INSERT_DESSINS = 'INSERT INTO dessins(nom,svg) VALUES(?,?)'
+INSERT_DESSINS = 'INSERT INTO dessins(nom,svg, date) VALUES(?,?)'
 SELECT_DESSINS = 'SELECT * FROM dessins'
 # ----------------------------------------------------------------------------------------------------------------------
 

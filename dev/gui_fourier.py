@@ -39,10 +39,12 @@ class GuiFourierMain(QWidget):
         painter.fillRect(self.rect(), QColor("yellow"))
 
     def update_sim(self, vectors):
-        self.__fourier_draw.update_sim(vectors)
+        self.__fourier_draw.update_sim(vectors[:, 1:])
+        self.__vectors.update_sim(vectors[:, 0])
 
     def start_sim(self, vectors):
-        self.__fourier_draw.start_sim(vectors)
+        self.__fourier_draw.start_sim(vectors[:, 1:])
+        self.__vectors.update_sim(vectors[:, 0])
 
     def erase_drawing(self):
         self.__fourier_draw.erase_drawing()
@@ -57,10 +59,15 @@ class GuiFourierVectors(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.init_gui()
+        self._angle_vectors = []
 
     def init_gui(self):
         self.setLayout(QVBoxLayout())
         self.setFixedHeight(130)
+
+    def update_sim(self, vectors):
+        self._angle_vectors = vectors
+        self.update()
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -70,6 +77,7 @@ class GuiFourierVectors(QWidget):
         painter.drawPoint(PySide6.QtCore.QPointF(self.height() / 2, self.height() / 2))
         a = self.height() / 2
         painter.drawEllipse(QPointF(65, 65), a, a)
+        #https://stackoverflow.com/questions/16662638/how-to-draw-a-line-at-angle-in-qt
 
 
 class GuiFourierDraw(QWidget):
