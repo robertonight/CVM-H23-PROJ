@@ -12,6 +12,7 @@ class Model(QObject):
     sim_started = Signal(np.ndarray)
     line_removed = Signal(list)
     drawing_deleted = Signal()
+    drawings_sent = Signal(list)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -19,6 +20,7 @@ class Model(QObject):
         self.nb_vecteurs: int = 1001
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()
+        self.__matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
         self.__DAO = DAO()
         self.__DAO.connecter()
         self.__DAO.creer_tables()
@@ -26,7 +28,10 @@ class Model(QObject):
 
     @Slot()
     def tick(self):
-        self.sim_updated.emit(self._vector_manager.update())
+        temp_matrice = np.zeros((self.nb_vecteurs, 4))
+        temp_matrice[:, 1:] = self._vector_manager.update()
+        temp_matrice[:, 0] = self.__matrice_de_n[:]
+        self.sim_updated.emit(temp_matrice)
 
     @property
     def stack(self):
@@ -42,12 +47,11 @@ class Model(QObject):
         fncs_de_t = coords_list[:, 0] + coords_list[:, 1] * 1j
         n_positifs = np.arange(1, self.nb_vecteurs / 2)
         n_negatifs = -1 * n_positifs
-        matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
-        matrice_de_n[1::2] = n_positifs
-        matrice_de_n[2::2] = n_negatifs
+        self.__matrice_de_n[1::2] = n_positifs
+        self.__matrice_de_n[2::2] = n_negatifs
         ts = np.arange(self.precision * 1.0)
         ts[:] = ts[:] / self.precision
-        exp_cmpx = np.exp((-2 * np.pi) * 1j * np.outer(ts, matrice_de_n))
+        exp_cmpx = np.exp((-2 * np.pi) * 1j * np.outer(ts, self.__matrice_de_n))
         exp_cmpx = exp_cmpx.T
         somme = np.sum(fncs_de_t[:] * exp_cmpx[:], axis=1)
         somme = somme / self.precision
@@ -85,7 +89,13 @@ class Model(QObject):
         array = d.get_intermediary_points()
         vectors = self.fft(array)
         self._vector_manager.matrix_vect = vectors
-        self.sim_started.emit(self._vector_manager.start_sim())
+        temp_matrice = np.zeros((self.nb_vecteurs, 4))
+        temp_matrice[:, 1:] = self._vector_manager.start_sim()
+        temp_matrice[:, 0] = self.__matrice_de_n[:]
+        self.sim_started.emit(temp_matrice)
+
+    def stop_sim(self):
+        self.__stack.clear()
 
     @Slot()
     def receive_line(self, line):
@@ -116,13 +126,25 @@ class Model(QObject):
         for line in drawing:
             for point in line:
                 drawing_data += str(point.x()) + ',' + str(point.y()) + ';'
+            drawing_data += ':'
         self.__DAO.connecter()
         self.__DAO.insert_dessins(drawing_name, drawing_data)
         self.__DAO.deconnecter()
 
     @Slot()
     def get_all_drawings(self):
-        pass
+        """
+        les colonnes dans dessins_db sont:
+        0: le id du dessin dans la database(inutile)
+        1: le nom du dessin
+        2: les points du dessin en forme de string. Il est reconverti dans une autre fonction
+        3: la date où le dessin à été enregistrée
+        :return:
+        """
+        self.__DAO.connecter()
+        dessins_db = self.__DAO.select_dessins()
+        self.__DAO.deconnecter()
+        self.drawings_sent.emit(dessins_db)
 
     def get_drawing(self):
         pass

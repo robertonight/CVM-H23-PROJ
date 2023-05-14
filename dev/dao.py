@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 BD = "fourier_db"
 
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS dessins (
 )
 '''
 DROP_DESSINS = 'DROP TABLE IF EXISTS dessins'
-INSERT_DESSINS = 'INSERT INTO dessins(nom,svg, date) VALUES(?,?)'
+INSERT_DESSINS = 'INSERT INTO dessins(nom,svg, date) VALUES(?,?, ?)'
 SELECT_DESSINS = 'SELECT * FROM dessins'
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -108,7 +109,7 @@ class DAO:
         self.connexion.commit()
 
     def insert_dessins(self, nom, svg):
-        self.curseur.execute(INSERT_DESSINS, (nom, svg))
+        self.curseur.execute(INSERT_DESSINS, (nom, svg, datetime.now()))
         self.connexion.commit()
 
     def insert_preferences(self, user, background_color, arrows_color, circles_color, drawing_color):

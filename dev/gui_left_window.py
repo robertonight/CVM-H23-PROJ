@@ -10,6 +10,7 @@ class Left_window(QWidget):
     undo_pushed = Signal()
     erase_pushed = Signal()
     drawing_saved = Signal(str)
+    cliked_feed = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -25,6 +26,7 @@ class Left_window(QWidget):
         # declarations
         __mainLayout = QVBoxLayout()
         menu = GuiNavMenu()
+        menu.clicked_feed.connect(self.cliked_feed)
         self.drawingBoard = GuiCustomDrawing()
         self.drawingBoard.line_ended.connect(self.line_ended.emit)
         self.drawingBoard.undo_pushed.connect(lambda: self.undo_pushed.emit())

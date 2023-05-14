@@ -7,6 +7,9 @@ from PySide6.QtWidgets import (QVBoxLayout, QWidget, QHBoxLayout, QPushButton,
 
 
 class GuiNavMenu(QWidget):
+
+    clicked_feed = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         # Déclaration du layout et des boutons
@@ -28,6 +31,7 @@ class GuiNavMenu(QWidget):
         self.__btnFeed = QPushButton("Fil")
         self.__btnFeed.setFixedWidth(taille)
         self.__btnFeed.setFixedHeight(tailleHeight)
+        self.__btnFeed.clicked.connect(self.clicked_feed)
 
         self.__btnConnectProf = QPushButton("Connexion")
         self.__btnConnectProf.setFixedWidth(taille)
