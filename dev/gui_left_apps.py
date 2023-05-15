@@ -41,7 +41,7 @@ class GuiNavMenu(QWidget):
         self.__btnQuit.setFixedWidth(taille)
         self.__btnQuit.setFixedHeight(tailleHeight)
 
-        # Insertion des boutons dans le layout`
+        # Insertion des boutons dans le layout
         mainLayout.setContentsMargins(0, 0, 0, 0)
         mainLayout.addWidget(self.__btnDraw)
         mainLayout.addWidget(self.__btnGallery)
@@ -74,19 +74,27 @@ class GuiCustomDrawing(QWidget):
         self.drawing_canvas.line_ended.connect(self.line_ended)
 
         self.__eraseBtn = QPushButton("X")
-        self.__eraseBtn.clicked.connect(lambda: self.erase_pushed.emit())
+        self.__eraseBtn.clicked.connect(self.erase_pushed.emit)
         self.__eraseBtn.setFixedSize(20, 20)
+        layout_eraseBtn = QHBoxLayout()
+        layout_eraseBtn.addStretch()
+        layout_eraseBtn.addWidget(self.__eraseBtn)
+
         self.__undoBtn = QPushButton("undo")
-        self.__undoBtn.clicked.connect(lambda: self.undo_pushed.emit())
+        self.__undoBtn.clicked.connect(self.undo_pushed.emit)
         self.__undoBtn.clicked.connect(self.drawing_canvas.undo)
+
         self.__saveBtn = QPushButton("save")
         self.__saveBtn.clicked.connect(self.save_drawing)
 
         # Insertion des boutons dans les layouts
-        __highLayout.addWidget(self.__eraseBtn)
+        __highLayout.addLayout(layout_eraseBtn)
+
         __highLayout.addWidget(self.drawing_canvas)
+
         __lowLayout.addWidget(self.__undoBtn)
         __lowLayout.addWidget(self.__saveBtn)
+
         __mainLayout.addLayout(__highLayout)
         __mainLayout.addLayout(__lowLayout)
         self.setLayout(__mainLayout)
@@ -115,15 +123,11 @@ class DrawingWidget(QWidget):
         self.path = []
         self.is_drawing = False
         self.setFixedHeight(600)
-        self.setFixedWidth(420)
+        self.setFixedWidth(700)
 
     def undo(self):
         if len(self.path) > 0:
             self.path.pop(-1)
-        self.update()
-
-    def undo1(self, drawing):
-        self.path = drawing
         self.update()
 
     def erase(self):

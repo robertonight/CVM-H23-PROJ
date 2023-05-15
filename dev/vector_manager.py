@@ -14,6 +14,22 @@ class VectorManager:
     def matrix_vect(self):
         return self._matrix_vect
 
+    @property
+    def interval(self):
+        return self._interval
+
+    @interval.setter
+    def interval(self, interval: int):
+        self._interval = interval
+
+    @property
+    def last_time(self):
+        return self._last_time
+
+    @last_time.setter
+    def last_time(self, time):
+        self._last_time = time
+
     @matrix_vect.setter
     def matrix_vect(self, matrix_coefficients: np.ndarray):  # c'était new matrix avant btw
         temp_matrix = np.zeros((matrix_coefficients[:, 0].size, 5))  # je trouvais que c'était plus clair que len

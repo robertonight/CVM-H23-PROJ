@@ -5,13 +5,14 @@ from vector_manager import VectorManager
 from sketch import Sketch
 from stack import FStack
 from dao import DAO
+from time import perf_counter
 
 
 class Model(QObject):
-    sim_updated = Signal(np.ndarray)
-    sim_started = Signal(np.ndarray)
-    line_removed = Signal(list)
+    sim_updated = Signal(np.ndarray, float)
+    sim_started = Signal(np.ndarray, float)
     drawing_deleted = Signal()
+    new_animation_started = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -22,7 +23,6 @@ class Model(QObject):
         self.__matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
         self.__DAO = DAO()
         self.__DAO.connecter()
-        self.__DAO.reset_tables()
         self.__DAO.creer_tables()
         self.__DAO.deconnecter()
 
@@ -31,7 +31,7 @@ class Model(QObject):
         temp_matrice = np.zeros((self.nb_vecteurs, 4))
         temp_matrice[:, 1:] = self._vector_manager.update()
         temp_matrice[:, 0] = self.__matrice_de_n[:]
-        self.sim_updated.emit(temp_matrice)
+        self.sim_updated.emit(temp_matrice, self._vector_manager.interval)
 
     @property
     def stack(self):
@@ -84,18 +84,38 @@ class Model(QObject):
         #             vecteurs[index, :] = np.array([rayon, angle])
         # return vecteurs
 
-    def start_animation(self, drawing):
+    def start_new_animation(self, drawing):
         d = DrawingAnalyzer(drawing, self.precision)
         array = d.get_intermediary_points()
         vectors = self.fft(array)
         self._vector_manager.matrix_vect = vectors
+        self._vector_manager.interval = 0
+        self.new_animation_started.emit()
+        self.start_sim()
+
+    @Slot()
+    def stop_sim(self):
+        self.__stack.clear()
+        self._vector_manager.interval = 0
+
+    @Slot()
+    def start_sim(self):
         temp_matrice = np.zeros((self.nb_vecteurs, 4))
         temp_matrice[:, 1:] = self._vector_manager.start_sim()
         temp_matrice[:, 0] = self.__matrice_de_n[:]
-        self.sim_started.emit(temp_matrice)
+        self.sim_started.emit(temp_matrice, self._vector_manager.interval)
 
-    def stop_sim(self):
-        self.__stack.clear()
+    @Slot()
+    def previous_interval(self):
+        self._vector_manager.interval += -0.01
+        self._vector_manager.last_time = perf_counter()
+        self.tick()
+
+    @Slot()
+    def next_interval(self):
+        self._vector_manager.interval += 0.01
+        self._vector_manager.last_time = perf_counter()
+        self.tick()
 
     @Slot()
     def receive_line(self, line):
@@ -104,14 +124,14 @@ class Model(QObject):
             last_line.pop(-1)
             self.__stack.push(last_line)
         self.__stack.push(line)
-        self.start_animation(self.__stack)
+        self.start_new_animation(self.__stack)
 
     @Slot()
     def undo_line(self):
         if len(self.__stack) > 0:
-            self.__stack.pop()
-            self.start_animation(self.__stack)
-            # self.line_removed.emit(self.__stack.objects)
+            last_line = self.__stack.pop()
+            self.__stack.push([last_line.pop(-1)])
+            self.start_new_animation(self.__stack)
 
     @Slot()
     def erase_drawing(self):

@@ -5,16 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dev.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fourier_db" beforeDir="false" afterPath="$PROJECT_DIR$/fourier_db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui_fourier.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_fourier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_left_apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_left_apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_left_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_left_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" name="Changes by 0676921" comment="">
-      <change beforePath="$PROJECT_DIR$/dao.py" beforeDir="false" afterPath="$PROJECT_DIR$/dao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui_feed.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_feed.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui_fourier.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_fourier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_left_apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_left_apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_left_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_left_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vector_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/vector_manager.py" afterDir="false" />
     </list>
     <list id="5c3d0a74-d8c0-42a5-875d-832d5480a7c5" name="Changes by Patrice" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,18 +31,81 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/dao.py" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/main.py">
+      <ranges>
+        <range start1="9" end1="9" start2="9" end2="10" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="23" end1="25" start2="24" end2="24" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="26" end1="27" start2="25" end2="25" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="28" end1="36" start2="26" end2="26" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="62" end1="63" start2="52" end2="52" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="72" end1="72" start2="61" end2="68" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="76" end1="76" start2="72" end2="73" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+      </ranges>
+    </file>
     <file path="$PROJECT_DIR$/gui_fourier.py">
       <ranges>
-        <range start1="43" end1="44" start2="43" end2="44" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="47" end1="48" start2="47" end2="48" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="66" end1="67" start2="66" end2="66" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="81" end1="84" start2="80" end2="85" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="85" end1="87" start2="86" end2="91" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="88" end1="95" start2="92" end2="93" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="19" end1="19" start2="19" end2="23" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="36" end1="36" start2="40" end2="45" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="41" end1="43" start2="50" end2="53" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="45" end1="47" start2="55" end2="58" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="49" end1="49" start2="60" end2="61" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="51" end1="51" start2="63" end2="67" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="81" end1="82" start2="97" end2="98" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="109" end1="109" start2="125" end2="130" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="118" end1="120" start2="139" end2="142" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="121" end1="121" start2="143" end2="147" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="122" end1="123" start2="148" end2="149" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="130" end1="130" start2="156" end2="157" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="132" end1="134" start2="159" end2="161" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="135" end1="136" start2="162" end2="168" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="137" end1="137" start2="169" end2="170" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="140" end1="140" start2="173" end2="189" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="163" end1="163" start2="212" end2="216" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="165" end1="166" start2="218" end2="218" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="171" end1="172" start2="223" end2="224" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="173" end1="177" start2="225" end2="226" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="183" end1="184" start2="232" end2="232" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="188" end1="189" start2="236" end2="236" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="228" end1="228" start2="275" end2="280" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="253" end1="254" start2="305" end2="308" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="263" end1="263" start2="317" end2="318" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="265" end1="265" start2="320" end2="321" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="275" end1="275" start2="331" end2="333" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="293" end1="293" start2="351" end2="355" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/gui_left_apps.py">
+      <ranges>
+        <range start1="43" end1="44" start2="43" end2="44" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="76" end1="77" start2="76" end2="77" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="78" end1="78" start2="78" end2="82" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="79" end1="80" start2="83" end2="84" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="81" end1="81" start2="85" end2="86" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="85" end1="86" start2="90" end2="92" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="87" end1="87" start2="93" end2="94" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="89" end1="89" start2="96" end2="97" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="117" end1="118" start2="125" end2="126" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="123" end1="127" start2="131" end2="131" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/gui_left_window.py">
+      <ranges>
+        <range start1="16" end1="21" start2="16" end2="16" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="22" end1="23" start2="17" end2="17" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="43" end1="44" start2="37" end2="37" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="49" end1="50" start2="42" end2="43" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
       </ranges>
     </file>
   </component>
@@ -49,15 +118,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/Roberto/Desktop/Repostories/C62_GALLANT_NIGHTINGALE",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CVM-H23-OBJCONN-STATE-MACHINE" />
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dev" />
@@ -113,13 +179,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>204</line>
+          <line>230</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gui_fourier.py</url>
-          <line>73</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

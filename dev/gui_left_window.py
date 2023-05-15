@@ -14,13 +14,7 @@ class Left_window(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-
-        self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Minimum)
-        self.setMinimumWidth(480)
-
-        self.setMinimumHeight(680)
         self.init_gui()
-        self.setStyleSheet("padding-left: 0px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;")
 
     def init_gui(self):
         # declarations
@@ -41,10 +35,9 @@ class Left_window(QWidget):
     def erase_drawing(self):
         self.drawingBoard.erase_drawing()
 
-    @Slot()
     def undo(self, drawing):
         self.drawingBoard.undo(drawing)
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(163, 13, 149))
+        painter.fillRect(self.rect(), QColor("orange"))

@@ -17,6 +17,9 @@ class GuiFourierMain(QWidget):
     """
 
     tick = Signal()
+    play_pressed = Signal()
+    previous_pressed = Signal()
+    next_pressed = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -34,21 +37,32 @@ class GuiFourierMain(QWidget):
         __mainLayout.addWidget(self.__fourier_draw)
         self.setLayout(__mainLayout)
         self.__fourier_draw.tick.connect(self.tick.emit)
+        self.__fourier_draw.play_pressed.connect(self.play_pressed)
+        self.__fourier_draw.pause_pressed.connect(self.stop_sim)
+        self.__fourier_draw.previous_pressed.connect(self.previous_pressed)
+        self.__fourier_draw.next_pressed.connect(self.next_pressed)
 
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor("yellow"))
 
-    def update_sim(self, vectors):
-        self.__fourier_draw.update_sim(vectors[:, 2:])
+    @Slot()
+    def update_sim(self, vectors, interval):
+        self.__fourier_draw.update_sim(vectors[:, 2:], interval)
         self.__vectors.update_sim(vectors[:, 0:2])
 
-    def start_sim(self, vectors):
-        self.__fourier_draw.start_sim(vectors[:, 2:])
+    @Slot()
+    def start_sim(self, vectors, interval):
+        self.__fourier_draw.start_sim(vectors[:, 2:], interval)
         self.__vectors.update_sim(vectors[:, 0:2])
 
+    @Slot()
     def stop_sim(self):
         self.__fourier_draw.stop_sim()
+
+    @Slot()
+    def reset_drawing(self):
+        self.__fourier_draw.erase_drawing()
 
     def erase_drawing(self):
         self.__fourier_draw.erase_drawing()
@@ -79,7 +93,7 @@ class GuiFourierVectors(QWidget):
         painter.fillRect(self.rect(), QColor("turquoise"))
         painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
         if self._angle_vectors.size != 0:
-            for i in range(self._angle_vectors[:,0].size):
+            for i in range(self._angle_vectors[:, 0].size):
                 painter.drawPoint(QPointF(self.height() / 2 + (i * self.height()), self.height() / 2))
                 painter.drawEllipse(QPointF(self.height() / 2 + (i * self.height()), self.height() / 2),
                                     self.height() / 2 - 2, self.height() / 2 - 2)
@@ -107,6 +121,10 @@ class GuiFourierVectors(QWidget):
 
 class GuiFourierDraw(QWidget):
     tick = Signal()
+    play_pressed = Signal()
+    pause_pressed = Signal()
+    previous_pressed = Signal()
+    next_pressed = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -116,11 +134,15 @@ class GuiFourierDraw(QWidget):
         __mainLayout = QVBoxLayout()
         __topLayout = QHBoxLayout()
         self.__guiIntervals = GuiFourierDrawIntervals()  #
-        self.__canvas = QLabel()
-        self.__canvas.setPixmap(QPixmap())
+        # self.__canvas = QLabel()
+        # self.__canvas.setPixmap(QPixmap())
         self.__guiControls = GuiFourierDrawControls()  #
+        self.__guiControls.play_pressed.connect(self.play_pressed)
+        self.__guiControls.pause_pressed.connect(self.pause_pressed)
+        self.__guiControls.previous_pressed.connect(self.pressed_previous)
+        self.__guiControls.next_pressed.connect(self.pressed_next)
         self.__drawBoard = GuiFourierDrawBoard()  #
-        self.__drawBoard.tick.connect(lambda: self.tick.emit())
+        self.__drawBoard.tick.connect(self.tick.emit)
         __topLayout.addWidget(self.__guiIntervals)
         __topLayout.addWidget(self.__drawBoard)
         __mainLayout.addLayout(__topLayout)
@@ -128,16 +150,35 @@ class GuiFourierDraw(QWidget):
         self.setLayout(__mainLayout)
 
     def erase_drawing(self):
+        self.__drawBoard.stop_sim()
         self.__drawBoard.erase_drawing()
 
-    def start_sim(self, vectors):
-        self.__drawBoard.start_sim(vectors)
+    def reset_drawing(self):
+        self.__drawBoard.erase_drawing()
 
-    def update_sim(self, vectors):
+    def start_sim(self, vectors, interval):
+        self.__drawBoard.start_sim()
         self.__drawBoard.update_sim(vectors)
+        self.__guiIntervals.set_interval(interval)
+
+    def update_sim(self, vectors, interval):
+        self.__drawBoard.update_sim(vectors)
+        self.__guiIntervals.set_interval(interval)
 
     def stop_sim(self):
         self.__drawBoard.stop_sim()
+
+
+
+    @Slot()
+    def pressed_previous(self):
+        self.stop_sim()
+        self.previous_pressed.emit()
+
+    @Slot()
+    def pressed_next(self):
+        self.stop_sim()
+        self.next_pressed.emit()
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -161,32 +202,30 @@ class GuiFourierDrawBoard(QWidget):
 
     def init_gui(self):
         __mainLayout = QVBoxLayout()
+
+
+        self.setFixedHeight(600)
+        self.setFixedWidth(700)
         self.path = []
         self.path_result = []
-
         self.is_drawing = False
 
         # Insertion des boutons dans les layouts
         self.setLayout(__mainLayout)
         self.__timer = QTimer()
-        self.__timer.timeout.connect(lambda: self.tick.emit())
+        self.__timer.timeout.connect(self.tick.emit)
 
-    def start_sim(self, vectors):
-        self.path_result = []
-        vectors[:] = vectors[:] + [100, 0]
-        self.path = vectors
+    def start_sim(self):
         self.__timer.start(33)
 
     def stop_sim(self):
         self.__timer.stop()
 
     def update_sim(self, vectors):
-        vectors[:] = vectors[:] + [100, 0]
         self.path = vectors
         self.update()
 
     def erase_drawing(self):
-        self.stop_sim()
         self.path = []
         self.path_result = []
         self.update()
@@ -227,6 +266,11 @@ class GuiFourierDrawControls(QWidget):
     ROUGE
     """
 
+    play_pressed = Signal()
+    pause_pressed = Signal()
+    previous_pressed = Signal()
+    next_pressed = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -251,7 +295,9 @@ class GuiFourierDrawControls(QWidget):
         __bottomLayout.addWidget(self.__infoBtnNbVectors)
 
         # events boutons
-        self.__btnPlayPause.clicked.connect(lambda: self.clique_btn_play())
+        self.__btnPlayPause.clicked.connect(self.clique_btn_play)
+        self.__btnPrevious.clicked.connect(self.previous_pressed)
+        self.__btnNext.clicked.connect(self.next_pressed)
 
         # Insertion des sous-layout dans le main layout
         __mainLayout.addLayout(__topLayout)
@@ -261,8 +307,10 @@ class GuiFourierDrawControls(QWidget):
     def clique_btn_play(self):
         if self.__btnPlayPause.text() == "Play":
             self.__btnPlayPause.setText("Pause")
+            self.play_pressed.emit()
             return
         self.__btnPlayPause.setText("Play")
+        self.pause_pressed.emit()
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -273,6 +321,8 @@ class GuiFourierDrawIntervals(QWidget):
     """
     BLEU
     """
+
+    interval_changed = Signal(int)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -291,6 +341,9 @@ class GuiFourierDrawIntervals(QWidget):
         # progress
         self.__intervalScroll.setRange(0, 100)
         self.__intervalScroll.setValue(100)
+
+    def set_interval(self, interval):
+        self.__intervalScroll.setValue(100 - (interval * 100))
 
     def paintEvent(self, event):
         painter = QPainter(self)

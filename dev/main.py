@@ -7,6 +7,7 @@ from gui_fourier import GuiFourierMain
 from model import Model
 from gui_feed import GuiFeedMain
 
+
 class QFApp(QMainWindow):
 
     def __init__(self):
@@ -21,19 +22,8 @@ class QFApp(QMainWindow):
     def init_gui(self):
         # declarations
         self.__model = Model()
-        self.__model.sim_started.connect(self.start_sim)
-        self.__model.sim_updated.connect(self.update_sim)
         centralWidget = self.change_to_fourier_windows()
-
         self.setCentralWidget(centralWidget)
-
-    @Slot()
-    def start_sim(self, vectors):
-        self.__fourier_main.start_sim(vectors)
-
-    @Slot()
-    def update_sim(self, vectors):
-        self.__fourier_main.update_sim(vectors)
 
     @Slot()
     def erase_drawing(self):
@@ -60,7 +50,6 @@ class QFApp(QMainWindow):
         self.__leftWindow = Left_window()
         self.__leftWindow.line_ended.connect(self.__model.receive_line)
         self.__leftWindow.undo_pushed.connect(self.__model.undo_line)
-        self.__model.line_removed.connect(self.__leftWindow.undo)
         self.__leftWindow.erase_pushed.connect(self.__model.erase_drawing)
         self.__model.drawing_deleted.connect(self.erase_drawing)
         self.__leftWindow.drawing_saved.connect(self.__model.save_drawing)
@@ -70,9 +59,16 @@ class QFApp(QMainWindow):
         centralWidget.setLayout(layoutContainer)
         self.__fourier_main = GuiFourierMain()
         self.__fourier_main.tick.connect(self.__model.tick)
+        self.__fourier_main.play_pressed.connect(self.__model.start_sim)
+        self.__fourier_main.previous_pressed.connect(self.__model.previous_interval)
+        self.__fourier_main.next_pressed.connect(self.__model.next_interval)
+        self.__model.sim_started.connect(self.__fourier_main.start_sim)
+        self.__model.sim_updated.connect(self.__fourier_main.update_sim)
+        self.__model.new_animation_started.connect(self.__fourier_main.reset_drawing)
 
         layoutContainer.addWidget(self.__fourier_main)
         return centralWidget
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
