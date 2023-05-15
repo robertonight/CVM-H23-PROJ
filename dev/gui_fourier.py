@@ -84,7 +84,7 @@ class GuiFourierVectors(QWidget):
         self.setFixedHeight(130)
 
     def update_sim(self, vectors):
-        self._angle_vectors = vectors
+        self._angle_vectors = vectors[:5]
         self._angle_vectors = self._angle_vectors[self._angle_vectors[:, 0].argsort()]
         self.update()
 
@@ -100,7 +100,7 @@ class GuiFourierVectors(QWidget):
 
                 line = QLineF(QPointF(0, 0), QPointF(1, 1))
                 line.setP1(QPointF(int(self.height() / 2 + (i * self.height())), self.height() / 2))
-                line.setAngle(self._angle_vectors[i, 1] * (180 / np.pi))
+                line.setAngle(- self._angle_vectors[i, 1] * (180 / np.pi))
                 line.setLength(self.height() / 2 - 2)
                 painter.drawLine(line)
 
@@ -339,11 +339,11 @@ class GuiFourierDrawIntervals(QWidget):
         self.setLayout(__mainLayout)
 
         # progress
-        self.__intervalScroll.setRange(0, 100)
-        self.__intervalScroll.setValue(100)
+        self.__intervalScroll.setRange(0, 1000)
+        self.__intervalScroll.setValue(1000)
 
     def set_interval(self, interval):
-        self.__intervalScroll.setValue(100 - (interval * 100))
+        self.__intervalScroll.setValue(1000 - (interval * 1000))
 
     def paintEvent(self, event):
         painter = QPainter(self)

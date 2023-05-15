@@ -107,13 +107,13 @@ class Model(QObject):
 
     @Slot()
     def previous_interval(self):
-        self._vector_manager.interval += -0.01
+        self._vector_manager.interval += -0.005
         self._vector_manager.last_time = perf_counter()
         self.tick()
 
     @Slot()
     def next_interval(self):
-        self._vector_manager.interval += 0.01
+        self._vector_manager.interval += 0.005
         self._vector_manager.last_time = perf_counter()
         self.tick()
 
