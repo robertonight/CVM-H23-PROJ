@@ -11,11 +11,12 @@ CREATE_DESSINS_FAVORIS = '''
 CREATE TABLE IF NOT EXISTS dessins_favoris (
     id INTEGER NOT NULL PRIMARY KEY,
     usager INTEGER NOT NULL,
-    dessin INTEGER NOT NULL
+    dessin INTEGER NOT NULL,
+    date VARCHAR NOT NULL
 )
 '''
 DROP_DESSINS_FAVORIS = 'DROP TABLE IF EXISTS dessins_favoris'
-INSERT_DESSINS_FAVORIS = 'INSERT INTO dessins_favoris(usager,dessin) VALUES(?,?)'
+INSERT_DESSINS_FAVORIS = 'INSERT INTO dessins_favoris(usager,dessin, date) VALUES(?,?, ?)'
 SELECT_DESSINS_FAVORIS = 'SELECT * FROM dessins_favoris'
 
 # ----------------------------------------------------------------------------------------------------------------------

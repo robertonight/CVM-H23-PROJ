@@ -44,7 +44,8 @@ class QFApp(QMainWindow):
     def change_to_feed(self):
         self.__fourier_main.stop_sim()
         self.__model.stop_sim()
-        new_central_widget = GuiFeedMain()
+        drawings = self.__model.get_all_drawings()
+        new_central_widget = GuiFeedMain(drawings)
         new_central_widget.return_pushed.connect(self.quit_feed)
         self.setCentralWidget(new_central_widget)
 

@@ -12,17 +12,17 @@ class Model(QObject):
     sim_started = Signal(np.ndarray)
     line_removed = Signal(list)
     drawing_deleted = Signal()
-    drawings_sent = Signal(list)
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.precision: int = 2001
-        self.nb_vecteurs: int = 1001
+        self.precision: int = 201
+        self.nb_vecteurs: int = 101
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()
         self.__matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
         self.__DAO = DAO()
         self.__DAO.connecter()
+        self.__DAO.reset_tables()
         self.__DAO.creer_tables()
         self.__DAO.deconnecter()
 
@@ -125,13 +125,12 @@ class Model(QObject):
         drawing_data = ''
         for line in drawing:
             for point in line:
-                drawing_data += str(point.x()) + ',' + str(point.y()) + ';'
+                drawing_data += str(point.x()) + ' ' + str(point.y()) + ';'
             drawing_data += ':'
         self.__DAO.connecter()
         self.__DAO.insert_dessins(drawing_name, drawing_data)
         self.__DAO.deconnecter()
 
-    @Slot()
     def get_all_drawings(self):
         """
         les colonnes dans dessins_db sont:
@@ -144,7 +143,7 @@ class Model(QObject):
         self.__DAO.connecter()
         dessins_db = self.__DAO.select_dessins()
         self.__DAO.deconnecter()
-        self.drawings_sent.emit(dessins_db)
+        return dessins_db
 
     def get_drawing(self):
         pass

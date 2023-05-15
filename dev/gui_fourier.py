@@ -41,11 +41,11 @@ class GuiFourierMain(QWidget):
 
     def update_sim(self, vectors):
         self.__fourier_draw.update_sim(vectors[:, 2:])
-        self.__vectors.update_sim(vectors[:, 0:1])
+        self.__vectors.update_sim(vectors[:, 0:2])
 
     def start_sim(self, vectors):
         self.__fourier_draw.start_sim(vectors[:, 2:])
-        self.__vectors.update_sim(vectors[:, 0:1])
+        self.__vectors.update_sim(vectors[:, 0:2])
 
     def stop_sim(self):
         self.__fourier_draw.stop_sim()
@@ -64,7 +64,6 @@ class GuiFourierVectors(QWidget):
         super().__init__(parent)
         self.init_gui()
         self._angle_vectors: np.ndarray = np.zeros(0)
-        self._test_done = False
 
     def init_gui(self):
         self.setLayout(QVBoxLayout())
@@ -79,20 +78,19 @@ class GuiFourierVectors(QWidget):
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor("turquoise"))
         painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
-        if self._angle_vectors[:].size != 0:
+        if self._angle_vectors.size != 0:
+            for i in range(self._angle_vectors[:,0].size):
+                painter.drawPoint(QPointF(self.height() / 2 + (i * self.height()), self.height() / 2))
+                painter.drawEllipse(QPointF(self.height() / 2 + (i * self.height()), self.height() / 2),
+                                    self.height() / 2 - 2, self.height() / 2 - 2)
 
-            rayon = self.height() / 2
+                line = QLineF(QPointF(0, 0), QPointF(1, 1))
+                line.setP1(QPointF(int(self.height() / 2 + (i * self.height())), self.height() / 2))
+                line.setAngle(self._angle_vectors[i, 1] * (180 / np.pi))
+                line.setLength(self.height() / 2 - 2)
+                painter.drawLine(line)
 
-            for i in range(2):
-                painter.drawPoint(PySide6.QtCore.QPointF(rayon, rayon))
-
-                painter.drawEllipse(QPointF(rayon, rayon), rayon - 2, rayon - 2)
-
-            # line = QLineF(QPointF(0, 0), QPointF(1, 1))
-            # line.setP1(QPointF(rayon, rayon))
-            # line.setAngle(self._angle_vectors[1] * (180 / np.pi))
-            # line.setLength(62)
-            # painter.drawLine(line)
+            # print(self._angle_vectors[4, 1])
             #
             # sizeTest = (rayon * 3) + 4
             # painter.drawPoint(PySide6.QtCore.QPointF(sizeTest, rayon))
