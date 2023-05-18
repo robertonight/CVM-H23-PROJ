@@ -62,6 +62,8 @@ class QFApp(QMainWindow):
         self.__fourier_main.play_pressed.connect(self.__model.start_sim)
         self.__fourier_main.previous_pressed.connect(self.__model.previous_interval)
         self.__fourier_main.next_pressed.connect(self.__model.next_interval)
+        self.__fourier_main.precision_changed.connect(self.__model.change_precision)
+        self.__fourier_main.nb_vectors_changed.connect(self.__model.change_nb_vecteurs)
         self.__model.sim_started.connect(self.__fourier_main.start_sim)
         self.__model.sim_updated.connect(self.__fourier_main.update_sim)
         self.__model.new_animation_started.connect(self.__fourier_main.reset_drawing)

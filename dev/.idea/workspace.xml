@@ -6,12 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fourier_db" beforeDir="false" afterPath="$PROJECT_DIR$/fourier_db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui_fourier.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_fourier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_left_apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_left_apps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
     </list>
     <list id="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" name="Changes by 0676921" comment="">
       <change beforePath="$PROJECT_DIR$/gui_fourier.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_fourier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_left_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui_left_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
     </list>
@@ -38,42 +39,28 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/gui_fourier.py">
       <ranges>
-        <range start1="7" end1="8" start2="7" end2="8" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="9" end1="10" start2="9" end2="10" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="23" end1="24" start2="23" end2="24" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="27" end1="28" start2="27" end2="28" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="29" end1="30" start2="29" end2="30" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="32" end1="32" start2="32" end2="33" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="33" end1="34" start2="34" end2="45" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="35" end1="36" start2="46" end2="48" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="83" end1="84" start2="95" end2="97" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="86" end1="87" start2="99" end2="100" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="93" end1="93" start2="106" end2="107" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="105" end1="117" start2="119" end2="119" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="128" end1="129" start2="130" end2="131" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="131" end1="133" start2="133" end2="135" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="138" end1="139" start2="140" end2="141" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="170" end1="172" start2="172" end2="172" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="205" end1="206" start2="205" end2="205" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="272" end1="272" start2="271" end2="273" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="273" end1="274" start2="274" end2="275" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="282" end1="283" start2="283" end2="293" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="287" end1="288" start2="297" end2="298" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="293" end1="294" start2="303" end2="304" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="300" end1="300" start2="310" end2="316" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="303" end1="303" start2="319" end2="323" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="313" end1="313" start2="333" end2="339" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="22" end1="22" start2="22" end2="24" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="51" end1="52" start2="53" end2="54" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="53" end1="55" start2="55" end2="59" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="100" end1="101" start2="104" end2="105" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="129" end1="129" start2="133" end2="135" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="141" end1="143" start2="147" end2="149" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="145" end1="145" start2="151" end2="153" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="181" end1="181" start2="189" end2="199" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="271" end1="273" start2="289" end2="291" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="308" end1="310" start2="326" end2="328" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="311" end1="312" start2="329" end2="330" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="313" end1="314" start2="331" end2="333" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="315" end1="316" start2="334" end2="336" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="338" end1="338" start2="358" end2="361" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
       </ranges>
     </file>
     <file path="$PROJECT_DIR$/model.py">
       <ranges>
-        <range start1="18" end1="20" start2="18" end2="20" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="27" end1="27" start2="27" end2="47" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="34" end1="38" start2="54" end2="54" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
-        <range start1="51" end1="53" start2="67" end2="69" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="56" end1="57" start2="72" end2="73" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="87" end1="88" start2="103" end2="104" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
-        <range start1="205" end1="206" start2="221" end2="221" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="80" end1="101" start2="80" end2="81" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="103" end1="103" start2="83" end2="85" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
+        <range start1="146" end1="147" start2="128" end2="132" changelist="e8c52c5a-add3-4db1-a07a-0fafa74e9c08" />
+        <range start1="168" end1="168" start2="153" end2="163" changelist="5e8aa2d6-0f13-422f-861f-48fbd7c0447a" />
       </ranges>
     </file>
   </component>
@@ -148,8 +135,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model.py</url>
-          <line>245</line>
+          <line>240</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/vector_manager.py</url>
+          <line>73</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

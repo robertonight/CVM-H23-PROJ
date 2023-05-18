@@ -7,7 +7,6 @@ from PySide6.QtWidgets import (QVBoxLayout, QWidget, QHBoxLayout, QPushButton,
 
 
 class GuiNavMenu(QWidget):
-
     clicked_feed = Signal()
 
     def __init__(self, parent=None):
@@ -126,7 +125,9 @@ class DrawingWidget(QWidget):
         self.setFixedWidth(700)
 
     def undo(self):
-        if len(self.path) > 0:
+        if len(self.path) == 1:
+            self.erase()
+        elif len(self.path) > 0:
             self.path.pop(-1)
         self.update()
 

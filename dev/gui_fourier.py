@@ -20,6 +20,8 @@ class GuiFourierMain(QWidget):
     play_pressed = Signal()
     previous_pressed = Signal()
     next_pressed = Signal()
+    precision_changed = Signal(int)
+    nb_vectors_changed = Signal(int)
 
     def __init__(self, nb_vecteurs, precision, parent=None):
         super().__init__(parent)
@@ -49,10 +51,12 @@ class GuiFourierMain(QWidget):
         __mainLayout.addWidget(self.__fourier_draw)
         self.setLayout(__mainLayout)
         self.__fourier_draw.tick.connect(self.tick.emit)
-        self.__fourier_draw.play_pressed.connect(self.play_pressed)
+        self.__fourier_draw.play_pressed.connect(self.play_pressed.emit)
         self.__fourier_draw.pause_pressed.connect(self.stop_sim)
-        self.__fourier_draw.previous_pressed.connect(self.previous_pressed)
-        self.__fourier_draw.next_pressed.connect(self.next_pressed)
+        self.__fourier_draw.previous_pressed.connect(self.previous_pressed.emit)
+        self.__fourier_draw.next_pressed.connect(self.next_pressed.emit)
+        self.__fourier_draw.nb_vectors_changed.connect(self.nb_vectors_changed.emit)
+        self.__fourier_draw.precision_changed.connect(self.precision_changed.emit)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -98,7 +102,7 @@ class GuiFourierVectors(QWidget):
     def update_sim(self, vectors):
         self._angle_vectors = vectors[:60]
         self._angle_vectors = self._angle_vectors[self._angle_vectors[:, 0].argsort()]
-        self.setFixedWidth(self._angle_vectors[:, 0].size * 35) ###
+        self.setFixedWidth(self._angle_vectors[:, 0].size * 35)  ###
         self.update()
 
     def paintEvent(self, event):
@@ -127,6 +131,8 @@ class GuiFourierDraw(QWidget):
     pause_pressed = Signal()
     previous_pressed = Signal()
     next_pressed = Signal()
+    precision_changed = Signal(int)
+    nb_vectors_changed = Signal(int)
 
     def __init__(self, nb_vecteurs, precision, parent=None):
         super().__init__(parent)
@@ -139,10 +145,12 @@ class GuiFourierDraw(QWidget):
         # self.__canvas = QLabel()
         # self.__canvas.setPixmap(QPixmap())
         self.__guiControls = GuiFourierDrawControls(nb_vecteurs, precision)  #
-        self.__guiControls.play_pressed.connect(self.play_pressed)
-        self.__guiControls.pause_pressed.connect(self.pause_pressed)
+        self.__guiControls.play_pressed.connect(self.play_pressed.emit)
+        self.__guiControls.pause_pressed.connect(self.pause_pressed.emit)
         self.__guiControls.previous_pressed.connect(self.pressed_previous)
         self.__guiControls.next_pressed.connect(self.pressed_next)
+        self.__guiControls.precision_changed.connect(self.changed_precision)
+        self.__guiControls.nb_vectors_changed.connect(self.changed_nb_vectors)
         self.__drawBoard = GuiFourierDrawBoard()  #
         self.__drawBoard.tick.connect(self.tick.emit)
         __topLayout.addWidget(self.__guiIntervals)
@@ -179,6 +187,16 @@ class GuiFourierDraw(QWidget):
     def pressed_next(self):
         self.stop_sim()
         self.next_pressed.emit()
+
+    @Slot()
+    def changed_precision(self, precision):
+        self.stop_sim()
+        self.precision_changed.emit(precision)
+
+    @Slot()
+    def changed_nb_vectors(self, nb_vectors):
+        self.stop_sim()
+        self.nb_vectors_changed.emit(nb_vectors)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -269,8 +287,8 @@ class GuiFourierDrawControls(QWidget):
     pause_pressed = Signal()
     previous_pressed = Signal()
     next_pressed = Signal()
-    precision_changed = Signal()
-    nb_vectors_changed = Signal()
+    precision_changed = Signal(int)
+    nb_vectors_changed = Signal(int)
 
     def __init__(self, nb_vectors, precision, parent=None):
         super().__init__(parent)
@@ -306,14 +324,16 @@ class GuiFourierDrawControls(QWidget):
 
         # events boutons
         self.__btnPlayPause.clicked.connect(self.clique_btn_play)
-        self.__btnPrevious.clicked.connect(self.previous_pressed)
-        self.__btnNext.clicked.connect(self.next_pressed)
+        self.__btnPrevious.clicked.connect(self.previous_pressed.emit)
+        self.__btnNext.clicked.connect(self.next_pressed.emit)
 
-        #events scrollbars
+        # events scrollbars
         self.__scrollbar_precision.valueChanged.connect(self.change_precision_label_value)
-        #self.__scrollbar_precision.sliderReleased()
+        self.__scrollbar_precision.sliderReleased.connect(
+            lambda: self.precision_changed.emit(self.__scrollbar_precision.sliderPosition()))
         self.__scrollbar_vectors.valueChanged.connect(self.change_vectors_label_value)
-
+        self.__scrollbar_vectors.sliderReleased.connect(
+            lambda: self.nb_vectors_changed.emit(self.__scrollbar_vectors.sliderPosition()))
 
         # Insertion des sous-layout dans le main layout
         __mainLayout.addLayout(__topLayout)
@@ -336,6 +356,9 @@ class GuiFourierDrawControls(QWidget):
         self.__label_precision.setText("Précision du dessin" + str(precision))
 
     def change_vectors_label_value(self, nb_vectors):
+        if nb_vectors % 2 == 0:
+            nb_vectors -= 1
+        self.__scrollbar_vectors.setValue(nb_vectors)
         self.__label_vectors.setText("Nombre de vecteurs: " + str(nb_vectors))
 
     def paintEvent(self, event):

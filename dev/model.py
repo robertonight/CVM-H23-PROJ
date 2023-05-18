@@ -78,29 +78,11 @@ class Model(QObject):
         vecteurs[:, 1] = angle[:]
 
         return vecteurs
-        # --------------------------------------------------------------------------------------------------------------
-        # index = 0
-        # for i in range(math.floor(self.nb_vecteurs / 2 + 1)):  # Boucle pour calculer chaque cn
-        #     for j in range(-1, 2, 2):  # Boucle pour avoir les cn positifs et négatif de même chiffre
-        #         if i > 0:
-        #             index += 1
-        #         n = i * j  # n du Cn --> multiplication pour inverser -+
-        #         somme = 0
-        #         for p in range(self.precision):  # calcul de l'intervale pour un cn
-        #           t = p/self.precision  # step
-        #           a, b = coords_list[p, 0], coords_list[p, 1]
-        #           ex_cmplx = np.exp((-2 * np.pi) * 1j * n * t)
-        #           fnc_de_t = (a + b * 1j)  # a + bi
-        #           somme += ex_cmplx * fnc_de_t
-        #         coeff = somme / self.precision  # moyenne des f(t)*e^-2pitn pour former coeff
-        #         # transformation du cn de la forme cartésienne à la forme polaire
-        #         rayon = math.sqrt((np.imag(coeff) ** 2) + (np.real(coeff) ** 2))
-        #         angle = math.atan2(np.imag(coeff), np.real(coeff))
-        #         if i > 0 or j > 0:
-        #             vecteurs[index, :] = np.array([rayon, angle])
-        # return vecteurs
+
 
     def start_new_animation(self, drawing):
+        self._vector_manager = VectorManager(10)
+        self.__matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
         d = DrawingAnalyzer(drawing, self.__precision)
         array = d.get_intermediary_points()
         vectors = self.fft(array)
@@ -144,7 +126,10 @@ class Model(QObject):
 
     @Slot()
     def undo_line(self):
-        if len(self.__stack) > 0:
+        if len(self.__stack) == 1:
+            self.erase_drawing()
+            self.__stack.clear()
+        elif len(self.__stack) > 0:
             last_line = self.__stack.pop()
             self.__stack.push([last_line.pop(-1)])
             self.start_new_animation(self.__stack)
@@ -166,6 +151,16 @@ class Model(QObject):
         self.__DAO.connecter()
         self.__DAO.insert_dessins(drawing_name, drawing_data)
         self.__DAO.deconnecter()
+
+    @Slot()
+    def change_precision(self, precision):
+        self.__precision = precision
+        self.start_new_animation(self.__stack)
+
+    @Slot()
+    def change_nb_vecteurs(self, nb_vecteurs):
+        self.__nb_vecteurs = nb_vecteurs
+        self.start_new_animation(self.__stack)
 
     def get_all_drawings(self):
         """

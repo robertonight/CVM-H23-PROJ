@@ -23,7 +23,7 @@ class Left_window(QWidget):
         menu.clicked_feed.connect(self.cliked_feed)
         self.drawingBoard = GuiCustomDrawing()
         self.drawingBoard.line_ended.connect(self.line_ended.emit)
-        self.drawingBoard.undo_pushed.connect(lambda: self.undo_pushed.emit())
+        self.drawingBoard.undo_pushed.connect(self.undo_pushed.emit)
         self.drawingBoard.erase_pushed.connect(lambda: self.erase_pushed.emit())
         self.drawingBoard.drawing_saved.connect(self.drawing_saved.emit)
         menu.setContentsMargins(0, 0, 0, 0)
