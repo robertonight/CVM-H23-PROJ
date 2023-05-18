@@ -5,9 +5,9 @@ import numpy as np
 from PySide6.QtCore import Qt, Signal, Slot, QTimer, QPointF, QLineF
 import PySide6
 from PySide6.QtCore import Qt, Signal, Slot, QTimer
-from PySide6.QtGui import QPainter, QColor, QPixmap, QPen
+from PySide6.QtGui import QPainter, QColor, QPixmap, QPen, QPalette
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
-                               QPushButton, QSizePolicy, QLabel)
+                               QPushButton, QSizePolicy, QLabel, QLineEdit, QScrollArea, QSlider)
 
 
 class GuiFourierMain(QWidget):
@@ -21,19 +21,31 @@ class GuiFourierMain(QWidget):
     previous_pressed = Signal()
     next_pressed = Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, nb_vecteurs, precision, parent=None):
         super().__init__(parent)
         self.__fourier_draw = None
         self.__vectors = None
-        self.init_gui()
+        self.init_gui(nb_vecteurs, precision)
 
-    def init_gui(self):
+    def init_gui(self, nb_vecteurs, precision):
         # Déclaration du layout et des sous-widgets. Les sous-widgets ont leurs propres classes
         __mainLayout = QVBoxLayout()
+
         self.__vectors = GuiFourierVectors()  #
-        self.__fourier_draw = GuiFourierDraw()  #
+        # self.__vectors.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        scrollArea = QScrollArea()
+        # scrollArea.setFixedWidth(self.__vectors.width())
+        # scrollArea.setFixedHeight(self.__vectors.height())
+
+        # scrollArea.setBackgroundRole(QPalette.Dark)
+        # scrollArea.setWidgetResizable(False)
+        scrollArea.setWidget(self.__vectors)
+
+        self.__fourier_draw = GuiFourierDraw(nb_vecteurs, precision)  #
         # Insertion des sous-widgets dans le layout
-        __mainLayout.addWidget(self.__vectors)
+        __mainLayout.addWidget(scrollArea)
+
         __mainLayout.addWidget(self.__fourier_draw)
         self.setLayout(__mainLayout)
         self.__fourier_draw.tick.connect(self.tick.emit)
@@ -81,16 +93,18 @@ class GuiFourierVectors(QWidget):
 
     def init_gui(self):
         self.setLayout(QVBoxLayout())
-        self.setFixedHeight(130)
+        self.setFixedHeight(35)
 
     def update_sim(self, vectors):
-        self._angle_vectors = vectors[:5]
+        self._angle_vectors = vectors[:60]
         self._angle_vectors = self._angle_vectors[self._angle_vectors[:, 0].argsort()]
+        self.setFixedWidth(self._angle_vectors[:, 0].size * 35) ###
         self.update()
 
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor("turquoise"))
+
         painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
         if self._angle_vectors.size != 0:
             for i in range(self._angle_vectors[:, 0].size):
@@ -104,18 +118,6 @@ class GuiFourierVectors(QWidget):
                 line.setLength(self.height() / 2 - 2)
                 painter.drawLine(line)
 
-            # print(self._angle_vectors[4, 1])
-            #
-            # sizeTest = (rayon * 3) + 4
-            # painter.drawPoint(PySide6.QtCore.QPointF(sizeTest, rayon))
-            #
-            # painter.drawEllipse(QPointF(sizeTest, rayon), rayon - 2, rayon - 2)
-            # line = QLineF(QPointF(0, 0), QPointF(1, 1))
-            # line.setP1(QPointF(sizeTest, rayon))
-            # line.setAngle(self._angle_vectors[3] * (180 / np.pi))
-            # line.setLength(62)
-            # painter.drawLine(line)
-
         # https://stackoverflow.com/questions/16662638/how-to-draw-a-line-at-angle-in-qt
 
 
@@ -126,17 +128,17 @@ class GuiFourierDraw(QWidget):
     previous_pressed = Signal()
     next_pressed = Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, nb_vecteurs, precision, parent=None):
         super().__init__(parent)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Minimum)
-        self.setFixedHeight(700)
-        self.setFixedWidth(800)
+        # self.setFixedHeight(800)
+        # self.setFixedWidth(800)
         __mainLayout = QVBoxLayout()
         __topLayout = QHBoxLayout()
         self.__guiIntervals = GuiFourierDrawIntervals()  #
         # self.__canvas = QLabel()
         # self.__canvas.setPixmap(QPixmap())
-        self.__guiControls = GuiFourierDrawControls()  #
+        self.__guiControls = GuiFourierDrawControls(nb_vecteurs, precision)  #
         self.__guiControls.play_pressed.connect(self.play_pressed)
         self.__guiControls.pause_pressed.connect(self.pause_pressed)
         self.__guiControls.previous_pressed.connect(self.pressed_previous)
@@ -167,8 +169,6 @@ class GuiFourierDraw(QWidget):
 
     def stop_sim(self):
         self.__drawBoard.stop_sim()
-
-
 
     @Slot()
     def pressed_previous(self):
@@ -202,7 +202,6 @@ class GuiFourierDrawBoard(QWidget):
 
     def init_gui(self):
         __mainLayout = QVBoxLayout()
-
 
         self.setFixedHeight(600)
         self.setFixedWidth(700)
@@ -270,8 +269,10 @@ class GuiFourierDrawControls(QWidget):
     pause_pressed = Signal()
     previous_pressed = Signal()
     next_pressed = Signal()
+    precision_changed = Signal()
+    nb_vectors_changed = Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, nb_vectors, precision, parent=None):
         super().__init__(parent)
 
         # Déclaration des layouts
@@ -280,18 +281,27 @@ class GuiFourierDrawControls(QWidget):
         __bottomLayout = QHBoxLayout()
 
         # Déclaration des boutons
-        self.__formNbVectors = QFormLayout()
+        self.__label_vectors = QLabel("Nombre de vecteurs: " + str(nb_vectors))
+        self.__scrollbar_vectors = QSlider(Qt.Horizontal)
+        self.__scrollbar_vectors.setMinimum(3)
+        self.__scrollbar_vectors.setMaximum(1001)
+        self.__scrollbar_vectors.setValue(nb_vectors)
+        self.__label_precision = QLabel("Précision du dessin: " + str(precision))
+        self.__scrollbar_precision = QSlider(Qt.Horizontal)
+        self.__scrollbar_precision.setValue(precision)
+        self.__scrollbar_precision.setMinimum(10)
+        self.__scrollbar_precision.setMaximum(2001)
         self.__infoBtnNbVectors = QPushButton("?")
         self.__btnPrevious = QPushButton("Previous")
         self.__btnPlayPause = QPushButton("Play")
         self.__btnNext = QPushButton("Next")
-        self.setFixedHeight(60)
+        # self.setFixedHeight(100)
 
         # Insertion des boutons dans les layouts
         __topLayout.addWidget(self.__btnPrevious)
         __topLayout.addWidget(self.__btnPlayPause)
         __topLayout.addWidget(self.__btnNext)
-        __bottomLayout.addLayout(self.__formNbVectors)
+        __bottomLayout.addStretch()
         __bottomLayout.addWidget(self.__infoBtnNbVectors)
 
         # events boutons
@@ -299,8 +309,18 @@ class GuiFourierDrawControls(QWidget):
         self.__btnPrevious.clicked.connect(self.previous_pressed)
         self.__btnNext.clicked.connect(self.next_pressed)
 
+        #events scrollbars
+        self.__scrollbar_precision.valueChanged.connect(self.change_precision_label_value)
+        #self.__scrollbar_precision.sliderReleased()
+        self.__scrollbar_vectors.valueChanged.connect(self.change_vectors_label_value)
+
+
         # Insertion des sous-layout dans le main layout
         __mainLayout.addLayout(__topLayout)
+        __mainLayout.addWidget(self.__label_vectors)
+        __mainLayout.addWidget(self.__scrollbar_vectors)
+        __mainLayout.addWidget(self.__label_precision)
+        __mainLayout.addWidget(self.__scrollbar_precision)
         __mainLayout.addLayout(__bottomLayout)
         self.setLayout(__mainLayout)
 
@@ -311,6 +331,12 @@ class GuiFourierDrawControls(QWidget):
             return
         self.__btnPlayPause.setText("Play")
         self.pause_pressed.emit()
+
+    def change_precision_label_value(self, precision):
+        self.__label_precision.setText("Précision du dessin" + str(precision))
+
+    def change_vectors_label_value(self, nb_vectors):
+        self.__label_vectors.setText("Nombre de vecteurs: " + str(nb_vectors))
 
     def paintEvent(self, event):
         painter = QPainter(self)

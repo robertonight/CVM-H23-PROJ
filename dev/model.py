@@ -16,8 +16,8 @@ class Model(QObject):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.precision: int = 201
-        self.nb_vecteurs: int = 101
+        self.__precision: int = 501
+        self.__nb_vecteurs: int = 201
         self._vector_manager: VectorManager = VectorManager(10)
         self.__stack = FStack()
         self.__matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
@@ -26,16 +26,32 @@ class Model(QObject):
         self.__DAO.creer_tables()
         self.__DAO.deconnecter()
 
+    @property
+    def stack(self):
+        return self.__stack
+
+    @property
+    def nb_vecteurs(self):
+        return self.__nb_vecteurs
+
+    @nb_vecteurs.setter
+    def nb_vecteurs(self, nb_vecteurs):
+        self.__nb_vecteurs = nb_vecteurs
+
+    @property
+    def precision(self):
+        return self.__precision
+
+    @precision.setter
+    def precision(self, precision):
+        self.__precision = precision
+
     @Slot()
     def tick(self):
         temp_matrice = np.zeros((self.nb_vecteurs, 4))
         temp_matrice[:, 1:] = self._vector_manager.update()
         temp_matrice[:, 0] = self.__matrice_de_n[:]
         self.sim_updated.emit(temp_matrice, self._vector_manager.interval)
-
-    @property
-    def stack(self):
-        return self.__stack
 
     def fft(self, coords_list):
         """
@@ -49,12 +65,12 @@ class Model(QObject):
         n_negatifs = -1 * n_positifs
         self.__matrice_de_n[1::2] = n_positifs
         self.__matrice_de_n[2::2] = n_negatifs
-        ts = np.arange(self.precision * 1.0)
-        ts[:] = ts[:] / self.precision
+        ts = np.arange(self.__precision * 1.0)
+        ts[:] = ts[:] / self.__precision
         exp_cmpx = np.exp((-2 * np.pi) * 1j * np.outer(ts, self.__matrice_de_n))
         exp_cmpx = exp_cmpx.T
         somme = np.sum(fncs_de_t[:] * exp_cmpx[:], axis=1)
-        somme = somme / self.precision
+        somme = somme / self.__precision
         
         rayon = np.sqrt((np.imag(somme[:]) ** 2) + (np.real(somme[:]) ** 2))
         angle = np.arctan2(np.imag(somme[:]), np.real(somme[:]))
@@ -85,7 +101,7 @@ class Model(QObject):
         # return vecteurs
 
     def start_new_animation(self, drawing):
-        d = DrawingAnalyzer(drawing, self.precision)
+        d = DrawingAnalyzer(drawing, self.__precision)
         array = d.get_intermediary_points()
         vectors = self.fft(array)
         self._vector_manager.matrix_vect = vectors
@@ -203,7 +219,6 @@ class DrawingAnalyzer:
         [[(x), (y), (longueure segment), (longueur absolue), (pourcentage dessin à endroit)],...]
         calcul longuieure de seg entre les points
         """
-        # [[QPointF, QPointF], [QPointF, QPointF, QPointF]]
         self.__drawing_info[0, :] = [self.__d[0][0].x(), self.__d[0][0].y(), 0, 0, 0]  # 1e p.
         idx = 1
         for i in range(len(self.__d)):

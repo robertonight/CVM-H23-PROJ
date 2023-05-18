@@ -57,7 +57,7 @@ class QFApp(QMainWindow):
         # ajout
         layoutContainer.addWidget(self.__leftWindow)
         centralWidget.setLayout(layoutContainer)
-        self.__fourier_main = GuiFourierMain()
+        self.__fourier_main = GuiFourierMain(self.__model.nb_vecteurs, self.__model.precision)
         self.__fourier_main.tick.connect(self.__model.tick)
         self.__fourier_main.play_pressed.connect(self.__model.start_sim)
         self.__fourier_main.previous_pressed.connect(self.__model.previous_interval)
