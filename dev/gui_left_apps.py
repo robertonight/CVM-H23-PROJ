@@ -1,6 +1,7 @@
 # Apps à faire: gui_gallery, gui_profile, gui_profile_preferences, gui_sign_in, gui_sign_up, gui_password_change
+import sys
 
-from PySide6.QtCore import Qt, Signal, Slot
+from PySide6.QtCore import Qt, Signal, Slot, QPointF
 from PySide6.QtGui import QPainter, QColor, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QWidget, QHBoxLayout, QPushButton,
                                QSizePolicy, QInputDialog)
@@ -23,36 +24,37 @@ class GuiNavMenu(QWidget):
         self.__btnDraw.setFixedWidth(taille)
         self.__btnDraw.setFixedHeight(tailleHeight)
 
-        self.__btnGallery = QPushButton("Galerie")
-        self.__btnGallery.setFixedWidth(taille)
-        self.__btnGallery.setFixedHeight(tailleHeight)
+        # self.__btnGallery = QPushButton("Galerie")
+        # self.__btnGallery.setFixedWidth(taille)
+        # self.__btnGallery.setFixedHeight(tailleHeight)
 
         self.__btnFeed = QPushButton("Fil")
         self.__btnFeed.setFixedWidth(taille)
         self.__btnFeed.setFixedHeight(tailleHeight)
         self.__btnFeed.clicked.connect(self.clicked_feed)
 
-        self.__btnConnectProf = QPushButton("Connexion")
-        self.__btnConnectProf.setFixedWidth(taille)
-        self.__btnConnectProf.setFixedHeight(tailleHeight)
+        # self.__btnConnectProf = QPushButton("Connexion")
+        # self.__btnConnectProf.setFixedWidth(taille)
+        # self.__btnConnectProf.setFixedHeight(tailleHeight)
 
         self.__btnQuit = QPushButton("Quitter")
+        self.__btnQuit.clicked.connect(sys.exit)
         self.__btnQuit.setFixedWidth(taille)
         self.__btnQuit.setFixedHeight(tailleHeight)
 
         # Insertion des boutons dans le layout
         mainLayout.setContentsMargins(0, 0, 0, 0)
         mainLayout.addWidget(self.__btnDraw)
-        mainLayout.addWidget(self.__btnGallery)
+        # mainLayout.addWidget(self.__btnGallery)
         mainLayout.addWidget(self.__btnFeed)
-        mainLayout.addWidget(self.__btnConnectProf)
+        # mainLayout.addWidget(self.__btnConnectProf)
         mainLayout.addWidget(self.__btnQuit)
         # mainLayout.addStretch()
         self.setLayout(mainLayout)
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(163, 81, 75))
+        # painter.fillRect(self.rect(), QColor(163, 81, 75))
 
 
 class GuiCustomDrawing(QWidget):
@@ -66,8 +68,11 @@ class GuiCustomDrawing(QWidget):
 
         # Déclaration des layouts et des boutons
         __mainLayout = QVBoxLayout()
+        __mainLayout.setContentsMargins(0, 0, 0, 0)
         __highLayout = QVBoxLayout()
+        __highLayout.setContentsMargins(0, 0, 0, 0)
         __lowLayout = QHBoxLayout()
+        __lowLayout.setContentsMargins(0, 0, 0, 0)
 
         self.drawing_canvas = DrawingWidget()
         self.drawing_canvas.line_ended.connect(self.line_ended)
@@ -111,7 +116,7 @@ class GuiCustomDrawing(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(95, 78, 133))
+        # painter.fillRect(self.rect(), QColor(95, 78, 133))
 
 
 class DrawingWidget(QWidget):
@@ -153,9 +158,10 @@ class DrawingWidget(QWidget):
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.is_drawing = False
-            self.path[-1].append(self.path[0][0])
-            self.line_ended.emit(self.path[-1])
-            self.path[-1].pop(len(self.path[-1]) - 1)
+            if len(self.path) > 1 or len(self.path[-1]) > 1:
+                self.path[-1].append(self.path[0][0])
+                self.line_ended.emit(self.path[-1])
+                self.path[-1].pop(len(self.path[-1]) - 1)
 
     def paintEvent(self, event):
         painter = QPainter(self)

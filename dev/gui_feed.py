@@ -8,6 +8,7 @@ from PySide6.QtCore import Qt, Signal, Slot, QTimer
 from PySide6.QtGui import QPainter, QColor, QPixmap, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QGridLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
                                QPushButton, QSizePolicy, QLabel)
+from utils import LinkedList
 
 
 class GuiFeedMain(QWidget):
@@ -16,6 +17,7 @@ class GuiFeedMain(QWidget):
     def __init__(self, drawings, parent=None):
         super().__init__(parent)
         self.__max_grid_col = 4
+        self.__linked_list = LinkedList()
         self.init_gui(drawings)
 
     def init_gui(self, drawings):
@@ -47,12 +49,14 @@ class GuiFeedMain(QWidget):
                     grid_column = 1
                     grid_row += 1
                 new_display.update()
+
                 self.__galleryLayout.addWidget(new_display, grid_row, grid_column)
                 grid_column += 1
 
 
 class DrawingDisplay(QWidget):
     def __init__(self, drawing, parent=None):
+        self.__color = QColor("blue")
         super().__init__(parent)
         self.init_gui(drawing)
 
@@ -62,7 +66,7 @@ class DrawingDisplay(QWidget):
         __board_container = QHBoxLayout()
         __drawing_board = DrawingDisplayBoard(drawing[2])
         __drawing_board.setFixedHeight(300)
-        __drawing_board.setFixedWidth(210)
+        __drawing_board.setFixedWidth(350)
         __drawing_board.update()
         __board_container.addStretch()
         __board_container.addWidget(__drawing_board)
@@ -73,9 +77,18 @@ class DrawingDisplay(QWidget):
         __main_layout.addWidget(__drawing_date)
         self.setLayout(__main_layout)
 
+    def mousePressEvent(self, event):
+        if self.__color == QColor("blue"):
+            self.__color = QColor("lightblue")
+            self.update()
+        else:
+            self.__color = QColor("blue")
+            self.update()
+
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor("blue"))
+        painter.fillRect(self.rect(), self.__color)
+
 
 class DrawingDisplayBoard(QWidget):
     def __init__(self, drawing, parent=None):

@@ -2,8 +2,7 @@ import math
 from PySide6.QtCore import QObject, Signal, Slot
 import numpy as np
 from vector_manager import VectorManager
-from sketch import Sketch
-from stack import FStack
+from utils import FStack
 from dao import DAO
 from time import perf_counter
 
@@ -130,8 +129,10 @@ class Model(QObject):
             self.erase_drawing()
             self.__stack.clear()
         elif len(self.__stack) > 0:
+            removed_line = self.__stack.pop()
             last_line = self.__stack.pop()
-            self.__stack.push([last_line.pop(-1)])
+            last_line.append(removed_line.pop(-1))
+            self.__stack.push(last_line)
             self.start_new_animation(self.__stack)
 
     @Slot()

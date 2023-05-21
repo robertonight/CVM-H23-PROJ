@@ -40,4 +40,4 @@ class Left_window(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor("orange"))
+        # painter.fillRect(self.rect(), QColor("orange"))
