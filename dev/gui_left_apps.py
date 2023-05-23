@@ -114,6 +114,9 @@ class GuiCustomDrawing(QWidget):
     def undo(self, drawing):
         self.drawing_canvas.undo(drawing)
 
+    def set_drawing(self, drawing):
+        self.drawing_canvas.set_drawing(drawing)
+
     def paintEvent(self, event):
         painter = QPainter(self)
         # painter.fillRect(self.rect(), QColor(95, 78, 133))
@@ -138,6 +141,10 @@ class DrawingWidget(QWidget):
 
     def erase(self):
         self.path = []
+        self.update()
+
+    def set_drawing(self, drawing):
+        self.path = drawing
         self.update()
 
     def mousePressEvent(self, event):

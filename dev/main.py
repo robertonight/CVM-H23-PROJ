@@ -37,7 +37,14 @@ class QFApp(QMainWindow):
         drawings = self.__model.get_all_drawings()
         new_central_widget = GuiFeedMain(drawings)
         new_central_widget.return_pushed.connect(self.quit_feed)
+        new_central_widget.display_right_clicked.connect(self.set_chosen_drawing)
         self.setCentralWidget(new_central_widget)
+
+    @Slot()
+    def set_chosen_drawing(self, drawing):
+        self.quit_feed()
+        self.__leftWindow.set_drawing(drawing)
+        self.__model.set_drawing(drawing)
 
     @Slot()
     def quit_feed(self):

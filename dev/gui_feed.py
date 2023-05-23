@@ -13,6 +13,7 @@ from utils import LinkedList, Node
 
 class GuiFeedMain(QWidget):
     return_pushed = Signal()
+    display_right_clicked = Signal(list)
 
     def __init__(self, drawings, parent=None):
         super().__init__(parent)
@@ -45,7 +46,8 @@ class GuiFeedMain(QWidget):
         if drawings is not None:
             for drawing in drawings:
                 new_display = DrawingDisplay(drawing)
-                new_display.display_clicked.connect(self.clicked_display)
+                new_display.display_left_clicked.connect(self.clicked_display)
+                new_display.display_right_clicked.connect(self.display_right_clicked.emit)
                 if self.__linked_list.head is None:
                     self.__linked_list.head = Node(new_display)
                     curr_node = self.__linked_list.head
@@ -102,7 +104,8 @@ class GuiFeedMain(QWidget):
 
 class DrawingDisplay(QWidget):
 
-    display_clicked = Signal(Node)
+    display_left_clicked = Signal(Node)
+    display_right_clicked = Signal(list)
 
     def __init__(self, drawing, parent=None):
         self.__color = QColor("blue")
@@ -114,12 +117,12 @@ class DrawingDisplay(QWidget):
         __main_layout = QVBoxLayout()
         __drawing_title = QLabel(drawing[1])
         __board_container = QHBoxLayout()
-        __drawing_board = DrawingDisplayBoard(drawing[2])
-        __drawing_board.setFixedHeight(300)
-        __drawing_board.setFixedWidth(350)
-        __drawing_board.update()
+        self.__drawing_board = DrawingDisplayBoard(drawing[2])
+        self.__drawing_board.setFixedHeight(300)
+        self.__drawing_board.setFixedWidth(350)
+        self.__drawing_board.update()
         __board_container.addStretch()
-        __board_container.addWidget(__drawing_board)
+        __board_container.addWidget(self.__drawing_board)
         __board_container.addStretch()
         __drawing_date = QLabel(drawing[3])
         __main_layout.addWidget(__drawing_title)
@@ -144,7 +147,10 @@ class DrawingDisplay(QWidget):
         self.__node = node
 
     def mousePressEvent(self, event):
-        self.display_clicked.emit(self.__node)
+        if event.button() == Qt.LeftButton:
+            self.display_left_clicked.emit(self.__node)
+        elif event.button() == Qt.RightButton:
+            self.display_right_clicked.emit(self.__drawing_board.path)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -154,10 +160,15 @@ class DrawingDisplay(QWidget):
 class DrawingDisplayBoard(QWidget):
     def __init__(self, drawing, parent=None):
         self.__path = []
-        self.set_path(drawing)
+        self.path = drawing
         super().__init__(parent)
 
-    def set_path(self, drawing):
+    @property
+    def path(self):
+        return self.__path
+
+    @path.setter
+    def path(self, drawing):
         path_lines = drawing.split(":")
         for line in path_lines:
             line_points = line.split(";")
@@ -167,7 +178,8 @@ class DrawingDisplayBoard(QWidget):
                 if len(coords) == 2:
                     qPoint = QPointF(float(coords[0]), float(coords[1]))
                     line_array.append(qPoint)
-            self.__path.append(line_array)
+            if len(line_array) > 0:
+                self.__path.append(line_array)
 
     def paintEvent(self, event):
         painter = QPainter(self)

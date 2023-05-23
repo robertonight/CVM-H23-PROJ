@@ -78,7 +78,6 @@ class Model(QObject):
 
         return vecteurs
 
-
     def start_new_animation(self, drawing):
         self._vector_manager = VectorManager(10)
         self.__matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
@@ -152,6 +151,12 @@ class Model(QObject):
         self.__DAO.connecter()
         self.__DAO.insert_dessins(drawing_name, drawing_data)
         self.__DAO.deconnecter()
+
+    def set_drawing(self, drawing):
+        self.__stack.clear()
+        for line in drawing:
+            self.__stack.push(line)
+        self.start_new_animation(self.__stack)
 
     @Slot()
     def change_precision(self, precision):

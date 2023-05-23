@@ -38,6 +38,9 @@ class Left_window(QWidget):
     def undo(self, drawing):
         self.drawingBoard.undo(drawing)
 
+    def set_drawing(self, drawing):
+        self.drawingBoard.set_drawing(drawing)
+
     def paintEvent(self, event):
         painter = QPainter(self)
         # painter.fillRect(self.rect(), QColor("orange"))
