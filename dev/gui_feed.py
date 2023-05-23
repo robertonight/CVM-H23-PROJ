@@ -89,9 +89,11 @@ class GuiFeedMain(QWidget):
                 self.__linked_list.head.previous = None
             else:
                 self.__selected_node.previous.next = self.__selected_node.next
-                self.__selected_node.next.previous = self.__selected_node.previous
+                if self.__selected_node.next is not None:
+                    self.__selected_node.next.previous = self.__selected_node.previous
             self.__selected_node.next = node.next
-            node.next.previous = self.__selected_node
+            if node.next is not None:
+                node.next.previous = self.__selected_node
             node.next = self.__selected_node
             self.__selected_node.previous = node
             self.__selected_node.data.color = QColor("blue")
