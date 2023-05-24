@@ -4,10 +4,10 @@ from copy import deepcopy
 import numpy as np
 from PySide6.QtCore import Qt, Signal, Slot, QTimer, QPointF, QLineF
 import PySide6
-from PySide6.QtCore import Qt, Signal, Slot, QTimer
+from PySide6.QtCore import Qt, Signal, Slot, QTimer, QEvent
 from PySide6.QtGui import QPainter, QColor, QPixmap, QPen, QPalette, QFontMetrics, QFont
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
-                               QPushButton, QSizePolicy, QLabel, QLineEdit, QScrollArea, QSlider)
+                               QPushButton, QSizePolicy, QLabel, QLineEdit, QScrollArea, QSlider, QToolTip)
 
 
 class GuiFourierMain(QWidget):
@@ -229,15 +229,28 @@ class GuiFourierDrawBoard(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setStyleSheet("QPushButton {color: black;}")
         self.__timer = None
         self.is_drawing = None
         self.path_result = None
         self.path = None
+        self.__showVect0 = False
         self.init_gui()
 
     def init_gui(self):
         __mainLayout = QVBoxLayout()
-
+        __infoLayout = QHBoxLayout()
+        __infoBtnVectors = QPushButton("?")
+        __infoBtnVectors.setFixedWidth(25)
+        __infoBtnVectors.setDisabled(True)
+        __infoBtnVectors.setToolTip("Une série de Fourier est une décomposition d'une fonction en plus petites parties. "
+                                    "\nJoseph Fourier, le créateur des dites séries, proposait que toute fonction peut"
+                                    "être approximée à partir d'ondes sinus ou cosinus.\nLes lignes tournantes de cette"
+                                    " application représentent chacunes une de ces ondes, et en les mettant l'une après "
+                                    "l'autre, nous pouvons recréer la fonction représentant le dessin.\nCes vecteurs"
+                                    " tournent tous à une vitesse diférente, un nombre différent de tours par intervale.")
+        #https://stackoverflow.com/questions/27508552/pyqt-mouse-hovering-on-a-qpushbutton
+        __infoBtnVectors.installEventFilter(self)
         self.setFixedHeight(600)
         self.setFixedWidth(700)
         self.path = []
@@ -245,6 +258,10 @@ class GuiFourierDrawBoard(QWidget):
         self.is_drawing = False
 
         # Insertion des boutons dans les layouts
+        __infoLayout.addStretch()
+        __infoLayout.addWidget(__infoBtnVectors)
+        __mainLayout.addLayout(__infoLayout)
+        __mainLayout.addStretch()
         self.setLayout(__mainLayout)
         self.__timer = QTimer()
         self.__timer.timeout.connect(self.tick.emit)
@@ -264,9 +281,17 @@ class GuiFourierDrawBoard(QWidget):
         self.path_result = []
         self.update()
 
+    def eventFilter(self, watched:PySide6.QtCore.QObject, event:PySide6.QtCore.QEvent) -> bool:
+        if event.type() == QEvent.HoverEnter:
+            self.__showVect0 = True
+        if event.type() == QEvent.HoverLeave:
+            self.__showVect0 = False
+        return False
+
+
     def paintEvent(self, event):
         painter = QPainter(self)
-        # painter.fillRect(self.rect(), QColor(255, 255, 255))
+        painter.fillRect(self.rect(), QColor(255, 255, 255))
         if len(self.path) <= 0:
             return
 
@@ -282,8 +307,9 @@ class GuiFourierDrawBoard(QWidget):
                 painter.drawLine(x1, y1, x2, y2)
 
         # dessin des vecteurs
-        # painter.setPen(QPen(Qt.red, 2, Qt.SolidLine))
-        # painter.drawLine(0, 0, self.path[0,0], self.path[0,1])
+        if self.__showVect0:
+            painter.setPen(QPen(Qt.red, 2, Qt.SolidLine))
+            painter.drawLine(0, 0, self.path[0,0], self.path[0,1])
         for i in range(1, len(self.path)):
             # vecteurs
             painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
@@ -311,6 +337,7 @@ class GuiFourierDrawControls(QWidget):
 
     def __init__(self, nb_vectors, precision, parent=None):
         super().__init__(parent)
+        self.setStyleSheet("QPushButton {color: black;}")
 
         # Déclaration des layouts
         __mainLayout = QVBoxLayout()
@@ -328,18 +355,27 @@ class GuiFourierDrawControls(QWidget):
         self.__scrollbar_precision.setValue(precision)
         self.__scrollbar_precision.setMinimum(10)
         self.__scrollbar_precision.setMaximum(2001)
-        self.__infoBtnNbVectors = QPushButton("?")
+        __infoBtnOptions = QPushButton("?")
+        __infoBtnOptions.setFixedWidth(25)
+        __infoBtnOptions.setDisabled(True)
+        __infoBtnOptions.setToolTip("Les lignes tournantes de Fourier sont des vecteurs, qui sont la "
+                                           "représentation graphique des coefficients de la série de Fourier. \n"
+                                           "Plus il y a de coefficients, plus il y a d'ondes qui, additionnées l'une "
+                                           "à l'autre, font une approximation du dessin.\n\n Lorsqu'on analyse un dessin "
+                                           "pour trouver sa série de Fourier, il faut le séparer en un nombre de points "
+                                           "de distance égale.\n Ces points sont interpretés comme les résultats d'une"
+                                           "fonction. La précision indique le nombre de points interpolés, et nous permet"
+                                           "de garder plus de détails du dessin durant la transformée de Fourier.")
         self.__btnPrevious = QPushButton("Previous")
         self.__btnPlayPause = QPushButton("Pause")
         self.__btnNext = QPushButton("Next")
-        # self.setFixedHeight(100)
 
         # Insertion des boutons dans les layouts
         __topLayout.addWidget(self.__btnPrevious)
         __topLayout.addWidget(self.__btnPlayPause)
         __topLayout.addWidget(self.__btnNext)
         __bottomLayout.addStretch()
-        __bottomLayout.addWidget(self.__infoBtnNbVectors)
+        __bottomLayout.addWidget(__infoBtnOptions)
 
         # events boutons
         self.__btnPlayPause.clicked.connect(self.clique_btn_play)
@@ -400,14 +436,21 @@ class GuiFourierDrawIntervals(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setStyleSheet("QPushButton {color: black;}")
 
         # Déclaration du layout et des boutons
         __mainLayout = QVBoxLayout()
-        self.__infoBtnInterval = QToolButton()
+        __infoBtnInterval = QPushButton("?")
+        __infoBtnInterval.setFixedWidth(25)
+        __infoBtnInterval.setDisabled(True)
+        __infoBtnInterval.setToolTip("On calcule une série de Fourier sur une intervale.\n"
+                                          "Une intervale est l'ensemble de la fonction entre deux bornes.\n"
+                                          "Dans le cas de cette animation, l'intervalle va de 0 à 1.\n"
+                                          "Cette barre de défilement représente cette intervalle.")
         self.__intervalScroll = QScrollBar()
 
         # Insertion des boutons dans le layout
-        __mainLayout.addWidget(self.__infoBtnInterval)
+        __mainLayout.addWidget(__infoBtnInterval)
         __mainLayout.addWidget(self.__intervalScroll)
         self.setFixedWidth(60)
         self.setLayout(__mainLayout)
