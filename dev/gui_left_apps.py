@@ -119,7 +119,7 @@ class GuiCustomDrawing(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        # painter.fillRect(self.rect(), QColor(95, 78, 133))
+        #painter.fillRect(self.rect(), QColor(95, 78, 133))
 
 
 class DrawingWidget(QWidget):

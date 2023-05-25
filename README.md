@@ -1,10 +1,29 @@
-# CVM-H23-PROJ
+## CVM-H23-PROJ
 
-C'est fou. Riez!
+#C'est fou. Riez!
 
 Par Roberto Nightingale et Patrice Gallant
 
-Programme récréant des dessins continus des utilisateurs à partir d'un algorithme de transformée de Fourier.
+###Sommaire:
+Notre programme permet aux utilisateurs de faire des dessins continus qui sont ensuite analysés par un algorithme de 
+transformée de Fourier et recréés à partir des coefficients obtenus, représentés sous forme de vecteurs dans un plan 
+cartésien.
+
+###Installation:
+
+
+###Utilisation:
+
+
+###Références:
+Grant Sanderson - https://www.3blue1brown.com/
+
+https://stackoverflow.com/questions/27508552/pyqt-mouse-hovering-on-a-qpushbutton
+
+https://stackoverflow.com/questions/16662638/how-to-draw-a-line-at-angle-in-qt
+
+###Remerciments:
+Nous tenons à remercier les professeurs du département de mathématiques et du SIGMA pour nous avoir aidé à comprendre les concepts nécéssaires à la bonne intégration des séries complexes de Fourier dans notre projet.
 
 • Titre
 • Sommaire
