@@ -1,6 +1,6 @@
 from PySide6.QtCore import Signal, Slot
 from PySide6.QtGui import QPainter, QColor
-from PySide6.QtWidgets import (QVBoxLayout, QWidget, QSizePolicy)
+from PySide6.QtWidgets import (QVBoxLayout, QWidget, QSizePolicy, QFrame)
 
 from gui_left_apps import GuiNavMenu, GuiCustomDrawing
 
@@ -40,7 +40,3 @@ class Left_window(QWidget):
 
     def set_drawing(self, drawing):
         self.drawingBoard.set_drawing(drawing)
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        #painter.fillRect(self.rect(), QColor("orange"))

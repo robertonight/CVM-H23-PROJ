@@ -7,7 +7,7 @@ import PySide6
 from PySide6.QtCore import Qt, Signal, Slot, QTimer
 from PySide6.QtGui import QPainter, QColor, QPixmap, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QGridLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
-                               QPushButton, QSizePolicy, QLabel)
+                               QPushButton, QSizePolicy, QLabel, QFrame, QScrollArea)
 from utils import LinkedList, Node
 
 
@@ -26,7 +26,9 @@ class GuiFeedMain(QWidget):
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Minimum)
         self.__mainLayout = QVBoxLayout()
         __btnContainer = QHBoxLayout()
-        self.__galleryContainer = QWidget()
+        self.__scrollArea = QScrollArea()
+        __galleryContainer = QWidget()
+        self.__scrollArea.setWidget(__galleryContainer)
         self.__btnReturn = QPushButton("Return")
         self.__btnReturn.setFixedWidth(100)
         self.__btnReturn.clicked.connect(self.return_pushed)
@@ -36,10 +38,6 @@ class GuiFeedMain(QWidget):
         self.create_linked_list(drawings)
         self.fill_gallery()
         self.setLayout(self.__mainLayout)
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor("red"))
 
     def create_linked_list(self, drawings):
         curr_node = None
@@ -59,8 +57,9 @@ class GuiFeedMain(QWidget):
                 new_display.node = curr_node
 
     def fill_gallery(self):
-        self.__mainLayout.removeWidget(self.__galleryContainer)
-        self.__galleryContainer = QWidget()
+        self.__mainLayout.removeWidget(self.__scrollArea)
+        self.__scrollArea = QScrollArea()
+        __galleryContainer = QWidget()
         __galleryLayout = QGridLayout()
         grid_row = 1
         grid_column = 1
@@ -73,16 +72,17 @@ class GuiFeedMain(QWidget):
             curr_node.data.update()
             grid_column += 1
             curr_node = curr_node.next
-        self.__galleryContainer.setLayout(__galleryLayout)
-        self.__mainLayout.addWidget(self.__galleryContainer)
+        __galleryContainer.setLayout(__galleryLayout)
+        self.__scrollArea.setWidget(__galleryContainer)
+        self.__mainLayout.addWidget(self.__scrollArea)
 
     def clicked_display(self, node):
         if self.__selected_node is None:
-            node.data.color = QColor("lightblue")
+            node.data.color = QColor(100,150,200)
             node.data.update()
             self.__selected_node = node
         elif self.__selected_node is node or self.__selected_node.previous is node:
-            self.__selected_node.data.color = QColor("blue")
+            self.__selected_node.data.color = QColor(150,150,150)
             self.__selected_node.data.update()
             self.__selected_node = None
         else:
@@ -98,19 +98,20 @@ class GuiFeedMain(QWidget):
                 node.next.previous = self.__selected_node
             node.next = self.__selected_node
             self.__selected_node.previous = node
-            self.__selected_node.data.color = QColor("blue")
+            self.__selected_node.data.color = QColor(150,150,150)
             self.__selected_node = None
             self.fill_gallery()
 
-class DrawingDisplay(QWidget):
+class DrawingDisplay(QFrame):
 
     display_left_clicked = Signal(Node)
     display_right_clicked = Signal(list)
 
     def __init__(self, drawing, parent=None):
-        self.__color = QColor("blue")
+        self.__color = QColor(150,150,150)
         self.__node = None
         super().__init__(parent)
+        self.setStyleSheet("QLabel {background-color: rgba(0,0,0,0);}")
         self.init_gui(drawing)
 
     def init_gui(self, drawing):
@@ -183,7 +184,7 @@ class DrawingDisplayBoard(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(255, 255, 255))
+        painter.fillRect(self.rect(), QColor(255,255,255))
 
         pen = QPen(Qt.black, 2, Qt.SolidLine)
         painter.setPen(pen)

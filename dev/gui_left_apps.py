@@ -4,10 +4,10 @@ import sys
 from PySide6.QtCore import Qt, Signal, Slot, QPointF
 from PySide6.QtGui import QPainter, QColor, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QWidget, QHBoxLayout, QPushButton,
-                               QSizePolicy, QInputDialog)
+                               QSizePolicy, QInputDialog, QFrame)
 
 
-class GuiNavMenu(QWidget):
+class GuiNavMenu(QFrame):
     clicked_feed = Signal()
 
     def __init__(self, parent=None):
@@ -20,22 +20,11 @@ class GuiNavMenu(QWidget):
         # buttons
         taille = 100
         tailleHeight = 30
-        self.__btnDraw = QPushButton("Dessiner")
-        self.__btnDraw.setFixedWidth(taille)
-        self.__btnDraw.setFixedHeight(tailleHeight)
-
-        # self.__btnGallery = QPushButton("Galerie")
-        # self.__btnGallery.setFixedWidth(taille)
-        # self.__btnGallery.setFixedHeight(tailleHeight)
 
         self.__btnFeed = QPushButton("Fil")
         self.__btnFeed.setFixedWidth(taille)
         self.__btnFeed.setFixedHeight(tailleHeight)
         self.__btnFeed.clicked.connect(self.clicked_feed)
-
-        # self.__btnConnectProf = QPushButton("Connexion")
-        # self.__btnConnectProf.setFixedWidth(taille)
-        # self.__btnConnectProf.setFixedHeight(tailleHeight)
 
         self.__btnQuit = QPushButton("Quitter")
         self.__btnQuit.clicked.connect(sys.exit)
@@ -44,12 +33,8 @@ class GuiNavMenu(QWidget):
 
         # Insertion des boutons dans le layout
         mainLayout.setContentsMargins(0, 0, 0, 0)
-        mainLayout.addWidget(self.__btnDraw)
-        # mainLayout.addWidget(self.__btnGallery)
         mainLayout.addWidget(self.__btnFeed)
-        # mainLayout.addWidget(self.__btnConnectProf)
         mainLayout.addWidget(self.__btnQuit)
-        # mainLayout.addStretch()
         self.setLayout(mainLayout)
 
     def paintEvent(self, event):
@@ -57,7 +42,7 @@ class GuiNavMenu(QWidget):
         # painter.fillRect(self.rect(), QColor(163, 81, 75))
 
 
-class GuiCustomDrawing(QWidget):
+class GuiCustomDrawing(QFrame):
     line_ended = Signal(list)
     undo_pushed = Signal()
     erase_pushed = Signal()
@@ -68,36 +53,45 @@ class GuiCustomDrawing(QWidget):
 
         # Déclaration des layouts et des boutons
         __mainLayout = QVBoxLayout()
-        __mainLayout.setContentsMargins(0, 0, 0, 0)
+        __mainLayout.setContentsMargins(10, 0, 10, 0)
         __highLayout = QVBoxLayout()
         __highLayout.setContentsMargins(0, 0, 0, 0)
+        __canvasLayout = QHBoxLayout()
         __lowLayout = QHBoxLayout()
         __lowLayout.setContentsMargins(0, 0, 0, 0)
 
-        self.drawing_canvas = DrawingWidget()
-        self.drawing_canvas.line_ended.connect(self.line_ended)
+        self.__drawing_canvas = DrawingWidget()
+        self.__drawing_canvas.line_ended.connect(self.line_ended)
+        __canvasLayout.addStretch()
+        __canvasLayout.addWidget(self.__drawing_canvas)
+        __canvasLayout.addStretch()
 
         self.__eraseBtn = QPushButton("X")
+        self.__eraseBtn.setStyleSheet("QPushButton {font-size: 15pt; color:red}")
         self.__eraseBtn.clicked.connect(self.erase_pushed.emit)
-        self.__eraseBtn.setFixedSize(20, 20)
-        layout_eraseBtn = QHBoxLayout()
-        layout_eraseBtn.addStretch()
-        layout_eraseBtn.addWidget(self.__eraseBtn)
+        self.__eraseBtn.setFixedSize(30, 30)
+        __layout_eraseBtn = QHBoxLayout()
+        __layout_eraseBtn.addStretch()
+        __layout_eraseBtn.addWidget(self.__eraseBtn)
 
         self.__undoBtn = QPushButton("undo")
+        self.__undoBtn.setMinimumWidth(200)
         self.__undoBtn.clicked.connect(self.undo_pushed.emit)
-        self.__undoBtn.clicked.connect(self.drawing_canvas.undo)
+        self.__undoBtn.clicked.connect(self.__drawing_canvas.undo)
 
         self.__saveBtn = QPushButton("save")
+        self.__saveBtn.setMinimumWidth(200)
         self.__saveBtn.clicked.connect(self.save_drawing)
 
         # Insertion des boutons dans les layouts
-        __highLayout.addLayout(layout_eraseBtn)
+        __highLayout.addLayout(__layout_eraseBtn)
+        __highLayout.addLayout(__canvasLayout)
 
-        __highLayout.addWidget(self.drawing_canvas)
-
+        __lowLayout.addStretch()
         __lowLayout.addWidget(self.__undoBtn)
+        __lowLayout.addStretch()
         __lowLayout.addWidget(self.__saveBtn)
+        __lowLayout.addStretch()
 
         __mainLayout.addLayout(__highLayout)
         __mainLayout.addLayout(__lowLayout)
@@ -109,13 +103,13 @@ class GuiCustomDrawing(QWidget):
             self.drawing_saved.emit(drawing_name)
 
     def erase_drawing(self):
-        self.drawing_canvas.erase()
+        self.__drawing_canvas.erase()
 
     def undo(self, drawing):
-        self.drawing_canvas.undo(drawing)
+        self.__drawing_canvas.undo(drawing)
 
     def set_drawing(self, drawing):
-        self.drawing_canvas.set_drawing(drawing)
+        self.__drawing_canvas.set_drawing(drawing)
 
     def paintEvent(self, event):
         painter = QPainter(self)

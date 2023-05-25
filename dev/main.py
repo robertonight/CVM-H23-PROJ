@@ -17,7 +17,7 @@ class QFApp(QMainWindow):
         self.resize(1250, 900)
         self.__fourier_main = None
         self.init_gui()
-        self.setStyleSheet("background-color: rgb(100,100,100);")
+        self.setStyleSheet("QFrame {border: 1px solid black;} * {background-color: rgb(150,150,150);} QLabel {border: 0px}")
 
     def init_gui(self):
         # declarations

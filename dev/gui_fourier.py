@@ -7,7 +7,7 @@ import PySide6
 from PySide6.QtCore import Qt, Signal, Slot, QTimer, QEvent
 from PySide6.QtGui import QPainter, QColor, QPixmap, QPen, QPalette, QFontMetrics, QFont
 from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
-                               QPushButton, QSizePolicy, QLabel, QLineEdit, QScrollArea, QSlider, QToolTip)
+                               QPushButton, QSizePolicy, QLabel, QLineEdit, QScrollArea, QSlider, QToolTip, QFrame)
 
 
 class GuiFourierMain(QWidget):
@@ -113,10 +113,11 @@ class GuiFourierVectors(QWidget):
     def paintEvent(self, event):
         diameter_circle = self.height() - 10
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor("turquoise"))
 
-        painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
         if self._angle_vectors.size != 0:
+            painter.fillRect(self.rect(), QColor("turquoise"))
+
+            painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
             for i in range(self._angle_vectors[:, 0].size):
                 painter.drawPoint(QPointF(diameter_circle / 2 + (i * diameter_circle), diameter_circle / 2))
                 painter.drawEllipse(QPointF(diameter_circle / 2 + (i * diameter_circle), diameter_circle / 2),
@@ -140,7 +141,7 @@ class GuiFourierVectors(QWidget):
         scroll.verticalScrollBar().setValue(50)
 
 
-class GuiFourierDraw(QWidget):
+class GuiFourierDraw(QFrame):
     tick = Signal()
     play_pressed = Signal()
     pause_pressed = Signal()
@@ -323,7 +324,7 @@ class GuiFourierDrawBoard(QWidget):
             painter.drawEllipse(center, radius, radius)
 
 
-class GuiFourierDrawControls(QWidget):
+class GuiFourierDrawControls(QFrame):
     """
     ROUGE
     """
@@ -337,7 +338,7 @@ class GuiFourierDrawControls(QWidget):
 
     def __init__(self, nb_vectors, precision, parent=None):
         super().__init__(parent)
-        self.setStyleSheet("QPushButton {color: black;}")
+        self.setStyleSheet("QPushButton {color: black;} QLabel {font-size: 13pt;}")
 
         # Déclaration des layouts
         __mainLayout = QVBoxLayout()
