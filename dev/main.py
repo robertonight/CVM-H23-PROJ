@@ -2,7 +2,7 @@ import sys
 
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import (QMainWindow, QApplication, QWidget, QHBoxLayout)
-from gui_left_window import Left_window
+from gui_left_window import LeftWindow
 from gui_fourier import GuiFourierMain
 from model import Model
 from gui_feed import GuiFeedMain
@@ -15,7 +15,7 @@ class QFApp(QMainWindow):
         self.__model = None
         self.setWindowTitle("C'est fou. Riez!")
         self.resize(1250, 900)
-        self.__fourier_main = None
+        self.__fourierMain = None
         self.init_gui()
         # ref: https://stackoverflow.com/questions/7351493/how-to-add-border-around-qwidget
         self.setStyleSheet("QFrame {border: 1px solid black;} * {background-color: rgb(150,150,150);} QLabel {border: 0px}")
@@ -23,23 +23,23 @@ class QFApp(QMainWindow):
     def init_gui(self):
         # declarations
         self.__model = Model()
-        centralWidget = self.change_to_fourier_windows()
-        self.setCentralWidget(centralWidget)
+        __centralWidget = self.change_to_fourier_windows()
+        self.setCentralWidget(__centralWidget)
 
     @Slot()
     def erase_drawing(self):
         self.__leftWindow.erase_drawing()
-        self.__fourier_main.erase_drawing()
+        self.__fourierMain.erase_drawing()
 
     @Slot()
     def change_to_feed(self):
-        self.__fourier_main.stop_sim()
+        self.__fourierMain.stop_sim()
         self.__model.stop_sim()
-        drawings = self.__model.get_all_drawings()
-        new_central_widget = GuiFeedMain(drawings)
-        new_central_widget.return_pushed.connect(self.quit_feed)
-        new_central_widget.display_right_clicked.connect(self.set_chosen_drawing)
-        self.setCentralWidget(new_central_widget)
+        __drawings = self.__model.get_drawings()
+        __newCentralWidget = GuiFeedMain(__drawings)
+        __newCentralWidget.return_pushed.connect(self.quit_feed)
+        __newCentralWidget.display_right_clicked.connect(self.set_chosen_drawing)
+        self.setCentralWidget(__newCentralWidget)
 
     @Slot()
     def set_chosen_drawing(self, drawing):
@@ -49,13 +49,13 @@ class QFApp(QMainWindow):
 
     @Slot()
     def quit_feed(self):
-        new_central_widget = self.change_to_fourier_windows()
-        self.setCentralWidget(new_central_widget)
+        __newCentralWidget = self.change_to_fourier_windows()
+        self.setCentralWidget(__newCentralWidget)
 
     def change_to_fourier_windows(self):
-        centralWidget = QWidget()
-        layoutContainer = QHBoxLayout()
-        self.__leftWindow = Left_window()
+        __centralWidget = QWidget()
+        __layoutContainer = QHBoxLayout()
+        self.__leftWindow = LeftWindow()
         self.__leftWindow.line_ended.connect(self.__model.receive_line)
         self.__leftWindow.undo_pushed.connect(self.__model.undo_line)
         self.__leftWindow.erase_pushed.connect(self.__model.erase_drawing)
@@ -63,21 +63,21 @@ class QFApp(QMainWindow):
         self.__leftWindow.drawing_saved.connect(self.__model.save_drawing)
         self.__leftWindow.cliked_feed.connect(self.change_to_feed)
         # ajout
-        layoutContainer.addWidget(self.__leftWindow)
-        centralWidget.setLayout(layoutContainer)
-        self.__fourier_main = GuiFourierMain(self.__model.nb_vecteurs, self.__model.precision)
-        self.__fourier_main.tick.connect(self.__model.tick)
-        self.__fourier_main.play_pressed.connect(self.__model.start_sim)
-        self.__fourier_main.previous_pressed.connect(self.__model.previous_interval)
-        self.__fourier_main.next_pressed.connect(self.__model.next_interval)
-        self.__fourier_main.precision_changed.connect(self.__model.change_precision)
-        self.__fourier_main.nb_vectors_changed.connect(self.__model.change_nb_vecteurs)
-        self.__model.sim_started.connect(self.__fourier_main.start_sim)
-        self.__model.sim_updated.connect(self.__fourier_main.update_sim)
-        self.__model.new_animation_started.connect(self.__fourier_main.reset_drawing)
+        __layoutContainer.addWidget(self.__leftWindow)
+        __centralWidget.setLayout(__layoutContainer)
+        self.__fourierMain = GuiFourierMain(self.__model.nbVectors, self.__model.precision)
+        self.__fourierMain.tick.connect(self.__model.tick)
+        self.__fourierMain.play_pressed.connect(self.__model.start_sim)
+        self.__fourierMain.previous_pressed.connect(self.__model.previous_interval)
+        self.__fourierMain.next_pressed.connect(self.__model.next_interval)
+        self.__fourierMain.precision_changed.connect(self.__model.change_precision)
+        self.__fourierMain.nb_vectors_changed.connect(self.__model.change_nb_vecteurs)
+        self.__model.sim_started.connect(self.__fourierMain.start_sim)
+        self.__model.sim_updated.connect(self.__fourierMain.update_sim)
+        self.__model.new_animation_started.connect(self.__fourierMain.reset_drawing)
 
-        layoutContainer.addWidget(self.__fourier_main)
-        return centralWidget
+        __layoutContainer.addWidget(self.__fourierMain)
+        return __centralWidget
 
 
 if __name__ == '__main__':

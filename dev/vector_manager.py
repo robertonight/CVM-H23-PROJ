@@ -5,45 +5,45 @@ import math
 
 class VectorManager:
     def __init__(self, max_time: float):
-        self._matrix_vect: np.ndarray = None
-        self._interval: int = 0
-        self._max_time = max_time
-        self._last_time = 0.0
+        self.__matrixVect: np.ndarray = None
+        self.__interval: int = 0
+        self.__maxTime = max_time
+        self.__lastTime = 0.0
 
     @property
     def matrix_vect(self):
-        return self._matrix_vect
+        return self.__matrixVect
 
     @property
     def interval(self):
-        return self._interval
+        return self.__interval
 
     @interval.setter
     def interval(self, interval: int):
-        self._interval = interval
+        self.__interval = interval
 
     @property
     def last_time(self):
-        return self._last_time
+        return self.__lastTime
 
     @last_time.setter
     def last_time(self, time):
-        self._last_time = time
+        self.__lastTime = time
 
     @matrix_vect.setter
-    def matrix_vect(self, matrix_coefficients: np.ndarray):  # c'était new matrix avant btw
-        temp_matrix = np.zeros((matrix_coefficients[:, 0].size, 5))  # je trouvais que c'était plus clair que len
-        temp_matrix[:, 0:2] = matrix_coefficients
-        temp_matrix[:, 2] = matrix_coefficients[:, 1]
-        self._matrix_vect = temp_matrix
+    def matrix_vect(self, matrixCoeffs: np.ndarray):  # c'était new matrix avant btw
+        tempMatrix = np.zeros((matrixCoeffs[:, 0].size, 5))  # je trouvais que c'était plus clair que len
+        tempMatrix[:, 0:2] = matrixCoeffs
+        tempMatrix[:, 2] = matrixCoeffs[:, 1]
+        self.__matrixVect = tempMatrix
 
     @property
     def max_time(self):
-        return self._max_time
+        return self.__maxTime
 
     @max_time.setter
-    def max_time(self, max_time: float):
-        self._max_time = max_time
+    def max_time(self, maxTime: float):
+        self.__maxTime = maxTime
 
     def start_sim(self):
         """
@@ -53,36 +53,36 @@ class VectorManager:
         bonne valeur pour continuer
         :return:
         """
-        self._last_time = perf_counter()
-        vector_coords = self.update()
-        return vector_coords
+        self.__lastTime = perf_counter()
+        vectorCoords = self.update()
+        return vectorCoords
 
     def update(self):
         """
-        Le elapsed_time est utilisé avec max_time pour obtenir un pourcentage. Puisque l'interval se fait de 0 à 1,
+        Le elapsedTime est utilisé avec max_time pour obtenir un pourcentage. Puisque l'interval se fait de 0 à 1,
         le pourcentage obtenu peut être additionné pour donner le t de l'interval voulu. Un modulo assure que le
         maximum de l'interval n'est jamais dépassé. Avec l'interval, on mesure le nombre de radians que chaque vecteur
         doit tourner et on l'additionne à leur angle actuel. On obtient ensuite la forme cartésienne des vecteurs,
         et on les additionne les un aux autres afin que leurs coordonnées soient un
         :return:
         """
-        current_time = perf_counter()
-        elapsed_time = current_time - self._last_time
-        self._last_time = current_time  # dans le futur
-        self._interval = math.fmod(
-            (self._interval + elapsed_time / self.max_time), 1)  # modulo quand tourne + loin que cercle
-        n_positifs = np.arange(1, self._matrix_vect[:, 0].size / 2)
-        n_negatifs = -1 * n_positifs
-        matrice_de_n = np.zeros(self._matrix_vect[:, 0].size, dtype=int)
-        matrice_de_n[1::2] = n_positifs
-        matrice_de_n[2::2] = n_negatifs
-        rad_change = self._interval * 2 * math.pi
-        self._matrix_vect[:, 2] = np.fmod((self._matrix_vect[:, 1] + (rad_change * matrice_de_n[:])), (2 * math.pi))
-        reel = self._matrix_vect[:, 0] * np.cos(self._matrix_vect[:, 2])
-        imag = self._matrix_vect[:, 0] * np.sin(self._matrix_vect[:, 2])
-        self._matrix_vect[:, 3] = reel[:]
-        self._matrix_vect[:, 4] = imag[:]
-        for i in range(1, len(self._matrix_vect)):
-            precedent = i - 1
-            self._matrix_vect[i, 3:] = self._matrix_vect[i, 3:] + self._matrix_vect[precedent, 3:]
-        return self._matrix_vect[:, 2:]
+        currentTime = perf_counter()
+        elapsedTime = currentTime - self.__lastTime
+        self.__lastTime = currentTime
+        self.__interval = math.fmod(
+            (self.__interval + elapsedTime / self.max_time), 1)
+        positiveN = np.arange(1, self.__matrixVect[:, 0].size / 2)
+        negativeN = -1 * positiveN
+        matrixN = np.zeros(self.__matrixVect[:, 0].size, dtype=int)
+        matrixN[1::2] = positiveN
+        matrixN[2::2] = negativeN
+        radChange = self.__interval * 2 * math.pi
+        self.__matrixVect[:, 2] = np.fmod((self.__matrixVect[:, 1] + (radChange * matrixN[:])), (2 * math.pi))
+        real = self.__matrixVect[:, 0] * np.cos(self.__matrixVect[:, 2])
+        imag = self.__matrixVect[:, 0] * np.sin(self.__matrixVect[:, 2])
+        self.__matrixVect[:, 3] = real[:]
+        self.__matrixVect[:, 4] = imag[:]
+        for i in range(1, len(self.__matrixVect)):
+            previous = i - 1
+            self.__matrixVect[i, 3:] = self.__matrixVect[i, 3:] + self.__matrixVect[previous, 3:]
+        return self.__matrixVect[:, 2:]

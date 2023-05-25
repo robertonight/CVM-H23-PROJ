@@ -11,30 +11,27 @@ class GuiNavMenu(QFrame):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        # Déclaration du layout et des boutons
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Minimum)
-        mainLayout = QHBoxLayout()
+        __mainLayout = QHBoxLayout()
         self.setFixedHeight(50)
 
-        # buttons
-        taille = 100
-        tailleHeight = 30
+        __taille = 100
+        __tailleHeight = 30
 
         self.__btnFeed = QPushButton("Fil")
-        self.__btnFeed.setFixedWidth(taille)
-        self.__btnFeed.setFixedHeight(tailleHeight)
+        self.__btnFeed.setFixedWidth(__taille)
+        self.__btnFeed.setFixedHeight(__tailleHeight)
         self.__btnFeed.clicked.connect(self.clicked_feed)
 
         self.__btnQuit = QPushButton("Quitter")
         self.__btnQuit.clicked.connect(sys.exit)
-        self.__btnQuit.setFixedWidth(taille)
-        self.__btnQuit.setFixedHeight(tailleHeight)
+        self.__btnQuit.setFixedWidth(__taille)
+        self.__btnQuit.setFixedHeight(__tailleHeight)
 
-        # Insertion des boutons dans le layout
-        mainLayout.setContentsMargins(0, 0, 0, 0)
-        mainLayout.addWidget(self.__btnFeed)
-        mainLayout.addWidget(self.__btnQuit)
-        self.setLayout(mainLayout)
+        __mainLayout.setContentsMargins(0, 0, 0, 0)
+        __mainLayout.addWidget(self.__btnFeed)
+        __mainLayout.addWidget(self.__btnQuit)
+        self.setLayout(__mainLayout)
 
 
 class GuiCustomDrawing(QFrame):
@@ -55,31 +52,31 @@ class GuiCustomDrawing(QFrame):
         __lowLayout = QHBoxLayout()
         __lowLayout.setContentsMargins(0, 0, 0, 0)
 
-        self.__drawing_canvas = DrawingWidget()
-        self.__drawing_canvas.line_ended.connect(self.line_ended)
+        self.__drawingCanvas = DrawingWidget()
+        self.__drawingCanvas.line_ended.connect(self.line_ended)
         __canvasLayout.addStretch()
-        __canvasLayout.addWidget(self.__drawing_canvas)
+        __canvasLayout.addWidget(self.__drawingCanvas)
         __canvasLayout.addStretch()
 
         self.__eraseBtn = QPushButton("X")
         self.__eraseBtn.setStyleSheet("QPushButton {font-size: 15pt; color:red}")
         self.__eraseBtn.clicked.connect(self.erase_pushed.emit)
         self.__eraseBtn.setFixedSize(30, 30)
-        __layout_eraseBtn = QHBoxLayout()
-        __layout_eraseBtn.addStretch()
-        __layout_eraseBtn.addWidget(self.__eraseBtn)
+        __layoutEraseBtn = QHBoxLayout()
+        __layoutEraseBtn.addStretch()
+        __layoutEraseBtn.addWidget(self.__eraseBtn)
 
         self.__undoBtn = QPushButton("undo")
         self.__undoBtn.setMinimumWidth(200)
         self.__undoBtn.clicked.connect(self.undo_pushed.emit)
-        self.__undoBtn.clicked.connect(self.__drawing_canvas.undo)
+        self.__undoBtn.clicked.connect(self.__drawingCanvas.undo)
 
         self.__saveBtn = QPushButton("save")
         self.__saveBtn.setMinimumWidth(200)
         self.__saveBtn.clicked.connect(self.save_drawing)
 
         # Insertion des boutons dans les layouts
-        __highLayout.addLayout(__layout_eraseBtn)
+        __highLayout.addLayout(__layoutEraseBtn)
         __highLayout.addLayout(__canvasLayout)
 
         __lowLayout.addStretch()
@@ -93,18 +90,18 @@ class GuiCustomDrawing(QFrame):
         self.setLayout(__mainLayout)
 
     def save_drawing(self):
-        drawing_name, ok = QInputDialog.getText(self, 'Sauvegarde', 'Entrez un titre pour votre dessin')
+        drawingName, ok = QInputDialog.getText(self, 'Sauvegarde', 'Entrez un titre pour votre dessin')
         if ok:
-            self.drawing_saved.emit(drawing_name)
+            self.drawing_saved.emit(drawingName)
 
     def erase_drawing(self):
-        self.__drawing_canvas.erase()
+        self.__drawingCanvas.erase()
 
     def undo(self, drawing):
-        self.__drawing_canvas.undo(drawing)
+        self.__drawingCanvas.undo(drawing)
 
     def set_drawing(self, drawing):
-        self.__drawing_canvas.set_drawing(drawing)
+        self.__drawingCanvas.set_drawing(drawing)
 
 
 class DrawingWidget(QWidget):
@@ -112,48 +109,48 @@ class DrawingWidget(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.path = []
-        self.is_drawing = False
+        self.__path = []
+        self.__isDrawing = False
         self.setFixedHeight(600)
         self.setFixedWidth(700)
 
     def undo(self):
-        if len(self.path) == 1:
+        if len(self.__path) == 1:
             self.erase()
-        elif len(self.path) > 0:
-            self.path.pop(-1)
+        elif len(self.__path) > 0:
+            self.__path.pop(-1)
         self.update()
 
     def erase(self):
-        self.path = []
+        self.__path = []
         self.update()
 
     def set_drawing(self, drawing):
-        self.path = drawing
+        self.__path = drawing
         self.update()
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
-            self.is_drawing = True
-            if len(self.path) > 0:
-                self.path.append([self.path[-1][-1]])
-                self.path[-1].append(event.position())
+            self.__isDrawing = True
+            if len(self.__path) > 0:
+                self.__path.append([self.__path[-1][-1]])
+                self.__path[-1].append(event.position())
             else:
-                self.path.append([event.position()])
+                self.__path.append([event.position()])
             self.update()
 
     def mouseMoveEvent(self, event):
-        if self.is_drawing:
-            self.path[-1].append(event.position())
+        if self.__isDrawing:
+            self.__path[-1].append(event.position())
             self.update()
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
-            self.is_drawing = False
-            if len(self.path) > 1 or len(self.path[-1]) > 1:
-                self.path[-1].append(self.path[0][0])
-                self.line_ended.emit(self.path[-1])
-                self.path[-1].pop(len(self.path[-1]) - 1)
+            self.__isDrawing = False
+            if len(self.__path) > 1 or len(self.__path[-1]) > 1:
+                self.__path[-1].append(self.__path[0][0])
+                self.line_ended.emit(self.__path[-1])
+                self.__path[-1].pop(len(self.__path[-1]) - 1)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -162,9 +159,9 @@ class DrawingWidget(QWidget):
         pen = QPen(Qt.black, 2, Qt.SolidLine)
         painter.setPen(pen)
 
-        if len(self.path) > 0:
-            self.path[-1].append(self.path[0][0])
-            for line in self.path:
+        if len(self.__path) > 0:
+            self.__path[-1].append(self.__path[0][0])
+            for line in self.__path:
                 for i in range(1, len(line)):
                     painter.drawLine(line[i - 1], line[i])
-            self.path[-1].pop(len(self.path[-1]) - 1)
+            self.__path[-1].pop(len(self.__path[-1]) - 1)

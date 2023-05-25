@@ -16,10 +16,10 @@ class Model(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.__precision: int = 501
-        self.__nb_vecteurs: int = 201
-        self._vector_manager: VectorManager = VectorManager(10)
+        self.__nbVectors: int = 201
+        self.__vectorManager: VectorManager = VectorManager(10)
         self.__stack = FStack()
-        self.__matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
+        self.__matrixN = np.zeros(self.nbVectors, dtype=int)
         self.__DAO = DAO()
         self.__DAO.connecter()
         self.__DAO.creer_tables()
@@ -30,12 +30,12 @@ class Model(QObject):
         return self.__stack
 
     @property
-    def nb_vecteurs(self):
-        return self.__nb_vecteurs
+    def nbVectors(self):
+        return self.__nbVectors
 
-    @nb_vecteurs.setter
-    def nb_vecteurs(self, nb_vecteurs):
-        self.__nb_vecteurs = nb_vecteurs
+    @nbVectors.setter
+    def nbVectors(self, nbVectors):
+        self.__nbVectors = nbVectors
 
     @property
     def precision(self):
@@ -47,78 +47,73 @@ class Model(QObject):
 
     @Slot()
     def tick(self):
-        temp_matrice = np.zeros((self.nb_vecteurs, 4))
-        temp_matrice[:, 1:] = self._vector_manager.update()
-        temp_matrice[:, 0] = self.__matrice_de_n[:]
-        self.sim_updated.emit(temp_matrice, self._vector_manager.interval)
+        __matrixTemp = np.zeros((self.nbVectors, 4))
+        __matrixTemp[:, 1:] = self.__vectorManager.update()
+        __matrixTemp[:, 0] = self.__matrixN[:]
+        self.sim_updated.emit(__matrixTemp, self.__vectorManager.interval)
 
     def fft(self, coords_list):
-        """
-        Fast Fourier Transform
-        :param coords_list:
-        :return:
-        """
-        vecteurs = np.zeros((self.nb_vecteurs, 2))
-        fncs_de_t = coords_list[:, 0] + coords_list[:, 1] * 1j
-        n_positifs = np.arange(1, self.nb_vecteurs / 2)
-        n_negatifs = -1 * n_positifs
-        self.__matrice_de_n[1::2] = n_positifs
-        self.__matrice_de_n[2::2] = n_negatifs
+        __vectors = np.zeros((self.nbVectors, 2))
+        __fncsOfT = coords_list[:, 0] + coords_list[:, 1] * 1j
+        __positiveN = np.arange(1, self.nbVectors / 2)
+        __negativeN = -1 * __positiveN
+        self.__matrixN[1::2] = __positiveN
+        self.__matrixN[2::2] = __negativeN
         ts = np.arange(self.__precision * 1.0)
         ts[:] = ts[:] / self.__precision
-        exp_cmpx = np.exp((-2 * np.pi) * 1j * np.outer(ts, self.__matrice_de_n))
-        exp_cmpx = exp_cmpx.T
-        somme = np.sum(fncs_de_t[:] * exp_cmpx[:], axis=1)
-        somme = somme / self.__precision
+        __cmpxExp = np.exp((-2 * np.pi) * 1j * np.outer(ts, self.__matrixN))
+        __cmpxExp = __cmpxExp.T
+        __sumCoeff = np.sum(__fncsOfT[:] * __cmpxExp[:], axis=1)
+        __sumCoeff = __sumCoeff / self.__precision
 
-        rayon = np.sqrt((np.imag(somme[:]) ** 2) + (np.real(somme[:]) ** 2))
-        angle = np.arctan2(np.imag(somme[:]), np.real(somme[:]))
-        vecteurs[:, 0] = rayon[:]
-        vecteurs[:, 1] = angle[:]
+        radius = np.sqrt((np.imag(__sumCoeff[:]) ** 2) + (np.real(__sumCoeff[:]) ** 2))
+        angle = np.arctan2(np.imag(__sumCoeff[:]), np.real(__sumCoeff[:]))
+        __vectors[:, 0] = radius[:]
+        __vectors[:, 1] = angle[:]
 
-        return vecteurs
+        return __vectors
 
     def start_new_animation(self, drawing):
-        self._vector_manager = VectorManager(10)
-        self.__matrice_de_n = np.zeros(self.nb_vecteurs, dtype=int)
-        d = DrawingAnalyzer(drawing, self.__precision)
-        array = d.get_intermediary_points()
-        vectors = self.fft(array)
-        self._vector_manager.matrix_vect = vectors
-        self._vector_manager.interval = 0
+        self.__vectorManager = VectorManager(10)
+        self.__matrixN = np.zeros(self.nbVectors, dtype=int)
+        __d = DrawingAnalyzer(drawing, self.__precision)
+        __array = __d.get_intermediary_points()
+        __vectors = self.fft(__array)
+        self.__vectorManager.matrix_vect = __vectors
+        self.__vectorManager.interval = 0
         self.new_animation_started.emit()
         self.start_sim()
 
     @Slot()
     def stop_sim(self):
         self.__stack.clear()
-        self._vector_manager.interval = 0
+        self.__vectorManager.interval = 0
 
     @Slot()
     def start_sim(self):
-        temp_matrice = np.zeros((self.nb_vecteurs, 4))
-        temp_matrice[:, 1:] = self._vector_manager.start_sim()
-        temp_matrice[:, 0] = self.__matrice_de_n[:]
-        self.sim_started.emit(temp_matrice, self._vector_manager.interval)
+        __tempMatrix = np.zeros((self.nbVectors, 4))
+        __tempMatrix[:, 1:] = self.__vectorManager.start_sim()
+        __tempMatrix[:, 0] = self.__matrixN[:]
+        self.sim_started.emit(__tempMatrix, self.__vectorManager.interval)
 
     @Slot()
     def previous_interval(self):
-        self._vector_manager.interval += -0.005
-        self._vector_manager.last_time = perf_counter()
+        self.__vectorManager.interval += -0.005
+        self.__vectorManager.last_time = perf_counter()
         self.tick()
 
     @Slot()
     def next_interval(self):
-        self._vector_manager.interval += 0.005
-        self._vector_manager.last_time = perf_counter()
+        self.__vectorManager.interval += 0.005
+        self.__vectorManager.last_time = perf_counter()
         self.tick()
 
     @Slot()
     def receive_line(self, line):
         if len(self.__stack) > 0:
-            last_line = self.__stack.pop()
-            last_line.pop(-1)
-            self.__stack.push(last_line)
+            __lastLine = self.__stack.pop()
+            __lastLine.pop(-1)
+            self.__stack.push(__lastLine)
         self.__stack.push(line)
         self.start_new_animation(self.__stack)
 
@@ -128,10 +123,10 @@ class Model(QObject):
             self.erase_drawing()
             self.__stack.clear()
         elif len(self.__stack) > 0:
-            removed_line = self.__stack.pop()
-            last_line = self.__stack.pop()
-            last_line.append(removed_line.pop(-1))
-            self.__stack.push(last_line)
+            __removedLine = self.__stack.pop()
+            __lastLine = self.__stack.pop()
+            __lastLine.append(__removedLine.pop(-1))
+            self.__stack.push(__lastLine)
             self.start_new_animation(self.__stack)
 
     @Slot()
@@ -142,14 +137,14 @@ class Model(QObject):
 
     @Slot()
     def save_drawing(self, drawing_name):
-        drawing = self.__stack.objects
-        drawing_data = ''
-        for line in drawing:
+        __drawing = self.__stack.objects
+        __drawingData = ''
+        for line in __drawing:
             for point in line:
-                drawing_data += str(point.x()) + ' ' + str(point.y()) + ';'
-            drawing_data += ':'
+                __drawingData += str(point.x()) + ' ' + str(point.y()) + ';'
+            __drawingData += ':'
         self.__DAO.connecter()
-        self.__DAO.insert_dessins(drawing_name, drawing_data)
+        self.__DAO.insert_dessins(drawing_name, __drawingData)
         self.__DAO.deconnecter()
 
     def set_drawing(self, drawing):
@@ -164,13 +159,13 @@ class Model(QObject):
         self.start_new_animation(self.__stack)
 
     @Slot()
-    def change_nb_vecteurs(self, nb_vecteurs):
-        self.__nb_vecteurs = nb_vecteurs
+    def change_nb_vecteurs(self, nbVectors):
+        self.__nbVectors = nbVectors
         self.start_new_animation(self.__stack)
 
-    def get_all_drawings(self):
+    def get_drawings(self):
         """
-        les colonnes dans dessins_db sont:
+        les colonnes dans __drawingsDB sont:
         0: le id du dessin dans la database(inutile)
         1: le nom du dessin
         2: les points du dessin en forme de string. Il est reconverti dans une autre fonction
@@ -178,12 +173,9 @@ class Model(QObject):
         :return:
         """
         self.__DAO.connecter()
-        dessins_db = self.__DAO.select_dessins()
+        __drawingsDB = self.__DAO.select_dessins()
         self.__DAO.deconnecter()
-        return dessins_db
-
-    def get_drawing(self):
-        pass
+        return __drawingsDB
 
 
 class DrawingAnalyzer:
@@ -197,19 +189,19 @@ class DrawingAnalyzer:
         :param precision: précision en nombre de parts égales
         """
         # declarations
-        nb_points = 0
+        __nbPoints = 0
         for line in drawing.objects:  # calculer nb de points
-            nb_points += len(line)  # nb de points qui se trouvent dans la ligne
-        self.__drawing_info: np.ndarray = np.zeros((nb_points, 5))
+            __nbPoints += len(line)  # nb de points qui se trouvent dans la ligne
+        self.__drawing_info: np.ndarray = np.zeros((__nbPoints, 5))
         """ Contient la matrice de 5 infos """
         self.__d: list = drawing.objects
         """ Dessin constitué de :list 2D de paths """
         self.__precision: int = precision
-        self.__intermediary_points: np.ndarray = np.zeros((precision, 2))
+        self.__intermediaryPoints: np.ndarray = np.zeros((precision, 2))
         """
         couple de points decoupes
         """
-        self.__longueure_dessin: float = 0.0
+        self.__drawingLength: float = 0.0
 
         # ca part
         self.analyzer()
@@ -231,21 +223,23 @@ class DrawingAnalyzer:
                 self.line_analyzer(row2[j - 1], row2[j], idx)
                 idx += 1
         # --
-        self.__drawing_info[:, 4] = self.__drawing_info[:, 3] / self.__longueure_dessin  # % du dessin à ce point
+        self.__drawing_info[:, 4] = self.__drawing_info[:, 3] / self.__drawingLength  # % du dessin à ce point
 
     def line_analyzer(self, point1, point2, idx):
-        longueur = math.sqrt((point2.x() - point1.x()) ** 2 + (point2.y() - point1.y()) ** 2)  # trouver long. vecteur
-        self.__longueure_dessin += longueur
-        self.__drawing_info[idx, :] = [point2.x(), point2.y(), longueur, self.__longueure_dessin, 0]
+        __length = math.sqrt((point2.x() - point1.x()) ** 2 + (point2.y() - point1.y()) ** 2)  # trouver long. vecteur
+        self.__drawingLength += __length
+        self.__drawing_info[idx, :] = [point2.x(), point2.y(), __length, self.__drawingLength, 0]
 
     def get_intermediary_points(self) -> np.ndarray:  # basically get les t
-        step: float = 1 / self.__precision
+        __step: float = 1 / self.__precision
         for i in range(self.__precision):
-            current_step = step * i
-            self.__intermediary_points[i, :] = self.interpolate(current_step)  # trouve points
-        return self.__intermediary_points
+            __currentStep = __step * i
+            self.__intermediaryPoints[i, :] = self.interpolate(__currentStep)  # trouve points
+        return self.__intermediaryPoints
 
     def interpolate(self, step_ratio) -> np.ndarray:
+        # La fonction interpolate est basée sur une formule que notre professeur nous a enseigné. Les variables sont
+        # nommées à partir de cette formule.
         i = 0
         if step_ratio != 0:
             i = np.max(np.nonzero(self.__drawing_info[:, 4] < step_ratio))  # prends + haute longueure

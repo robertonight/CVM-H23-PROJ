@@ -56,17 +56,17 @@ class GuiFeedMain(QWidget):
         self.__scrollArea = QScrollArea()
         __galleryContainer = QWidget()
         __galleryLayout = QGridLayout()
-        grid_row = 1
-        grid_column = 1
-        curr_node = self.__linkedList.head
-        while curr_node is not None:
-            if grid_column > self.__maxGridCol:
-                grid_column = 1
-                grid_row += 1
-            __galleryLayout.addWidget(curr_node.data, grid_row, grid_column)
-            curr_node.data.update()
-            grid_column += 1
-            curr_node = curr_node.next
+        gridRow = 1
+        gridColumn = 1
+        currNode = self.__linkedList.head
+        while currNode is not None:
+            if gridColumn > self.__maxGridCol:
+                gridColumn = 1
+                gridRow += 1
+            __galleryLayout.addWidget(currNode.data, gridRow, gridColumn)
+            currNode.data.update()
+            gridColumn += 1
+            currNode = currNode.next
         __galleryContainer.setLayout(__galleryLayout)
         self.__scrollArea.setWidget(__galleryContainer)
         self.__mainLayout.addWidget(self.__scrollArea)
@@ -110,29 +110,29 @@ class DrawingDisplay(QFrame):
         self.init_gui(drawing)
 
     def init_gui(self, drawing):
-        __main_layout = QVBoxLayout()
-        __title_container = QHBoxLayout()
-        __drawing_title = QLabel(drawing[1])
-        __title_container.addStretch()
-        __title_container.addWidget(__drawing_title)
-        __title_container.addStretch()
-        __board_container = QHBoxLayout()
-        self.__drawing_board = DrawingDisplayBoard(drawing[2])
-        self.__drawing_board.setFixedHeight(300)
-        self.__drawing_board.setFixedWidth(350)
-        self.__drawing_board.update()
-        __board_container.addStretch()
-        __board_container.addWidget(self.__drawing_board)
-        __board_container.addStretch()
-        __date_container = QHBoxLayout()
-        __drawing_date = QLabel(drawing[3])
-        __date_container.addStretch()
-        __date_container.addWidget(__drawing_date)
-        __date_container.addStretch()
-        __main_layout.addLayout(__title_container)
-        __main_layout.addLayout(__board_container)
-        __main_layout.addLayout(__date_container)
-        self.setLayout(__main_layout)
+        __mainLayout = QVBoxLayout()
+        __titleContainer = QHBoxLayout()
+        __drawingTitle = QLabel(drawing[1])
+        __titleContainer.addStretch()
+        __titleContainer.addWidget(__drawingTitle)
+        __titleContainer.addStretch()
+        __boardContainer = QHBoxLayout()
+        self.__drawingBoard = DrawingDisplayBoard(drawing[2])
+        self.__drawingBoard.setFixedHeight(300)
+        self.__drawingBoard.setFixedWidth(350)
+        self.__drawingBoard.update()
+        __boardContainer.addStretch()
+        __boardContainer.addWidget(self.__drawingBoard)
+        __boardContainer.addStretch()
+        __dateContainer = QHBoxLayout()
+        __drawingDate = QLabel(drawing[3])
+        __dateContainer.addStretch()
+        __dateContainer.addWidget(__drawingDate)
+        __dateContainer.addStretch()
+        __mainLayout.addLayout(__titleContainer)
+        __mainLayout.addLayout(__boardContainer)
+        __mainLayout.addLayout(__dateContainer)
+        self.setLayout(__mainLayout)
 
     @property
     def color(self):
@@ -154,7 +154,7 @@ class DrawingDisplay(QFrame):
         if event.button() == Qt.LeftButton:
             self.display_left_clicked.emit(self.__node)
         elif event.button() == Qt.RightButton:
-            self.display_right_clicked.emit(self.__drawing_board.path)
+            self.display_right_clicked.emit(self.__drawingBoard.path)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -173,17 +173,17 @@ class DrawingDisplayBoard(QWidget):
 
     @path.setter
     def path(self, drawing):
-        path_lines = drawing.split(":")
-        for line in path_lines:
-            line_points = line.split(";")
-            line_array = []
-            for point in line_points:
-                coords = point.split(" ")
-                if len(coords) == 2:
-                    qPoint = QPointF(float(coords[0]), float(coords[1]))
-                    line_array.append(qPoint)
-            if len(line_array) > 0:
-                self.__path.append(line_array)
+        __pathLines = drawing.split(":")
+        for line in __pathLines:
+            __linePoints = line.split(";")
+            __lineArray = []
+            for point in __linePoints:
+                __coords = point.split(" ")
+                if len(__coords) == 2:
+                    qPoint = QPointF(float(__coords[0]), float(__coords[1]))
+                    __lineArray.append(qPoint)
+            if len(__lineArray) > 0:
+                self.__path.append(__lineArray)
 
     def paintEvent(self, event):
         painter = QPainter(self)
