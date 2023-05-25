@@ -1,7 +1,6 @@
-# Apps à faire: gui_gallery, gui_profile, gui_profile_preferences, gui_sign_in, gui_sign_up, gui_password_change
 import sys
 
-from PySide6.QtCore import Qt, Signal, Slot, QPointF
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QPainter, QColor, QPen
 from PySide6.QtWidgets import (QVBoxLayout, QWidget, QHBoxLayout, QPushButton,
                                QSizePolicy, QInputDialog, QFrame)
@@ -36,10 +35,6 @@ class GuiNavMenu(QFrame):
         mainLayout.addWidget(self.__btnFeed)
         mainLayout.addWidget(self.__btnQuit)
         self.setLayout(mainLayout)
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        # painter.fillRect(self.rect(), QColor(163, 81, 75))
 
 
 class GuiCustomDrawing(QFrame):
@@ -110,10 +105,6 @@ class GuiCustomDrawing(QFrame):
 
     def set_drawing(self, drawing):
         self.__drawing_canvas.set_drawing(drawing)
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        #painter.fillRect(self.rect(), QColor(95, 78, 133))
 
 
 class DrawingWidget(QWidget):

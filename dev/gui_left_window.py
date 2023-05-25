@@ -1,6 +1,5 @@
-from PySide6.QtCore import Signal, Slot
-from PySide6.QtGui import QPainter, QColor
-from PySide6.QtWidgets import (QVBoxLayout, QWidget, QSizePolicy, QFrame)
+from PySide6.QtCore import Signal
+from PySide6.QtWidgets import (QVBoxLayout, QWidget)
 
 from gui_left_apps import GuiNavMenu, GuiCustomDrawing
 

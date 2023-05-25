@@ -1,13 +1,8 @@
-# à faire: gui_feed_main, gui_feed_gallery, gui_feed_menu
-import math
-from copy import deepcopy
-
-from PySide6.QtCore import Qt, Signal, Slot, QTimer, QPointF, QLineF
-import PySide6
-from PySide6.QtCore import Qt, Signal, Slot, QTimer
-from PySide6.QtGui import QPainter, QColor, QPixmap, QPen
-from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QGridLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
-                               QPushButton, QSizePolicy, QLabel, QFrame, QScrollArea)
+from PySide6.QtCore import QPointF
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtGui import QPainter, QColor, QPen
+from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QGridLayout, QWidget, QPushButton, QSizePolicy, QLabel,
+                               QFrame, QScrollArea)
 from utils import LinkedList, Node
 
 
@@ -17,9 +12,9 @@ class GuiFeedMain(QWidget):
 
     def __init__(self, drawings, parent=None):
         super().__init__(parent)
-        self.__max_grid_col = 4
-        self.__linked_list = LinkedList()
-        self.__selected_node = None
+        self.__maxGridCol = 4
+        self.__linkedList = LinkedList()
+        self.__selectedNode = None
         self.init_gui(drawings)
 
     def init_gui(self, drawings):
@@ -40,21 +35,21 @@ class GuiFeedMain(QWidget):
         self.setLayout(self.__mainLayout)
 
     def create_linked_list(self, drawings):
-        curr_node = None
+        currNode = None
         if drawings is not None:
             for drawing in drawings:
-                new_display = DrawingDisplay(drawing)
-                new_display.display_left_clicked.connect(self.clicked_display)
-                new_display.display_right_clicked.connect(self.display_right_clicked.emit)
-                if self.__linked_list.head is None:
-                    self.__linked_list.head = Node(new_display)
-                    curr_node = self.__linked_list.head
+                newDisplay = DrawingDisplay(drawing)
+                newDisplay.display_left_clicked.connect(self.clicked_display)
+                newDisplay.display_right_clicked.connect(self.display_right_clicked.emit)
+                if self.__linkedList.head is None:
+                    self.__linkedList.head = Node(newDisplay)
+                    currNode = self.__linkedList.head
                 else:
-                    new_node = Node(new_display)
-                    new_node.previous = curr_node
-                    curr_node.next = new_node
-                    curr_node = new_node
-                new_display.node = curr_node
+                    newNode = Node(newDisplay)
+                    newNode.previous = currNode
+                    currNode.next = newNode
+                    currNode = newNode
+                newDisplay.node = currNode
 
     def fill_gallery(self):
         self.__mainLayout.removeWidget(self.__scrollArea)
@@ -63,9 +58,9 @@ class GuiFeedMain(QWidget):
         __galleryLayout = QGridLayout()
         grid_row = 1
         grid_column = 1
-        curr_node = self.__linked_list.head
+        curr_node = self.__linkedList.head
         while curr_node is not None:
-            if grid_column > self.__max_grid_col:
+            if grid_column > self.__maxGridCol:
                 grid_column = 1
                 grid_row += 1
             __galleryLayout.addWidget(curr_node.data, grid_row, grid_column)
@@ -77,29 +72,29 @@ class GuiFeedMain(QWidget):
         self.__mainLayout.addWidget(self.__scrollArea)
 
     def clicked_display(self, node):
-        if self.__selected_node is None:
+        if self.__selectedNode is None:
             node.data.color = QColor(100,150,200)
             node.data.update()
-            self.__selected_node = node
-        elif self.__selected_node is node or self.__selected_node.previous is node:
-            self.__selected_node.data.color = QColor(150,150,150)
-            self.__selected_node.data.update()
-            self.__selected_node = None
+            self.__selectedNode = node
+        elif self.__selectedNode is node or self.__selectedNode.previous is node:
+            self.__selectedNode.data.color = QColor(150, 150, 150)
+            self.__selectedNode.data.update()
+            self.__selectedNode = None
         else:
-            if self.__selected_node.previous is None:
-                self.__linked_list.head = self.__selected_node.next
-                self.__linked_list.head.previous = None
+            if self.__selectedNode.previous is None:
+                self.__linkedList.head = self.__selectedNode.next
+                self.__linkedList.head.previous = None
             else:
-                self.__selected_node.previous.next = self.__selected_node.next
-                if self.__selected_node.next is not None:
-                    self.__selected_node.next.previous = self.__selected_node.previous
-            self.__selected_node.next = node.next
+                self.__selectedNode.previous.next = self.__selectedNode.next
+                if self.__selectedNode.next is not None:
+                    self.__selectedNode.next.previous = self.__selectedNode.previous
+            self.__selectedNode.next = node.next
             if node.next is not None:
-                node.next.previous = self.__selected_node
-            node.next = self.__selected_node
-            self.__selected_node.previous = node
-            self.__selected_node.data.color = QColor(150,150,150)
-            self.__selected_node = None
+                node.next.previous = self.__selectedNode
+            node.next = self.__selectedNode
+            self.__selectedNode.previous = node
+            self.__selectedNode.data.color = QColor(150, 150, 150)
+            self.__selectedNode = None
             self.fill_gallery()
 
 class DrawingDisplay(QFrame):
@@ -116,7 +111,11 @@ class DrawingDisplay(QFrame):
 
     def init_gui(self, drawing):
         __main_layout = QVBoxLayout()
+        __title_container = QHBoxLayout()
         __drawing_title = QLabel(drawing[1])
+        __title_container.addStretch()
+        __title_container.addWidget(__drawing_title)
+        __title_container.addStretch()
         __board_container = QHBoxLayout()
         self.__drawing_board = DrawingDisplayBoard(drawing[2])
         self.__drawing_board.setFixedHeight(300)
@@ -125,10 +124,14 @@ class DrawingDisplay(QFrame):
         __board_container.addStretch()
         __board_container.addWidget(self.__drawing_board)
         __board_container.addStretch()
+        __date_container = QHBoxLayout()
         __drawing_date = QLabel(drawing[3])
-        __main_layout.addWidget(__drawing_title)
+        __date_container.addStretch()
+        __date_container.addWidget(__drawing_date)
+        __date_container.addStretch()
+        __main_layout.addLayout(__title_container)
         __main_layout.addLayout(__board_container)
-        __main_layout.addWidget(__drawing_date)
+        __main_layout.addLayout(__date_container)
         self.setLayout(__main_layout)
 
     @property

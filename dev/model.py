@@ -70,7 +70,7 @@ class Model(QObject):
         exp_cmpx = exp_cmpx.T
         somme = np.sum(fncs_de_t[:] * exp_cmpx[:], axis=1)
         somme = somme / self.__precision
-        
+
         rayon = np.sqrt((np.imag(somme[:]) ** 2) + (np.real(somme[:]) ** 2))
         angle = np.arctan2(np.imag(somme[:]), np.real(somme[:]))
         vecteurs[:, 0] = rayon[:]

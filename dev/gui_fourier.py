@@ -2,12 +2,12 @@ import math
 from copy import deepcopy
 
 import numpy as np
-from PySide6.QtCore import Qt, Signal, Slot, QTimer, QPointF, QLineF
+from PySide6.QtCore import Qt, QPointF, QLineF
 import PySide6
 from PySide6.QtCore import Qt, Signal, Slot, QTimer, QEvent
-from PySide6.QtGui import QPainter, QColor, QPixmap, QPen, QPalette, QFontMetrics, QFont
-from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QToolButton, QScrollBar, QWidget, QFormLayout,
-                               QPushButton, QSizePolicy, QLabel, QLineEdit, QScrollArea, QSlider, QToolTip, QFrame)
+from PySide6.QtGui import QPainter, QColor,  QPen, QFontMetrics, QFont
+from PySide6.QtWidgets import (QVBoxLayout, QHBoxLayout, QScrollBar, QWidget, QFormLayout,
+                               QPushButton, QSizePolicy, QLabel, QScrollArea, QSlider, QFrame)
 
 
 class GuiFourierMain(QWidget):
@@ -32,26 +32,12 @@ class GuiFourierMain(QWidget):
     def init_gui(self, nb_vecteurs, precision):
         # Déclaration du layout et des sous-widgets. Les sous-widgets ont leurs propres classes
         __mainLayout = QVBoxLayout()
-
         self.__vectors = GuiFourierVectors()  #
-        # self.__vectors.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-
         self.__scrollArea = QScrollArea()
-
-        # scrollArea.setFixedWidth(self.__vectors.width())
-        # scrollArea.setFixedHeight(self.__vectors.height())
-
-        # scrollArea.setBackgroundRole(QPalette.Dark)
-        # scrollArea.setWidgetResizable(False)
         self.__scrollArea.setWidget(self.__vectors)
-        # self.__vectors.affaire_deg(self.__scrollArea)
-
         self.__fourier_draw = GuiFourierDraw(nb_vecteurs, precision)  #
         # Insertion des sous-widgets dans le layout
         __mainLayout.addWidget(self.__scrollArea)
-        # scrollArea.verticalScrollBar().setMinimum(0)
-        # scrollArea.verticalScrollBar().setMaximum(100)
-        # scrollArea.verticalScrollBar().setValue(50)
         __mainLayout.addWidget(self.__fourier_draw)
         self.setLayout(__mainLayout)
         self.__fourier_draw.tick.connect(self.tick.emit)
@@ -61,10 +47,6 @@ class GuiFourierMain(QWidget):
         self.__fourier_draw.next_pressed.connect(self.next_pressed.emit)
         self.__fourier_draw.nb_vectors_changed.connect(self.nb_vectors_changed.emit)
         self.__fourier_draw.precision_changed.connect(self.precision_changed.emit)
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        # painter.fillRect(self.rect(), QColor("yellow"))
 
     @Slot()
     def update_sim(self, vectors, interval):
@@ -119,6 +101,7 @@ class GuiFourierVectors(QWidget):
 
             painter.setPen(QPen(Qt.black, 2, Qt.SolidLine))
             for i in range(self._angle_vectors[:, 0].size):
+                # ref: https://stackoverflow.com/questions/16662638/how-to-draw-a-line-at-angle-in-qt
                 painter.drawPoint(QPointF(diameter_circle / 2 + (i * diameter_circle), diameter_circle / 2))
                 painter.drawEllipse(QPointF(diameter_circle / 2 + (i * diameter_circle), diameter_circle / 2),
                                     diameter_circle / 2 - 2, diameter_circle / 2 - 2)
@@ -135,7 +118,7 @@ class GuiFourierVectors(QWidget):
                 painter.drawText(
                     QPointF(int(diameter_circle / 2 + (i * diameter_circle) - text_width / 2), self.height()), ecriture)
 
-        # https://stackoverflow.com/questions/16662638/how-to-draw-a-line-at-angle-in-qt
+
 
     def affaire_deg(self, scroll: QScrollArea):
         scroll.verticalScrollBar().setValue(50)
@@ -153,13 +136,9 @@ class GuiFourierDraw(QFrame):
     def __init__(self, nb_vecteurs, precision, parent=None):
         super().__init__(parent)
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Minimum)
-        # self.setFixedHeight(800)
-        # self.setFixedWidth(800)
         __mainLayout = QVBoxLayout()
         __topLayout = QHBoxLayout()
         self.__guiIntervals = GuiFourierDrawIntervals()  #
-        # self.__canvas = QLabel()
-        # self.__canvas.setPixmap(QPixmap())
         self.__guiControls = GuiFourierDrawControls(nb_vecteurs, precision)  #
         self.__guiControls.play_pressed.connect(self.play_pressed.emit)
         self.__guiControls.pause_pressed.connect(self.pause_pressed.emit)
@@ -216,10 +195,6 @@ class GuiFourierDraw(QFrame):
         self.stop_sim()
         self.nb_vectors_changed.emit(nb_vectors)
 
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        # painter.fillRect(self.rect(), QColor("green"))
-
 
 class GuiFourierDrawBoard(QWidget):
     """
@@ -250,7 +225,7 @@ class GuiFourierDrawBoard(QWidget):
                                     " application représentent chacunes une de ces ondes, et en les mettant l'une après "
                                     "l'autre, nous pouvons recréer la fonction représentant le dessin.\nCes vecteurs"
                                     " tournent tous à une vitesse diférente, un nombre différent de tours par intervale.")
-        #https://stackoverflow.com/questions/27508552/pyqt-mouse-hovering-on-a-qpushbutton
+        # ref: https://stackoverflow.com/questions/27508552/pyqt-mouse-hovering-on-a-qpushbutton
         __infoBtnVectors.installEventFilter(self)
         self.setFixedHeight(600)
         self.setFixedWidth(700)
@@ -423,10 +398,6 @@ class GuiFourierDrawControls(QFrame):
         self.__scrollbar_vectors.setValue(nb_vectors)
         self.__label_vectors.setText("Nombre de vecteurs: " + str(nb_vectors))
 
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        # painter.fillRect(self.rect(), QColor("red"))
-
 
 class GuiFourierDrawIntervals(QWidget):
     """
@@ -462,7 +433,3 @@ class GuiFourierDrawIntervals(QWidget):
 
     def set_interval(self, interval):
         self.__intervalScroll.setValue(1000 - (interval * 1000))
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        # painter.fillRect(self.rect(), QColor("blue"))
