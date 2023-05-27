@@ -1,3 +1,11 @@
+# Nom du fichier: model.py
+#
+# Ce fichier contient le modèle de notre projet, qui est conçu dans un design modèle-vue. Il contient la classe Model
+# et la classe DrawingAnalyzer.
+#
+# Auteurs: Patrice Gallant et Roberto Nightingale
+
+
 import math
 from PySide6.QtCore import QObject, Signal, Slot
 import numpy as np

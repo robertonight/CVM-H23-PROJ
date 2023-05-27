@@ -1,3 +1,10 @@
+# Nom du fichier: gui_fourier.py
+#
+# Ce fichier contient les classes servant à créer et gèrer les widgets de la partie droite de l'interface principale,
+# où se trouve l'animation des vecteurs tournants de Fourier.
+#
+# Auteurs: Patrice Gallant et Roberto Nightingale
+
 import math
 from copy import deepcopy
 

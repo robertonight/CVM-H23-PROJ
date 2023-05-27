@@ -1,3 +1,10 @@
+# Nom du fichier: vector_manager.py
+#
+# Ce fichier contient la classe vectorManager, celle-ci prend en paramètres la durée de l'animation et fait la gestion
+# de l'affichage de tous les vecteurs.
+#
+# Auteurs: Roberto Nightingale Castillo et Patrice Gallant
+
 from time import perf_counter
 import numpy as np
 import math

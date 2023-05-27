@@ -1,3 +1,11 @@
+# Nom du fichier: gui_left_apps.py
+#
+# Ce fichier contient les classes des widgets intérieurs de la fenêtre de gauche de l'interface principale.
+# L'idée initiale était qu'il y aurait plusieures interfaces alternatives à cette fenêtre, mais seulement celle de
+# CustomDrawing a été faite.
+#
+# Auteurs: Patrice Gallant et Roberto Nightingale
+
 import sys
 
 from PySide6.QtCore import Qt, Signal

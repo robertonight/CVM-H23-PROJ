@@ -1,3 +1,11 @@
+# Nom du fichier: gui_left_window.py
+#
+# Ce fichier contient les classes GuiFeedMain, DrawingDisplay et DrawingDisplayBoard. Les objets de classe
+# DrawingDisplay et DrawingDisplayBoard sont faits pour être insérés dans le GuiFeedMain.
+#
+# Auteurs: Patrice Gallant et Roberto Nightingale
+
+
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import (QVBoxLayout, QWidget)
 

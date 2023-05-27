@@ -1,3 +1,10 @@
+# Nom du fichier: gui_feed.py
+#
+# Ce fichier contient les classes GuiFeedMain, DrawingDisplay et DrawingDisplayBoard. Les objets de classe
+# DrawingDisplay et DrawingDisplayBoard sont faits pour être insérés dans le GuiFeedMain.
+#
+# Auteurs: Patrice Gallant et Roberto Nightingale
+
 from PySide6.QtCore import QPointF
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QPainter, QColor, QPen
@@ -73,7 +80,7 @@ class GuiFeedMain(QWidget):
 
     def clicked_display(self, node):
         if self.__selectedNode is None:
-            node.data.color = QColor(100,150,200)
+            node.data.color = QColor(100, 150, 200)
             node.data.update()
             self.__selectedNode = node
         elif self.__selectedNode is node or self.__selectedNode.previous is node:
@@ -97,13 +104,13 @@ class GuiFeedMain(QWidget):
             self.__selectedNode = None
             self.fill_gallery()
 
-class DrawingDisplay(QFrame):
 
+class DrawingDisplay(QFrame):
     display_left_clicked = Signal(Node)
     display_right_clicked = Signal(list)
 
     def __init__(self, drawing, parent=None):
-        self.__color = QColor(150,150,150)
+        self.__color = QColor(150, 150, 150)
         self.__node = None
         super().__init__(parent)
         self.setStyleSheet("QLabel {background-color: rgba(0,0,0,0);}")
@@ -187,7 +194,7 @@ class DrawingDisplayBoard(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor(255,255,255))
+        painter.fillRect(self.rect(), QColor(255, 255, 255))
 
         pen = QPen(Qt.black, 2, Qt.SolidLine)
         painter.setPen(pen)

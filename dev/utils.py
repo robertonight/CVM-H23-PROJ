@@ -1,3 +1,9 @@
+# Nom du fichier: utils.py
+#
+# Ce fichier contient des classes utilitaires pour l'implémentation d'une pile (classe FStack) et d'une liste chainée
+# (classe LinkedList).
+#
+# Auteurs: Patrice Gallant et Roberto Nightingale
 class FStack:
     def __init__(self):
         self.__objects: list = []

@@ -1,3 +1,11 @@
+# nom du fichier: main.py
+#
+# Ce fichier contient la classe QFApp qui est la fenêtre principale, ainsi que la fonction main qui
+# est la fonction principale appelée pour lancer le programme.
+#
+# Auteurs: Patrice Gallant et Roberto Nightingale
+
+
 import sys
 
 from PySide6.QtCore import Slot
@@ -18,7 +26,8 @@ class QFApp(QMainWindow):
         self.__fourierMain = None
         self.init_gui()
         # ref: https://stackoverflow.com/questions/7351493/how-to-add-border-around-qwidget
-        self.setStyleSheet("QFrame {border: 1px solid black;} * {background-color: rgb(150,150,150);} QLabel {border: 0px}")
+        self.setStyleSheet(
+            "QFrame {border: 1px solid black;} * {background-color: rgb(150,150,150);} QLabel {border: 0px}")
 
     def init_gui(self):
         # declarations

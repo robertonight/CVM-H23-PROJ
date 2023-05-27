@@ -1,3 +1,9 @@
+# Nom du fichier: dao.py
+#
+# Ce fichier contient les fonctionnalités de création et de gestion de notre base de données sqlite3.
+#
+# Auteurs: Patrice Gallant et Roberto Nightingale
+
 import sqlite3
 from datetime import datetime
 
